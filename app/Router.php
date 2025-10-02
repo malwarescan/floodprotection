@@ -51,6 +51,7 @@ class Router
         // Sitemap routes
         $this->addRoute('GET', '/sitemap.xml', 'SitemapController@index');
         $this->addRoute('GET', '/sitemap-pages.xml', 'SitemapController@pages');
+        $this->addRoute('GET', '/sitemap-products.xml', 'SitemapController@products');
         $this->addRoute('GET', '/sitemap-blog.xml', 'SitemapController@blog');
         $this->addRoute('GET', '/sitemap-news.xml', 'SitemapController@news');
         $this->addRoute('GET', '/sitemap-services.xml', 'SitemapController@services');

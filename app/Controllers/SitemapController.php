@@ -19,6 +19,10 @@ class SitemapController
                 'lastmod' => $lastmod
             ],
             [
+                'loc' => $root . '/sitemap-products.xml',
+                'lastmod' => $lastmod
+            ],
+            [
                 'loc' => $root . '/sitemap-blog.xml',
                 'lastmod' => $lastmod
             ],
@@ -63,6 +67,27 @@ class SitemapController
             'priority' => '0.8'
         ];
         
+        
+        // Add testimonials SKU pages
+        $reviews = Util::getCsvData('reviews.csv');
+        $skus = array_values(array_unique(array_map(fn($r) => $r['sku'], $reviews)));
+        foreach ($skus as $sku) {
+            $urls[] = [
+                'url' => $root . '/testimonials/' . rawurlencode($sku),
+                'lastmod' => date('Y-m-d'),
+                'changefreq' => 'weekly',
+                'priority' => '0.7'
+            ];
+        }
+        
+        View::renderXml(View::renderSitemap($urls));
+    }
+    
+    public function products()
+    {
+        $root = Config::get('app_url');
+        $urls = [];
+        
         // Add canonical product pages
         $productPages = [
             'modular-flood-barrier',
@@ -95,18 +120,6 @@ class SitemapController
                     'priority' => '0.8'
                 ];
             }
-        }
-        
-        // Add testimonials SKU pages
-        $reviews = Util::getCsvData('reviews.csv');
-        $skus = array_values(array_unique(array_map(fn($r) => $r['sku'], $reviews)));
-        foreach ($skus as $sku) {
-            $urls[] = [
-                'url' => $root . '/testimonials/' . rawurlencode($sku),
-                'lastmod' => date('Y-m-d'),
-                'changefreq' => 'weekly',
-                'priority' => '0.7'
-            ];
         }
         
         View::renderXml(View::renderSitemap($urls));
