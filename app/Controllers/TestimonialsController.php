@@ -162,10 +162,13 @@ class TestimonialsController
             $sku,
             'Modular, rapid-deploy flood barrier system for residential openings.',
             null, // image
-            'Rubicon Flood Protection',
+            'Rubicon Flood Control',
             'Flood Barrier Pros',
             $reviewNodes,
-            Schema::aggregateRating($avg, $count)
+            Schema::aggregateRating($avg, $count),
+            1499, // lowPrice
+            4299, // highPrice
+            'USD'
         );
 
         $jsonld = Schema::graph([

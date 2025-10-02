@@ -190,7 +190,7 @@ class Schema
         return $review;
     }
     
-    public static function productWithReviews($name, $sku, $description, $image = null, $brand = 'Rubicon Flood Protection', $seller = 'Flood Barrier Pros', $reviews = [], $aggregateRating = null)
+    public static function productWithReviews($name, $sku, $description, $image = null, $brand = 'Rubicon Flood Protection', $seller = 'Flood Barrier Pros', $reviews = [], $aggregateRating = null, $lowPrice = null, $highPrice = null, $currency = 'USD')
     {
         $product = [
             '@type' => 'Product',
@@ -198,7 +198,8 @@ class Schema
             'name' => $name,
             'sku' => $sku,
             'description' => $description,
-            'brand' => ['@type' => 'Organization', 'name' => $brand],
+            'brand' => ['@id' => Config::get('app_url') . '/#rubicon-flood-control'],
+            'manufacturer' => ['@id' => Config::get('app_url') . '/#rubicon-flood-control'],
             'seller' => ['@type' => 'Organization', 'name' => $seller]
         ];
         
@@ -214,7 +215,185 @@ class Schema
             $product['aggregateRating'] = $aggregateRating;
         }
         
+        if ($lowPrice) {
+            $offers = [
+                '@type' => 'AggregateOffer',
+                'priceCurrency' => $currency,
+                'lowPrice' => $lowPrice,
+                'availability' => 'https://schema.org/InStock'
+            ];
+            
+            if ($highPrice) {
+                $offers['highPrice'] = $highPrice;
+                $offers['offerCount'] = '3'; // Assuming 3 price tiers
+            }
+            
+            $product['offers'] = $offers;
+        }
+        
         return $product;
+    }
+    
+    public static function canonicalProduct($name, $sku, $description, $image = null, $lowPrice = null, $highPrice = null, $currency = 'USD', $material = null, $aggregateRating = null)
+    {
+        $product = [
+            '@type' => 'Product',
+            '@id' => Config::get('app_url') . '/products/' . strtolower($sku) . '#product',
+            'name' => $name,
+            'sku' => $sku,
+            'description' => $description,
+            'brand' => ['@id' => Config::get('app_url') . '/#rubicon-flood-control'],
+            'manufacturer' => ['@id' => Config::get('app_url') . '/#rubicon-flood-control'],
+            'seller' => ['@type' => 'Organization', 'name' => 'Flood Barrier Pros']
+        ];
+        
+        if ($image) {
+            $product['image'] = [$image];
+        }
+        
+        if ($material) {
+            $product['material'] = $material;
+        }
+        
+        if ($aggregateRating) {
+            $product['aggregateRating'] = $aggregateRating;
+        }
+        
+        if ($lowPrice) {
+            $offers = [
+                '@type' => 'AggregateOffer',
+                'priceCurrency' => $currency,
+                'lowPrice' => $lowPrice,
+                'availability' => 'https://schema.org/InStock'
+            ];
+            
+            if ($highPrice) {
+                $offers['highPrice'] = $highPrice;
+                $offers['offerCount'] = '3';
+            }
+            
+            $product['offers'] = $offers;
+        }
+        
+        return $product;
+    }
+    
+    public static function locationPage($name, $url, $productId, $city, $state = 'FL')
+    {
+        return [
+            '@type' => 'WebPage',
+            'name' => $name,
+            'url' => $url,
+            'about' => ['@id' => $productId]
+        ];
+    }
+    
+    public static function localBusinessWithOffers($name, $phone, $email, $city, $state = 'FL', $productId = null, $lowPrice = null, $currency = 'USD')
+    {
+        $business = [
+            '@type' => 'LocalBusiness',
+            'name' => $name,
+            'url' => Config::get('app_url'),
+            'telephone' => $phone,
+            'email' => $email,
+            'image' => Config::get('app_url') . '/logo.png',
+            'address' => [
+                '@type' => 'PostalAddress',
+                'addressRegion' => $state,
+                'addressCountry' => 'US'
+            ],
+            'areaServed' => [
+                ['@type' => 'City', 'name' => $city],
+                ['@type' => 'AdministrativeArea', 'name' => 'Florida']
+            ]
+        ];
+        
+        if ($productId && $lowPrice) {
+            $business['hasOfferCatalog'] = [
+                '@type' => 'OfferCatalog',
+                'name' => 'Rubicon Flood Protection Systems',
+                'itemListElement' => [[
+                    '@type' => 'Offer',
+                    'itemOffered' => ['@id' => $productId],
+                    'priceCurrency' => $currency,
+                    'priceSpecification' => [
+                        '@type' => 'PriceSpecification',
+                        'price' => $lowPrice
+                    ],
+                    'availability' => 'https://schema.org/InStock',
+                    'areaServed' => ['@type' => 'City', 'name' => $city]
+                ]]
+            ];
+        }
+        
+        return $business;
+    }
+    
+    public static function organizationGraph()
+    {
+        return [
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                [
+                    '@type' => 'Organization',
+                    '@id' => Config::get('app_url') . '/#rubicon-flood-control',
+                    'name' => 'Rubicon Flood Control',
+                    'brand' => [
+                        '@type' => 'Brand',
+                        'name' => 'Rubicon Flood Control',
+                        '@id' => Config::get('app_url') . '/#rubicon-brand'
+                    ],
+                    'email' => 'mailto:Dylan@rubiconflood.com',
+                    'telephone' => '+1-239-330-8888',
+                    'contactPoint' => [[
+                        '@type' => 'ContactPoint',
+                        'contactType' => 'sales',
+                        'telephone' => '+1-239-330-8888',
+                        'email' => 'mailto:Dylan@rubiconflood.com',
+                        'availableLanguage' => ['en']
+                    ]],
+                    'location' => [
+                        ['@id' => Config::get('app_url') . '/#office'],
+                        ['@id' => Config::get('app_url') . '/#warehouse']
+                    ]
+                ],
+                [
+                    '@type' => 'Person',
+                    '@id' => Config::get('app_url') . '/#dylan-difalco',
+                    'name' => 'Dylan DiFalco',
+                    'jobTitle' => 'Sales Manager',
+                    'email' => 'mailto:Dylan@rubiconflood.com',
+                    'telephone' => '+1-239-330-8888',
+                    'worksFor' => ['@id' => Config::get('app_url') . '/#rubicon-flood-control']
+                ],
+                [
+                    '@type' => 'Place',
+                    '@id' => Config::get('app_url') . '/#office',
+                    'name' => 'Rubicon Flood Control — Office',
+                    'address' => [
+                        '@type' => 'PostalAddress',
+                        'streetAddress' => '3729 Chiquita Blvd S',
+                        'addressLocality' => 'Cape Coral',
+                        'addressRegion' => 'FL',
+                        'postalCode' => '33914',
+                        'addressCountry' => 'US'
+                    ]
+                ],
+                [
+                    '@type' => 'Place',
+                    '@id' => Config::get('app_url') . '/#warehouse',
+                    'name' => 'Rubicon Flood Control — Warehouse',
+                    'address' => [
+                        '@type' => 'PostalAddress',
+                        'streetAddress' => '28271 Woodlawn Dr, Unit E',
+                        'addressLocality' => 'Punta Gorda',
+                        'addressRegion' => 'FL',
+                        'postalCode' => '33982',
+                        'addressCountry' => 'US'
+                    ]
+                ]
+            ]
+        ];
     }
     
     public static function aggregateRating($ratingValue, $reviewCount)
@@ -270,28 +449,48 @@ class Schema
     public static function generateMatrixSchema($row)
     {
         $root = Config::get('app_url');
-        $brand = Config::get('brand');
-        $phone = Config::get('phone');
-        $address = Config::get('address');
-        $zip = Config::get('zip');
-        
         $city = $row['city'];
-        $county = $row['county'];
         $keyword = $row['keyword'];
-        $lat = $row['lat'] ?: null;
-        $lng = $row['lng'] ?: null;
+        $productSlug = strtolower($row['product_sku']);
+        $productId = $root . '/products/' . $productSlug . '#product';
         
-        $areas = [
-            ['@type' => 'City', 'name' => $city],
-            ['@type' => 'AdministrativeArea', 'name' => $county]
-        ];
+        // Create canonical product reference
+        $product = self::canonicalProduct(
+            $row['product_name'],
+            $row['product_sku'],
+            'Rapid-deploy modular flood barriers made from 6063 T-6 aluminum with EPDM sealing.',
+            null, // image
+            $row['product_price_min'],
+            $row['product_price_max'],
+            $row['product_currency'],
+            '6063 T-6 Aluminum; EPDM rubber sealing'
+        );
+        
+        // Location page schema
+        $locationPage = self::locationPage(
+            $keyword . ' – ' . $city . ', FL',
+            $root . $row['url_path'],
+            $productId,
+            $city
+        );
+        
+        // Local business with offers
+        $localBusiness = self::localBusinessWithOffers(
+            'Flood Barrier Pros',
+            '+1-239-330-8888',
+            'mailto:Dylan@rubiconflood.com',
+            $city,
+            'FL',
+            $productId,
+            $row['product_price_min'],
+            'USD'
+        );
         
         $schemas = [
             self::website($root),
-            self::localBusiness($brand, $phone, $address, $city, 'FL', $zip, $lat, $lng, $areas),
-            self::service($keyword, $city, $brand),
-            self::product($row['product_name'], $row['product_brand'], $row['product_sku'], 
-                         $row['product_price_min'], $row['product_price_max'], $row['product_currency']),
+            $locationPage,
+            $localBusiness,
+            $product,
             self::breadcrumb([
                 ['Home', $root],
                 [$keyword, $root . '/' . Util::slugify($keyword)],

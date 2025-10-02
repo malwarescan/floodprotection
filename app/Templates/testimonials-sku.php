@@ -2,6 +2,7 @@
     <div class="container">
         <h1><?= htmlspecialchars($productName) ?> — Customer Testimonials</h1>
         <p class="lead">Average rating <?= htmlspecialchars($avg) ?>/5 from <?= htmlspecialchars($count) ?> reviews.</p>
+        <p class="pricing">Starting at $1,499 USD</p>
         <div class="cta-stack">
             <a class="btn btn-primary" href="tel:<?= htmlspecialchars(\App\Config::get('phone')) ?>">Get a Free Quote</a>
             <a class="btn btn-secondary" href="/testimonials">All testimonials</a>

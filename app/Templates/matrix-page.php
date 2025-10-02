@@ -30,7 +30,7 @@
                         <div class="product-specs">
                             <p><strong>Brand:</strong> <?= htmlspecialchars($product_brand) ?></p>
                             <p><strong>SKU:</strong> <?= htmlspecialchars($product_sku) ?></p>
-                            <p><strong>Price Range:</strong> $<?= number_format($product_price_min) ?> - $<?= number_format($product_price_max) ?> <?= htmlspecialchars($product_currency) ?></p>
+                            <p><strong>Starting at:</strong> $<?= number_format($product_price_min) ?> <?= htmlspecialchars($product_currency) ?></p>
                         </div>
                         <div class="product-description">
                             <p>This comprehensive <?= htmlspecialchars($keyword) ?> kit is specifically designed for properties in <?= htmlspecialchars($city) ?>. It includes all necessary components for complete flood protection.</p>

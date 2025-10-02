@@ -53,15 +53,6 @@
     </footer>
     
     <!-- Organization Schema -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Flood Barrier Pros",
-        "url": "https://floodbarrierpros.com/",
-        "logo": "https://floodbarrierpros.com/logo.png",
-        "brand": { "@type": "Brand", "name": "Rubicon Flood Protection" }
-    }
-    </script>
+    <script type="application/ld+json"><?= json_encode(\App\Schema::organizationGraph(), JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?></script>
 </body>
 </html>
