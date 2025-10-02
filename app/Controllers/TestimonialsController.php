@@ -64,40 +64,27 @@ class TestimonialsController
         $desc = 'Read real homeowner reviews of our USA-made home flood barriers and door/garage dam kits.';
         $canonical = Config::get('app_url') . '/testimonials';
 
-        // JSON-LD: CollectionPage + ItemList of Review
-        $itemListElements = [];
-        foreach ($slice as $i => $r) {
-            $itemListElements[] = [
-                '@type' => 'ListItem',
-                'position' => $i + 1,
-                'url' => $canonical . '#' . $r['review_id']
-            ];
-        }
-        $reviewNodes = array_map(function($r) {
-            return [
-                '@type' => 'Review',
-                '@id' => '#review-' . $r['review_id'],
-                'name' => $r['title'],
-                'reviewBody' => $r['body'],
-                'datePublished' => $r['date'],
-                'author' => ['@type' => 'Person', 'name' => $r['author']],
-                'reviewRating' => ['@type' => 'Rating', 'ratingValue' => (int)$r['rating'], 'bestRating' => 5, 'worstRating' => 1],
-                // Reference product by @id stub so Google can associate if it crawls PDP pages
-                'itemReviewed' => ['@type' => 'Product', '@id' => '#product-' . $r['sku'], 'sku' => $r['sku']]
-            ];
+        // JSON-LD: CollectionPage with reviews
+        $reviewNodes = array_map(function($r) use ($canonical) {
+            return Schema::review(
+                $r['title'],
+                $r['author'],
+                (int)$r['rating'],
+                $r['date'],
+                $r['body'],
+                $r['sku'],
+                $canonical
+            );
         }, $slice);
 
         $jsonld = Schema::graph([
             Schema::website(Config::get('app_url')),
-            [
-                '@type' => 'CollectionPage',
-                'name' => $title,
-                'hasPart' => $reviewNodes,
-            ],
-            [
-                '@type' => 'ItemList',
-                'itemListElement' => $itemListElements
-            ],
+            Schema::collectionPage(
+                $title,
+                $canonical,
+                ['@type' => 'Brand', 'name' => 'Rubicon Flood Protection'],
+                $reviewNodes
+            ),
             Schema::breadcrumb([['Home', '/'], ['Testimonials', '/testimonials']])
         ]);
 
@@ -157,37 +144,29 @@ class TestimonialsController
         $canonical = Config::get('app_url') . '/testimonials/' . $sku;
 
         // Product + AggregateRating + Review nodes
-        $reviewNodes = array_map(function($r) {
-            return [
-                '@type' => 'Review',
-                'name' => $r['title'],
-                'reviewBody' => $r['body'],
-                'datePublished' => $r['date'],
-                'author' => ['@type' => 'Person', 'name' => $r['author']],
-                'reviewRating' => ['@type' => 'Rating', 'ratingValue' => (int)$r['rating'], 'bestRating' => 5, 'worstRating' => 1]
-            ];
+        $reviewNodes = array_map(function($r) use ($sku) {
+            $productId = Config::get('app_url') . '/products/' . strtolower($sku) . '#product';
+            return Schema::review(
+                $r['title'],
+                $r['author'],
+                (int)$r['rating'],
+                $r['date'],
+                $r['body'],
+                $sku,
+                $productId
+            );
         }, array_slice($rows, 0, 50)); // cap in JSON-LD
 
-        $product = [
-            '@type' => 'Product',
-            '@id' => '#product-' . $sku,
-            'name' => $productName,
-            'sku' => $sku,
-            'brand' => Config::get('brand'),
-            'offers' => [
-                '@type' => 'AggregateOffer',
-                'priceCurrency' => 'USD',
-                'lowPrice' => 1200,
-                'highPrice' => 5600,
-                'availability' => 'https://schema.org/InStock'
-            ],
-            'aggregateRating' => [
-                '@type' => 'AggregateRating',
-                'ratingValue' => $avg,
-                'reviewCount' => $count
-            ],
-            'review' => $reviewNodes
-        ];
+        $product = Schema::productWithReviews(
+            $productName,
+            $sku,
+            'Modular, rapid-deploy flood barrier system for residential openings.',
+            null, // image
+            'Rubicon Flood Protection',
+            'Flood Barrier Pros',
+            $reviewNodes,
+            Schema::aggregateRating($avg, $count)
+        );
 
         $jsonld = Schema::graph([
             Schema::website(Config::get('app_url')),

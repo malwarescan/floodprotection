@@ -51,5 +51,17 @@
             <p>Professional flood protection services throughout Florida.</p>
         </div>
     </footer>
+    
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Flood Barrier Pros",
+        "url": "https://floodbarrierpros.com/",
+        "logo": "https://floodbarrierpros.com/logo.png",
+        "brand": { "@type": "Brand", "name": "Rubicon Flood Protection" }
+    }
+    </script>
 </body>
 </html>

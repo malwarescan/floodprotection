@@ -168,6 +168,97 @@ class Schema
         ];
     }
 
+    public static function review($name, $author, $rating, $date, $body, $sku = null, $productId = null)
+    {
+        $review = [
+            '@type' => 'Review',
+            'name' => $name,
+            'author' => ['@type' => 'Person', 'name' => $author],
+            'reviewRating' => ['@type' => 'Rating', 'ratingValue' => $rating, 'bestRating' => 5],
+            'datePublished' => $date,
+            'reviewBody' => $body
+        ];
+        
+        if ($productId) {
+            $review['itemReviewed'] = ['@id' => $productId];
+        }
+        
+        if ($sku) {
+            $review['subjectOfSku'] = $sku;
+        }
+        
+        return $review;
+    }
+    
+    public static function productWithReviews($name, $sku, $description, $image = null, $brand = 'Rubicon Flood Protection', $seller = 'Flood Barrier Pros', $reviews = [], $aggregateRating = null)
+    {
+        $product = [
+            '@type' => 'Product',
+            '@id' => Config::get('app_url') . '/products/' . strtolower($sku) . '#product',
+            'name' => $name,
+            'sku' => $sku,
+            'description' => $description,
+            'brand' => ['@type' => 'Organization', 'name' => $brand],
+            'seller' => ['@type' => 'Organization', 'name' => $seller]
+        ];
+        
+        if ($image) {
+            $product['image'] = [$image];
+        }
+        
+        if (!empty($reviews)) {
+            $product['review'] = $reviews;
+        }
+        
+        if ($aggregateRating) {
+            $product['aggregateRating'] = $aggregateRating;
+        }
+        
+        return $product;
+    }
+    
+    public static function aggregateRating($ratingValue, $reviewCount)
+    {
+        return [
+            '@type' => 'AggregateRating',
+            'ratingValue' => $ratingValue,
+            'reviewCount' => $reviewCount
+        ];
+    }
+    
+    public static function collectionPage($name, $url, $about, $itemList = [])
+    {
+        return [
+            '@type' => 'CollectionPage',
+            'name' => $name,
+            'url' => $url,
+            'about' => $about,
+            'mainEntity' => [
+                '@type' => 'ItemList',
+                'itemListElement' => $itemList
+            ]
+        ];
+    }
+    
+    public static function organization($name, $url, $logo = null, $brand = null)
+    {
+        $org = [
+            '@type' => 'Organization',
+            'name' => $name,
+            'url' => $url
+        ];
+        
+        if ($logo) {
+            $org['logo'] = $logo;
+        }
+        
+        if ($brand) {
+            $org['brand'] = ['@type' => 'Brand', 'name' => $brand];
+        }
+        
+        return $org;
+    }
+
     public static function graph($items)
     {
         return [
