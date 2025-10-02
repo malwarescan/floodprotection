@@ -1,7 +1,7 @@
 ---
 title: "Tampa Bay Area Under Flood Watch as Storm System Approaches"
 description: "National Weather Service issues flood watch for Tampa Bay area as heavy rainfall expected through weekend."
-date: 2025-01-15
+date: 2025-10-01
 tags: [storm, alert, tampa, flood, weather]
 city: Tampa
 county: Hillsborough County
