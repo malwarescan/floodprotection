@@ -26,6 +26,14 @@ class Router
         $this->addRoute('GET', '/testimonials', 'TestimonialsController@index');
         $this->addRoute('GET', '/testimonials/{sku}', 'TestimonialsController@showSku');
         
+        // Canonical product pages
+        $this->addRoute('GET', '/products/modular-flood-barrier', 'ProductController@modularFloodBarrier');
+        $this->addRoute('GET', '/products/garage-dam-kit', 'ProductController@garageDamKit');
+        $this->addRoute('GET', '/products/doorway-flood-panel', 'ProductController@doorwayFloodPanel');
+        
+        // Location pages: /fl/{city}/{product-slug}
+        $this->addRoute('GET', '/fl/{city}/{product}', 'LocationController@show');
+        
         // Service pages: /{keyword} (service taxonomy) - must be after sitemap routes
         $this->addServiceRoutes();
         
