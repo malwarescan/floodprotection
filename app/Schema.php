@@ -337,19 +337,19 @@ class Schema
                 [
                     '@type' => 'Organization',
                     '@id' => Config::get('app_url') . '/#rubicon-flood-control',
-                    'name' => 'Rubicon Flood Control',
+                    'name' => Config::get('brand'),
                     'brand' => [
                         '@type' => 'Brand',
-                        'name' => 'Rubicon Flood Control',
+                        'name' => Config::get('brand'),
                         '@id' => Config::get('app_url') . '/#rubicon-brand'
                     ],
-                    'email' => 'mailto:Dylan@rubiconflood.com',
-                    'telephone' => '+1-239-330-8888',
+                    'email' => 'mailto:' . Config::get('email'),
+                    'telephone' => Config::get('phone'),
                     'contactPoint' => [[
                         '@type' => 'ContactPoint',
                         'contactType' => 'sales',
-                        'telephone' => '+1-239-330-8888',
-                        'email' => 'mailto:Dylan@rubiconflood.com',
+                        'telephone' => Config::get('phone'),
+                        'email' => 'mailto:' . Config::get('email'),
                         'availableLanguage' => ['en']
                     ]],
                     'location' => [
@@ -360,29 +360,29 @@ class Schema
                 [
                     '@type' => 'Person',
                     '@id' => Config::get('app_url') . '/#dylan-difalco',
-                    'name' => 'Dylan DiFalco',
-                    'jobTitle' => 'Sales Manager',
-                    'email' => 'mailto:Dylan@rubiconflood.com',
-                    'telephone' => '+1-239-330-8888',
+                    'name' => Config::get('contact_name'),
+                    'jobTitle' => Config::get('contact_title'),
+                    'email' => 'mailto:' . Config::get('email'),
+                    'telephone' => Config::get('phone'),
                     'worksFor' => ['@id' => Config::get('app_url') . '/#rubicon-flood-control']
                 ],
                 [
                     '@type' => 'Place',
                     '@id' => Config::get('app_url') . '/#office',
-                    'name' => 'Rubicon Flood Control — Office',
+                    'name' => Config::get('brand') . ' — Office',
                     'address' => [
                         '@type' => 'PostalAddress',
-                        'streetAddress' => '3729 Chiquita Blvd S',
-                        'addressLocality' => 'Cape Coral',
-                        'addressRegion' => 'FL',
-                        'postalCode' => '33914',
+                        'streetAddress' => Config::get('address'),
+                        'addressLocality' => Config::get('city'),
+                        'addressRegion' => Config::get('state'),
+                        'postalCode' => Config::get('zip'),
                         'addressCountry' => 'US'
                     ]
                 ],
                 [
                     '@type' => 'Place',
                     '@id' => Config::get('app_url') . '/#warehouse',
-                    'name' => 'Rubicon Flood Control — Warehouse',
+                    'name' => Config::get('brand') . ' — Warehouse',
                     'address' => [
                         '@type' => 'PostalAddress',
                         'streetAddress' => '28271 Woodlawn Dr, Unit E',
@@ -477,8 +477,8 @@ class Schema
         // Local business with offers
         $localBusiness = self::localBusinessWithOffers(
             'Flood Barrier Pros',
-            '+1-239-330-8888',
-            'mailto:Dylan@rubiconflood.com',
+            Config::get('phone'),
+            'mailto:' . Config::get('email'),
             $city,
             'FL',
             $productId,

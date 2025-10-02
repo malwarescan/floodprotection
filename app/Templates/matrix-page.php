@@ -64,10 +64,11 @@
                     <h3>Get Your Free Quote</h3>
                     <p>Ready to protect your <?= htmlspecialchars($city) ?> property? Contact us today for a free, no-obligation quote.</p>
                     <div class="contact-info">
-                        <p><strong>Phone:</strong> <a href="tel:<?= htmlspecialchars($telephone) ?>"><?= htmlspecialchars($telephone) ?></a></p>
-                        <p><strong>Address:</strong> <?= htmlspecialchars($address) ?>, <?= htmlspecialchars($city) ?>, FL <?= htmlspecialchars($zip) ?></p>
+                        <p><strong>Phone:</strong> <a href="tel:<?= htmlspecialchars(\App\Config::get('phone')) ?>"><?= htmlspecialchars(\App\Config::get('phone')) ?></a></p>
+                        <p><strong>Email:</strong> <a href="mailto:<?= htmlspecialchars(\App\Config::get('email')) ?>"><?= htmlspecialchars(\App\Config::get('email')) ?></a></p>
+                        <p><strong>Address:</strong> <?= htmlspecialchars(\App\Config::get('address')) ?>, <?= htmlspecialchars(\App\Config::get('city')) ?>, <?= htmlspecialchars(\App\Config::get('state')) ?> <?= htmlspecialchars(\App\Config::get('zip')) ?></p>
                     </div>
-                    <a href="tel:<?= htmlspecialchars($telephone) ?>" class="btn btn-primary btn-block">Call Now</a>
+                    <a href="tel:<?= htmlspecialchars(\App\Config::get('phone')) ?>" class="btn btn-primary btn-block">Call Now</a>
                 </div>
 
                 <div class="service-areas">

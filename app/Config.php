@@ -10,15 +10,20 @@ class Config
         
         if ($config === null) {
             $config = [
-                'app_name' => 'Rubicon Flood Protection',
+                'app_name' => 'Flood Barrier Pros',
                 'app_url' => 'https://floodbarrierpros.com',
                 'app_env' => $_ENV['APP_ENV'] ?? 'production',
                 'data_path' => __DIR__ . '/Data',
                 'templates_path' => __DIR__ . '/Templates',
-                'phone' => '+1 (844) 555-0172',
-                'address' => '1234 Barrier Way',
-                'zip' => '33101',
-                'brand' => 'Rubicon Flood Protection'
+                'phone' => '+1-239-330-8888',
+                'email' => 'Dylan@rubiconflood.com',
+                'address' => '3729 Chiquita Blvd S',
+                'city' => 'Cape Coral',
+                'state' => 'FL',
+                'zip' => '33914',
+                'brand' => 'Rubicon Flood Control',
+                'contact_name' => 'Dylan DiFalco',
+                'contact_title' => 'Sales Manager'
             ];
         }
         
