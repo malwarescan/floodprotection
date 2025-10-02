@@ -63,6 +63,40 @@ class SitemapController
             'priority' => '0.8'
         ];
         
+        // Add canonical product pages
+        $productPages = [
+            'modular-flood-barrier',
+            'garage-dam-kit', 
+            'doorway-flood-panel'
+        ];
+        
+        foreach ($productPages as $product) {
+            $urls[] = [
+                'url' => $root . '/products/' . $product,
+                'lastmod' => date('Y-m-d'),
+                'changefreq' => 'monthly',
+                'priority' => '0.9'
+            ];
+        }
+        
+        // Add location pages
+        $cities = [
+            'fort-myers', 'cape-coral', 'naples', 'bonita-springs', 'estero',
+            'punta-gorda', 'port-charlotte', 'sarasota', 'bradenton',
+            'st-petersburg', 'clearwater', 'tampa'
+        ];
+        
+        foreach ($cities as $city) {
+            foreach ($productPages as $product) {
+                $urls[] = [
+                    'url' => $root . '/fl/' . $city . '/' . $product,
+                    'lastmod' => date('Y-m-d'),
+                    'changefreq' => 'monthly',
+                    'priority' => '0.8'
+                ];
+            }
+        }
+        
         // Add testimonials SKU pages
         $reviews = Util::getCsvData('reviews.csv');
         $skus = array_values(array_unique(array_map(fn($r) => $r['sku'], $reviews)));
