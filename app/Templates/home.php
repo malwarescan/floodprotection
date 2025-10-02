@@ -27,7 +27,7 @@
             <div class="service-card">
                 <h3>Door Dams</h3>
                 <p>Compression-seal door dams that create watertight seals without damaging door frames.</p>
-                <a href="/door-flood-dams/miami" class="btn btn-outline">Learn More</a>
+                <a href="/flood-protection-for-homes/miami" class="btn btn-outline">Learn More</a>
             </div>
         </div>
     </div>
