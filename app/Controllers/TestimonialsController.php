@@ -64,27 +64,10 @@ class TestimonialsController
         $desc = 'Read real homeowner reviews of our USA-made home flood barriers and door/garage dam kits.';
         $canonical = Config::get('app_url') . '/testimonials';
 
-        // JSON-LD: CollectionPage with reviews
-        $reviewNodes = array_map(function($r) use ($canonical) {
-            return Schema::review(
-                $r['title'],
-                $r['author'],
-                (int)$r['rating'],
-                $r['date'],
-                $r['body'],
-                $r['sku'],
-                $canonical
-            );
-        }, $slice);
-
+        // JSON-LD: ItemList with Review objects pointing to canonical products
         $jsonld = Schema::graph([
             Schema::website(Config::get('app_url')),
-            Schema::collectionPage(
-                $title,
-                $canonical,
-                ['@type' => 'Brand', 'name' => 'Rubicon Flood Protection'],
-                $reviewNodes
-            ),
+            Schema::reviewItemList($slice, Config::get('app_url')),
             Schema::breadcrumb([['Home', '/'], ['Testimonials', '/testimonials']])
         ]);
 

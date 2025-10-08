@@ -16,17 +16,15 @@ class PagesController
             'description' => 'Professional flood protection services throughout Florida. Custom barriers, panels, and dry floodproofing solutions. Free quotes, fast installation.',
             'jsonld' => Schema::graph([
                 Schema::website(Config::get('app_url')),
-                Schema::localBusiness(
-                    Config::get('brand'),
+                Schema::organization(
+                    'Flood Barrier Pros',
+                    Config::get('app_url'),
+                    Config::get('app_url') . '/logo.png',
+                    'Rubicon Flood Protection',
                     Config::get('phone'),
-                    Config::get('address'),
-                    'Miami',
-                    'FL',
-                    Config::get('zip'),
-                    null,
-                    null,
+                    Config::get('email'),
                     [
-                        ['@type' => 'State', 'name' => 'Florida']
+                        'https://www.facebook.com/61574735757374/'
                     ]
                 )
             ])

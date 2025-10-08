@@ -419,7 +419,7 @@ class Schema
         ];
     }
     
-    public static function organization($name, $url, $logo = null, $brand = null)
+    public static function organization($name, $url, $logo = null, $brand = null, $phone = null, $email = null, $sameAs = [])
     {
         $org = [
             '@type' => 'Organization',
@@ -435,7 +435,99 @@ class Schema
             $org['brand'] = ['@type' => 'Brand', 'name' => $brand];
         }
         
+        if ($phone) {
+            $org['contactPoint'] = [[
+                '@type' => 'ContactPoint',
+                'telephone' => $phone,
+                'contactType' => 'customer service',
+                'areaServed' => 'US-FL'
+            ]];
+        }
+        
+        if (!empty($sameAs)) {
+            $org['sameAs'] = $sameAs;
+        }
+        
         return $org;
+    }
+    
+    public static function reviewItemList($reviews, $baseUrl)
+    {
+        $itemListElement = [];
+        $position = 1;
+        
+        // Map SKU prefixes to canonical product URLs
+        $skuMap = [
+            'RFP-MOD-BARRIER' => 'modular-flood-barrier',
+            'RFP-HOMEFLO' => 'modular-flood-barrier',
+            'RFP-GARAGE' => 'garage-dam-kit',
+            'RFP-DOORDAM' => 'garage-dam-kit',
+            'RFP-PANEL' => 'doorway-flood-panel',
+            'RFP-DOOR-PANEL' => 'doorway-flood-panel',
+            'RFP-BASEMENT' => 'doorway-flood-panel'
+        ];
+        
+        // Map SKU prefixes to product names
+        $productNames = [
+            'RFP-MOD-BARRIER' => 'Modular Flood Barrier System',
+            'RFP-HOMEFLO' => 'Modular Flood Barrier System',
+            'RFP-GARAGE' => 'Garage Door Flood Dam Kit',
+            'RFP-DOORDAM' => 'Garage Door Flood Dam Kit',
+            'RFP-PANEL' => 'Doorway Flood Panel',
+            'RFP-DOOR-PANEL' => 'Doorway Flood Panel',
+            'RFP-BASEMENT' => 'Doorway Flood Panel'
+        ];
+        
+        foreach ($reviews as $r) {
+            $sku = $r['sku'] ?? '';
+            
+            // Find matching product by SKU prefix
+            $productSlug = 'modular-flood-barrier'; // default
+            $productName = 'Modular Flood Barrier System'; // default
+            
+            foreach ($skuMap as $prefix => $slug) {
+                if (strpos($sku, $prefix) === 0) {
+                    $productSlug = $slug;
+                    $productName = $productNames[$prefix];
+                    break;
+                }
+            }
+            
+            $productId = $baseUrl . '/products/' . $productSlug . '#product';
+            $productUrl = $baseUrl . '/products/' . $productSlug;
+            $reviewId = $baseUrl . '/testimonials#' . ($r['review_id'] ?? 'rev-' . $position);
+            
+            $itemListElement[] = [
+                '@type' => 'ListItem',
+                'position' => $position,
+                'item' => [
+                    '@type' => 'Review',
+                    '@id' => $reviewId,
+                    'datePublished' => $r['date'] ?? date('Y-m-d'),
+                    'author' => ['@type' => 'Person', 'name' => $r['author'] ?? 'Anonymous'],
+                    'reviewRating' => [
+                        '@type' => 'Rating',
+                        'ratingValue' => (string)((int)($r['rating'] ?? 5)),
+                        'bestRating' => '5'
+                    ],
+                    'reviewBody' => $r['body'] ?? '',
+                    'itemReviewed' => [
+                        '@type' => 'Product',
+                        '@id' => $productId,
+                        'name' => $productName,
+                        'url' => $productUrl
+                    ]
+                ]
+            ];
+            
+            $position++;
+        }
+        
+        return [
+            '@type' => 'ItemList',
+            'name' => 'Customer Testimonials',
+            'itemListElement' => $itemListElement
+        ];
     }
 
     public static function graph($items)
