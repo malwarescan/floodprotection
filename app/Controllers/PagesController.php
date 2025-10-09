@@ -47,8 +47,8 @@ class PagesController
             return;
         }
         
-        // Generate schema if not provided
-        $jsonld = $row['jsonld'] ? json_decode($row['jsonld'], true) : Schema::generateMatrixSchema($row);
+        // Always generate fresh schema with fixed offers/offerCount
+        $jsonld = Schema::generateMatrixSchema($row);
         
         $data = [
             'title' => $row['title'],
