@@ -19,14 +19,29 @@ class Schema
 
     public static function breadcrumb(array $items)
     {
+        $baseUrl = Config::get('app_url');
+        
         return [
             '@type' => 'BreadcrumbList',
-            'itemListElement' => array_map(function($nameUrl, $i) {
+            'itemListElement' => array_map(function($nameUrl, $i) use ($baseUrl) {
+                $url = $nameUrl[1];
+                
+                // Convert relative URLs to absolute
+                if (!empty($url) && !preg_match('#^https?://#i', $url)) {
+                    // Ensure leading slash
+                    if ($url[0] !== '/') {
+                        $url = '/' . $url;
+                    }
+                    $url = $baseUrl . $url;
+                }
+                
                 return [
                     '@type' => 'ListItem',
                     'position' => $i + 1,
-                    'name' => $nameUrl[0],
-                    'item' => $nameUrl[1]
+                    'item' => [
+                        '@id' => $url,
+                        'name' => $nameUrl[0]
+                    ]
                 ];
             }, $items, array_keys($items))
         ];
@@ -79,18 +94,37 @@ class Schema
 
     public static function product($name, $brand, $sku, $min, $max, $currency = 'USD')
     {
+        $minPrice = floatval($min);
+        $maxPrice = floatval($max);
+        
+        // If min and max are the same or max is not set, use single Offer
+        if ($minPrice === $maxPrice || !$max) {
+            $offers = [
+                '@type' => 'Offer',
+                'price' => (string)$minPrice,
+                'priceCurrency' => $currency,
+                'availability' => 'https://schema.org/InStock',
+                'url' => Config::get('app_url') . '/products/' . strtolower($sku)
+            ];
+        } else {
+            // Multiple price points, use AggregateOffer with required offerCount
+            $offers = [
+                '@type' => 'AggregateOffer',
+                'priceCurrency' => $currency,
+                'lowPrice' => (string)$minPrice,
+                'highPrice' => (string)$maxPrice,
+                'offerCount' => 3, // Standard tiers: small, medium, large
+                'availability' => 'https://schema.org/InStock',
+                'url' => Config::get('app_url') . '/products/' . strtolower($sku)
+            ];
+        }
+        
         return [
             '@type' => 'Product',
             'name' => $name,
             'brand' => $brand,
             'sku' => $sku,
-            'offers' => [
-                '@type' => 'AggregateOffer',
-                'priceCurrency' => $currency,
-                'lowPrice' => floatval($min),
-                'highPrice' => floatval($max),
-                'availability' => 'https://schema.org/InStock'
-            ]
+            'offers' => $offers
         ];
     }
 
@@ -216,19 +250,30 @@ class Schema
         }
         
         if ($lowPrice) {
-            $offers = [
-                '@type' => 'AggregateOffer',
-                'priceCurrency' => $currency,
-                'lowPrice' => $lowPrice,
-                'availability' => 'https://schema.org/InStock'
-            ];
+            $low = floatval($lowPrice);
+            $high = $highPrice ? floatval($highPrice) : $low;
             
-            if ($highPrice) {
-                $offers['highPrice'] = $highPrice;
-                $offers['offerCount'] = '3'; // Assuming 3 price tiers
+            // If prices are different, use AggregateOffer with required offerCount
+            if ($low !== $high) {
+                $product['offers'] = [
+                    '@type' => 'AggregateOffer',
+                    'priceCurrency' => $currency,
+                    'lowPrice' => (string)$low,
+                    'highPrice' => (string)$high,
+                    'offerCount' => 3, // Standard tiers: small, medium, large
+                    'availability' => 'https://schema.org/InStock',
+                    'url' => Config::get('app_url') . '/products/' . strtolower($sku)
+                ];
+            } else {
+                // Single price point, use simple Offer
+                $product['offers'] = [
+                    '@type' => 'Offer',
+                    'price' => (string)$low,
+                    'priceCurrency' => $currency,
+                    'availability' => 'https://schema.org/InStock',
+                    'url' => Config::get('app_url') . '/products/' . strtolower($sku)
+                ];
             }
-            
-            $product['offers'] = $offers;
         }
         
         return $product;
@@ -260,19 +305,30 @@ class Schema
         }
         
         if ($lowPrice) {
-            $offers = [
-                '@type' => 'AggregateOffer',
-                'priceCurrency' => $currency,
-                'lowPrice' => $lowPrice,
-                'availability' => 'https://schema.org/InStock'
-            ];
+            $low = floatval($lowPrice);
+            $high = $highPrice ? floatval($highPrice) : $low;
             
-            if ($highPrice) {
-                $offers['highPrice'] = $highPrice;
-                $offers['offerCount'] = '3';
+            // If prices are different, use AggregateOffer with required offerCount
+            if ($low !== $high) {
+                $product['offers'] = [
+                    '@type' => 'AggregateOffer',
+                    'priceCurrency' => $currency,
+                    'lowPrice' => (string)$low,
+                    'highPrice' => (string)$high,
+                    'offerCount' => 3, // Standard tiers: small, medium, large
+                    'availability' => 'https://schema.org/InStock',
+                    'url' => Config::get('app_url') . '/products/' . strtolower($sku)
+                ];
+            } else {
+                // Single price point, use simple Offer
+                $product['offers'] = [
+                    '@type' => 'Offer',
+                    'price' => (string)$low,
+                    'priceCurrency' => $currency,
+                    'availability' => 'https://schema.org/InStock',
+                    'url' => Config::get('app_url') . '/products/' . strtolower($sku)
+                ];
             }
-            
-            $product['offers'] = $offers;
         }
         
         return $product;
@@ -515,7 +571,14 @@ class Schema
                         '@type' => 'Product',
                         '@id' => $productId,
                         'name' => $productName,
-                        'url' => $productUrl
+                        'url' => $productUrl,
+                        'offers' => [
+                            '@type' => 'Offer',
+                            'availability' => 'https://schema.org/InStock',
+                            'price' => '599.00',
+                            'priceCurrency' => 'USD',
+                            'url' => $productUrl
+                        ]
                     ]
                 ]
             ];

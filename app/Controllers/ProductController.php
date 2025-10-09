@@ -103,6 +103,15 @@ class ProductController
                 '@type' => 'AggregateRating',
                 'ratingValue' => '4.7',
                 'reviewCount' => '6'
+            ],
+            'offers' => [
+                '@type' => 'AggregateOffer',
+                'priceCurrency' => 'USD',
+                'lowPrice' => '599.00',
+                'highPrice' => '2499.00',
+                'offerCount' => 3,
+                'availability' => 'https://schema.org/InStock',
+                'url' => $canonical
             ]
         ];
         
@@ -241,6 +250,15 @@ class ProductController
                 '@type' => 'AggregateRating',
                 'ratingValue' => '4.0',
                 'reviewCount' => '10'
+            ],
+            'offers' => [
+                '@type' => 'AggregateOffer',
+                'priceCurrency' => 'USD',
+                'lowPrice' => '399.00',
+                'highPrice' => '1299.00',
+                'offerCount' => 3,
+                'availability' => 'https://schema.org/InStock',
+                'url' => $canonical
             ]
         ];
         
@@ -397,6 +415,15 @@ class ProductController
                 '@type' => 'AggregateRating',
                 'ratingValue' => '4.0',
                 'reviewCount' => '12'
+            ],
+            'offers' => [
+                '@type' => 'AggregateOffer',
+                'priceCurrency' => 'USD',
+                'lowPrice' => '299.00',
+                'highPrice' => '899.00',
+                'offerCount' => 3,
+                'availability' => 'https://schema.org/InStock',
+                'url' => $canonical
             ]
         ];
         

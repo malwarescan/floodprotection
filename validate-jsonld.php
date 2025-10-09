@@ -84,6 +84,18 @@ function validateReviews($jsonLd, $pageName) {
                                     if (!isset($review['itemReviewed']['url'])) {
                                         $issues[] = "itemReviewed missing url on $pageName";
                                     }
+                                    
+                                    // Google requires Product to have offers, review, or aggregateRating
+                                    if ($review['itemReviewed']['@type'] === 'Product') {
+                                        $hasRequired = isset($review['itemReviewed']['offers']) || 
+                                                      isset($review['itemReviewed']['review']) || 
+                                                      isset($review['itemReviewed']['aggregateRating']);
+                                        if (!$hasRequired) {
+                                            $issues[] = "itemReviewed Product missing required property (offers/review/aggregateRating) on $pageName (THIS CAUSES Google Search Console ERROR)";
+                                        } else {
+                                            echo "  ✓ Product has required property (offers/review/aggregateRating)\n";
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -96,6 +108,36 @@ function validateReviews($jsonLd, $pageName) {
                 if (isset($item['@type']) && in_array($item['@type'], ['Organization', 'Service', 'LocalBusiness', 'WebPage'])) {
                     if (isset($item['review']) || isset($item['aggregateRating'])) {
                         $issues[] = "CRITICAL: {$item['@type']} has reviews/aggregateRating on $pageName (THIS CAUSES 'Item does not support reviews' ERROR)";
+                    }
+                }
+                
+                // Check BreadcrumbList for absolute URLs with @id
+                if (isset($item['@type']) && $item['@type'] === 'BreadcrumbList') {
+                    echo "✓ BreadcrumbList found on $pageName\n";
+                    
+                    if (isset($item['itemListElement'])) {
+                        $breadcrumbCount = 0;
+                        foreach ($item['itemListElement'] as $crumb) {
+                            $breadcrumbCount++;
+                            
+                            // Check if item has @id structure
+                            if (isset($crumb['item'])) {
+                                if (is_string($crumb['item'])) {
+                                    $issues[] = "Breadcrumb item is string instead of object with @id on $pageName (THIS CAUSES 'Invalid URL in field id' ERROR)";
+                                } elseif (is_array($crumb['item'])) {
+                                    if (!isset($crumb['item']['@id'])) {
+                                        $issues[] = "Breadcrumb item missing @id on $pageName";
+                                    } else {
+                                        $url = $crumb['item']['@id'];
+                                        // Check if URL is absolute
+                                        if (!preg_match('#^https?://#i', $url)) {
+                                            $issues[] = "Breadcrumb @id is not absolute URL: '$url' on $pageName (THIS CAUSES 'Invalid URL in field id' ERROR)";
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        echo "  ✓ $breadcrumbCount breadcrumb items validated\n";
                     }
                 }
             }
