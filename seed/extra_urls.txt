@@ -1,0 +1,12 @@
+# Extra URLs for audit (one per line)
+# These will be added to sitemap URLs
+
+# Main pages
+https://floodbarrierpros.com/
+https://floodbarrierpros.com/products/modular-flood-barrier
+https://floodbarrierpros.com/products/garage-dam-kit
+https://floodbarrierpros.com/products/doorway-flood-panel
+https://floodbarrierpros.com/testimonials
+https://floodbarrierpros.com/blog
+https://floodbarrierpros.com/news
+
