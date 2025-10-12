@@ -107,7 +107,7 @@ This document describes the JSON-LD structured data implementation to fix Google
   "brand": {"@type": "Brand", "name": "Rubicon Flood Protection"},
   "contactPoint": [{
     "@type": "ContactPoint",
-    "telephone": "+1-239-330-8888",
+    "telephone": "+1-239-810-8761",
     "contactType": "customer service",
     "areaServed": "US-FL"
   }],

@@ -122,7 +122,7 @@ Schema::reviewItemList($slice, Config::get('app_url'))
   "brand": {"@type": "Brand", "name": "Rubicon Flood Protection"},
   "contactPoint": [{
     "@type": "ContactPoint",
-    "telephone": "+1-239-330-8888",
+    "telephone": "+1-239-810-8761",
     "contactType": "customer service",
     "areaServed": "US-FL"
   }],

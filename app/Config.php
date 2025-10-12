@@ -15,7 +15,7 @@ class Config
                 'app_env' => $_ENV['APP_ENV'] ?? 'production',
                 'data_path' => __DIR__ . '/Data',
                 'templates_path' => __DIR__ . '/Templates',
-                'phone' => '+1-239-330-8888',
+                'phone' => '+1-239-810-8761',
                 'email' => 'Dylan@rubiconflood.com',
                 'address' => '3729 Chiquita Blvd S',
                 'city' => 'Cape Coral',
@@ -43,5 +43,22 @@ class Config
     public static function getTemplatesPath($file = '')
     {
         return self::get('templates_path') . ($file ? '/' . $file : '');
+    }
+    
+    public static function getPhoneLink()
+    {
+        // Return phone number formatted for tel: links (no dashes, spaces)
+        return 'tel:' . preg_replace('/[^0-9+]/', '', self::get('phone'));
+    }
+    
+    public static function getSmsLink($message = '')
+    {
+        // Return phone number formatted for sms: links
+        $phone = preg_replace('/[^0-9+]/', '', self::get('phone'));
+        $link = 'sms:' . $phone;
+        if (!empty($message)) {
+            $link .= '?&body=' . urlencode($message);
+        }
+        return $link;
     }
 }

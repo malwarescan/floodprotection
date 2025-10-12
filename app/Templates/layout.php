@@ -35,9 +35,14 @@
                 <a href="/testimonials">Testimonials</a>
                 <a href="/resources/door-dams/miami">Resources</a>
             </nav>
-            <a class="btn btn-primary" href="tel:<?= htmlspecialchars(\App\Config::get('phone')) ?>">
-                Call <?= htmlspecialchars(\App\Config::get('phone')) ?>
-            </a>
+            <div class="header-contact">
+                <a class="btn btn-primary" href="<?= \App\Config::getPhoneLink() ?>">
+                    📞 Call
+                </a>
+                <a class="btn btn-secondary" href="<?= \App\Config::getSmsLink('Hi, I\'m interested in flood barriers for my home.') ?>">
+                    💬 Text
+                </a>
+            </div>
         </div>
     </header>
     
