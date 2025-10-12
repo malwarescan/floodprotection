@@ -110,6 +110,7 @@ class ProductController
                 'lowPrice' => '599.00',
                 'highPrice' => '2499.00',
                 'offerCount' => 3,
+                'priceValidUntil' => '2026-01-31',
                 'availability' => 'https://schema.org/InStock',
                 'url' => $canonical
             ]
@@ -257,6 +258,7 @@ class ProductController
                 'lowPrice' => '399.00',
                 'highPrice' => '1299.00',
                 'offerCount' => 3,
+                'priceValidUntil' => '2026-01-31',
                 'availability' => 'https://schema.org/InStock',
                 'url' => $canonical
             ]
@@ -422,6 +424,7 @@ class ProductController
                 'lowPrice' => '299.00',
                 'highPrice' => '899.00',
                 'offerCount' => 3,
+                'priceValidUntil' => '2026-01-31',
                 'availability' => 'https://schema.org/InStock',
                 'url' => $canonical
             ]
