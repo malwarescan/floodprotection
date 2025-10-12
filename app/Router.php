@@ -34,19 +34,19 @@ class Router
         // Location pages: /fl/{city}/{product-slug}
         $this->addRoute('GET', '/fl/{city}/{product}', 'LocationController@show');
         
+        // Blog routes (must be before matrix routes to avoid conflicts)
+        $this->addRoute('GET', '/blog', 'BlogController@index');
+        $this->addRoute('GET', '/blog/{slug}', 'BlogController@show');
+        
+        // News routes (must be before matrix routes to avoid conflicts)
+        $this->addRoute('GET', '/news', 'NewsController@index');
+        $this->addRoute('GET', '/news/{slug}', 'NewsController@show');
+        
         // Service pages: /{keyword} (service taxonomy) - must be after sitemap routes
         $this->addServiceRoutes();
         
         // Matrix pages: /{keyword}/{city-slug} (must be last to avoid conflicts)
         $this->addRoute('GET', '/{keyword}/{city}', 'PagesController@matrix');
-        
-        // Blog routes
-        $this->addRoute('GET', '/blog', 'BlogController@index');
-        $this->addRoute('GET', '/blog/{slug}', 'BlogController@show');
-        
-        // News routes
-        $this->addRoute('GET', '/news', 'NewsController@index');
-        $this->addRoute('GET', '/news/{slug}', 'NewsController@show');
         
         // Sitemap routes
         $this->addRoute('GET', '/sitemap.xml', 'SitemapController@index');
