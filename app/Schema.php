@@ -561,6 +561,7 @@ class Schema
             
             $productId = $baseUrl . '/products/' . $productSlug . '#product';
             $productUrl = $baseUrl . '/products/' . $productSlug;
+            $productImage = $baseUrl . '/assets/' . $productSlug . '.jpg';
             $reviewId = $baseUrl . '/testimonials#' . ($r['review_id'] ?? 'rev-' . $position);
             
             $itemListElement[] = [
@@ -582,6 +583,7 @@ class Schema
                         '@id' => $productId,
                         'name' => $productName,
                         'url' => $productUrl,
+                        'image' => [$productImage],
                         'offers' => [
                             '@type' => 'Offer',
                             'availability' => 'https://schema.org/InStock',
@@ -654,12 +656,16 @@ class Schema
             ]
         ];
         
+        // Determine product image based on SKU
+        $productSlug = strtolower($row['product_sku']);
+        $productImage = $root . '/assets/' . $productSlug . '.jpg';
+        
         // Create canonical product reference
         $product = self::canonicalProduct(
             $row['product_name'],
             $row['product_sku'],
             'Rapid-deploy modular flood barriers made from 6063 T-6 aluminum with EPDM sealing.',
-            null, // image
+            $productImage, // image
             $row['product_price_min'],
             $row['product_price_max'],
             $row['product_currency'],

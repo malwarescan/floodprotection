@@ -140,11 +140,19 @@ class TestimonialsController
             );
         }, array_slice($rows, 0, 50)); // cap in JSON-LD
 
+        // Determine product image based on SKU
+        $productImage = Config::get('app_url') . '/assets/modular-flood-barrier.jpg';
+        if (str_contains($sku, 'GARAGE') || str_contains($sku, 'DOORDAM')) {
+            $productImage = Config::get('app_url') . '/assets/garage-dam-kit.jpg';
+        } elseif (str_contains($sku, 'PANEL') || str_contains($sku, 'DOOR-PANEL') || str_contains($sku, 'BASEMENT')) {
+            $productImage = Config::get('app_url') . '/assets/doorway-flood-panel.jpg';
+        }
+        
         $product = Schema::productWithReviews(
             $productName,
             $sku,
             'Modular, rapid-deploy flood barrier system for residential openings.',
-            null, // image
+            $productImage, // image
             'Rubicon Flood Control',
             'Flood Barrier Pros',
             $reviewNodes,
