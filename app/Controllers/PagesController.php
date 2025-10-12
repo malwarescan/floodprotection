@@ -148,8 +148,15 @@ class PagesController
         }
         
         $cityName = ucwords(str_replace('-', ' ', $city));
-        $title = "Flood Protection Services in {$cityName} | " . Config::get('app_name');
-        $description = "Professional flood protection services in {$cityName}, Florida. Custom barriers, panels, and dry floodproofing solutions. Free quotes, fast installation.";
+        
+        // CTR-optimized meta for Sanford (GSC shows pos 5.1, 0% CTR - needs lift)
+        if (strtolower($city) === 'sanford') {
+            $title = \App\SEO::titleSanford();
+            $description = \App\SEO::descSanford();
+        } else {
+            $title = "Flood Protection Services in {$cityName} | " . Config::get('app_name');
+            $description = "Professional flood protection services in {$cityName}, Florida. Custom barriers, panels, and dry floodproofing solutions. Free quotes, fast installation.";
+        }
         
         $data = [
             'title' => $title,

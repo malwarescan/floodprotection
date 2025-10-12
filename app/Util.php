@@ -211,4 +211,83 @@ class Util
         
         return $urls;
     }
+    
+    /**
+     * Get nearby cities for internal linking (alphabetical neighbors)
+     */
+    public static function getNearbyCities(string $currentCity, int $limit = 6): array
+    {
+        $data = self::getCsvData('matrix.csv');
+        $cities = [];
+        
+        // Extract unique cities
+        foreach ($data as $row) {
+            $city = $row['city'] ?? '';
+            if ($city && !isset($cities[$city])) {
+                $cities[$city] = [
+                    'name' => $city,
+                    'url' => $row['url_path'] ?? '',
+                    'county' => $row['county'] ?? ''
+                ];
+            }
+        }
+        
+        // Sort alphabetically
+        ksort($cities);
+        $cityNames = array_keys($cities);
+        
+        // Find current city index
+        $currentIndex = array_search($currentCity, $cityNames);
+        if ($currentIndex === false) {
+            // City not found, return first N
+            return array_slice(array_values($cities), 0, $limit);
+        }
+        
+        // Get neighbors (before and after current city)
+        $nearby = [];
+        $half = (int)floor($limit / 2);
+        
+        for ($i = $currentIndex - $half; $i <= $currentIndex + $half; $i++) {
+            if ($i >= 0 && $i < count($cityNames) && $cityNames[$i] !== $currentCity) {
+                $nearby[] = $cities[$cityNames[$i]];
+            }
+        }
+        
+        // Fill remaining with next cities if needed
+        while (count($nearby) < $limit && count($nearby) < count($cities) - 1) {
+            $nextIndex = $currentIndex + count($nearby) + 1;
+            if ($nextIndex < count($cityNames)) {
+                $nearby[] = $cities[$cityNames[$nextIndex]];
+            } else {
+                break;
+            }
+        }
+        
+        return array_slice($nearby, 0, $limit);
+    }
+    
+    /**
+     * Get related services in the same city for internal linking
+     */
+    public static function getRelatedServices(string $currentCity, string $currentKeyword, int $limit = 5): array
+    {
+        $data = self::getCsvData('matrix.csv');
+        $services = [];
+        
+        foreach ($data as $row) {
+            $city = $row['city'] ?? '';
+            $keyword = $row['keyword'] ?? '';
+            
+            // Same city, different service
+            if ($city === $currentCity && $keyword !== $currentKeyword) {
+                $services[] = [
+                    'keyword' => $keyword,
+                    'url' => $row['url_path'] ?? '',
+                    'title' => $row['h1'] ?? $keyword
+                ];
+            }
+        }
+        
+        return array_slice($services, 0, $limit);
+    }
 }

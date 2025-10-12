@@ -38,6 +38,23 @@
                     </div>
                 </section>
 
+                <?php if (strtolower($city) === 'clearwater'): ?>
+                <section class="clearwater-beach">
+                    <h2>Clearwater Beach Flood Protection</h2>
+                    <p>Clearwater Beach residents face unique flood challenges due to coastal proximity and storm surge risk. Our flood protection systems are specifically designed for beach communities with saltwater-resistant materials and hurricane-grade anchoring.</p>
+                    
+                    <h3>Clearwater Beach Flood Protection FAQs</h3>
+                    <div class="faq-item">
+                        <strong>Do you serve Clearwater Beach specifically?</strong>
+                        <p>Yes, we provide full service to Clearwater Beach including beach-front properties. Our systems are rated for saltwater exposure and storm surge conditions.</p>
+                    </div>
+                    <div class="faq-item">
+                        <strong>What's different about beach flood protection?</strong>
+                        <p>Clearwater Beach requires corrosion-resistant materials (marine-grade aluminum, EPDM seals), stronger anchoring for wind loads, and systems rated for wave action in addition to standing water.</p>
+                    </div>
+                </section>
+                <?php endif; ?>
+                
                 <?php if (!empty($resources)): ?>
                 <section class="resources">
                     <h2>Additional Resources</h2>
@@ -57,6 +74,15 @@
                     </div>
                 </section>
                 <?php endif; ?>
+                
+                <section class="related-content">
+                    <h2>Related Flood Protection Resources</h2>
+                    <ul>
+                        <li><a href="/blog/best-flood-barriers-2025">Best Flood Barriers for Homes in 2025</a></li>
+                        <li><a href="/blog/fema-approved-flood-barriers">FEMA-Approved Flood Barriers Guide</a></li>
+                        <li><a href="/blog/portable-vs-permanent-flood-barriers">Portable vs Permanent: Which to Choose?</a></li>
+                    </ul>
+                </section>
             </div>
 
             <aside class="sidebar">
@@ -72,14 +98,30 @@
                 </div>
 
                 <div class="service-areas">
-                    <h3>We Also Serve</h3>
+                    <h3>Nearby Cities</h3>
                     <ul>
-                        <li><a href="/<?= \App\Util::slugify($keyword) ?>/miami-beach">Miami Beach</a></li>
-                        <li><a href="/<?= \App\Util::slugify($keyword) ?>/fort-lauderdale">Fort Lauderdale</a></li>
-                        <li><a href="/<?= \App\Util::slugify($keyword) ?>/west-palm-beach">West Palm Beach</a></li>
-                        <li><a href="/<?= \App\Util::slugify($keyword) ?>/boca-raton">Boca Raton</a></li>
+                        <?php 
+                        $nearbyCities = \App\Util::getNearbyCities($city, 6);
+                        foreach ($nearbyCities as $nearbyCity): 
+                        ?>
+                        <li><a href="<?= htmlspecialchars($nearbyCity['url']) ?>"><?= htmlspecialchars($nearbyCity['name']) ?></a></li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
+                
+                <?php 
+                $relatedServices = \App\Util::getRelatedServices($city, $keyword, 5);
+                if (!empty($relatedServices)):
+                ?>
+                <div class="related-services">
+                    <h3>Related Services in <?= htmlspecialchars($city) ?></h3>
+                    <ul>
+                        <?php foreach ($relatedServices as $service): ?>
+                        <li><a href="<?= htmlspecialchars($service['url']) ?>"><?= htmlspecialchars($service['keyword']) ?></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <?php endif; ?>
             </aside>
         </div>
     </div>
