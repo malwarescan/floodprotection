@@ -11,7 +11,7 @@
         </header>
 
         <div class="article-content">
-            <?= $article['content'] ?>
+            <?= \App\Util::markdownToHtml($article['content']) ?>
         </div>
 
         <div class="article-navigation">

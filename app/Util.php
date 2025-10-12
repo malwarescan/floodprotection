@@ -195,6 +195,130 @@ class Util
         ], $data);
     }
     
+    public static function markdownToHtml($markdown)
+    {
+        // Escape HTML entities first
+        $html = htmlspecialchars($markdown, ENT_NOQUOTES);
+        
+        // Headers (must come before other patterns)
+        $html = preg_replace('/^### (.+)$/m', '<h3>$1</h3>', $html);
+        $html = preg_replace('/^## (.+)$/m', '<h2>$1</h2>', $html);
+        $html = preg_replace('/^# (.+)$/m', '<h1>$1</h1>', $html);
+        
+        // Bold
+        $html = preg_replace('/\*\*(.+?)\*\*/s', '<strong>$1</strong>', $html);
+        
+        // Italic
+        $html = preg_replace('/\*(.+?)\*/s', '<em>$1</em>', $html);
+        
+        // Links
+        $html = preg_replace('/\[([^\]]+)\]\(([^\)]+)\)/', '<a href="$2">$1</a>', $html);
+        
+        // Unordered lists
+        $html = preg_replace_callback('/^((?:[-*+] .+\n?)+)/m', function($matches) {
+            $items = preg_replace('/^[-*+] (.+)$/m', '<li>$1</li>', trim($matches[1]));
+            return '<ul>' . $items . '</ul>';
+        }, $html);
+        
+        // Ordered lists
+        $html = preg_replace_callback('/^((?:\d+\. .+\n?)+)/m', function($matches) {
+            $items = preg_replace('/^\d+\. (.+)$/m', '<li>$1</li>', trim($matches[1]));
+            return '<ol>' . $items . '</ol>';
+        }, $html);
+        
+        // Tables
+        $html = preg_replace_callback('/^\|.+\|$/m', function($matches) {
+            static $inTable = false;
+            static $isHeader = true;
+            
+            $line = $matches[0];
+            
+            // Skip separator lines
+            if (preg_match('/^\|[\s\-:|]+\|$/', $line)) {
+                $isHeader = false;
+                return '';
+            }
+            
+            $cells = array_map('trim', explode('|', trim($line, '|')));
+            $tag = $isHeader ? 'th' : 'td';
+            $row = '<tr>';
+            foreach ($cells as $cell) {
+                $row .= "<$tag>" . trim($cell) . "</$tag>";
+            }
+            $row .= '</tr>';
+            
+            if (!$inTable) {
+                $inTable = true;
+                $row = '<table>' . $row;
+            }
+            
+            if ($isHeader) {
+                $isHeader = false;
+                $row = str_replace('<tr>', '<thead><tr>', $row);
+                $row = str_replace('</tr>', '</tr></thead><tbody>', $row);
+            }
+            
+            return $row;
+        }, $html);
+        
+        // Close table if needed
+        if (strpos($html, '<table>') !== false && strpos($html, '</table>') === false) {
+            $html = str_replace('<tbody>', '<tbody>', $html);
+            $html = preg_replace('/(<\/tr>)(?!.*<\/tr>)/s', '$1</tbody></table>', $html);
+        }
+        
+        // Code blocks (fenced with ```)
+        $html = preg_replace('/```(?:\w+)?\n(.+?)```/s', '<pre><code>$1</code></pre>', $html);
+        
+        // Inline code
+        $html = preg_replace('/`([^`]+)`/', '<code>$1</code>', $html);
+        
+        // Blockquotes
+        $html = preg_replace('/^&gt; (.+)$/m', '<blockquote>$1</blockquote>', $html);
+        
+        // Horizontal rules
+        $html = preg_replace('/^(---|\*\*\*|___)\s*$/m', '<hr>', $html);
+        
+        // Paragraphs - wrap non-tag lines
+        $lines = explode("\n", $html);
+        $result = [];
+        $inParagraph = false;
+        
+        foreach ($lines as $line) {
+            $trimmed = trim($line);
+            
+            // Check if line is already wrapped in a block element
+            $isBlock = preg_match('/^<(h[1-6]|ul|ol|pre|blockquote|hr|table|tr|thead|tbody)/', $trimmed);
+            $isClosing = preg_match('/^<\/(ul|ol|pre|blockquote|table|thead|tbody)>/', $trimmed);
+            
+            if (empty($trimmed)) {
+                if ($inParagraph) {
+                    $result[] = '</p>';
+                    $inParagraph = false;
+                }
+                $result[] = '';
+            } elseif ($isBlock || $isClosing) {
+                if ($inParagraph) {
+                    $result[] = '</p>';
+                    $inParagraph = false;
+                }
+                $result[] = $line;
+            } else {
+                if (!$inParagraph) {
+                    $result[] = '<p>';
+                    $inParagraph = true;
+                }
+                $result[] = $line;
+            }
+        }
+        
+        if ($inParagraph) {
+            $result[] = '</p>';
+        }
+        
+        return implode("\n", $result);
+    }
+    
     public static function getSitemapUrls()
     {
         $urls = [];

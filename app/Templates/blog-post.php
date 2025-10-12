@@ -11,7 +11,7 @@
         </header>
 
         <div class="post-content">
-            <?= $post['content'] ?>
+            <?= \App\Util::markdownToHtml($post['content']) ?>
         </div>
 
         <?php if (!empty($post['tags'])): ?>
