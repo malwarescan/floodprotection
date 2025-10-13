@@ -85,7 +85,7 @@
         </div>
         
         <div>
-            <img class="rounded-xl" src="https://images.unsplash.com/photo-1648737967328-690548aec14f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=900&h=600&q=80" alt="Flood Protection">
+            <img class="rounded-xl" src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=900&h=600&q=80" alt="Florida Home Flood Protection Installation">
         </div>
     </div>
 </div>
@@ -101,7 +101,7 @@
         <!-- Card 1 -->
         <a class="group flex flex-col h-full bg-white border border-gray-200 hover:border-transparent hover:shadow-lg focus:outline-none focus:border-transparent focus:shadow-lg transition duration-300 rounded-xl p-5" href="/products/modular-flood-barrier">
             <div class="aspect-w-16 aspect-h-11">
-                <img class="w-full object-cover rounded-xl" src="https://images.unsplash.com/photo-1634712282287-14ed57b9cc89?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80" alt="Modular Flood Barriers">
+                <img class="w-full object-cover rounded-xl" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80" alt="Aluminum Modular Flood Barrier System">
             </div>
             <div class="my-6">
                 <h3 class="text-xl font-semibold text-gray-800 group-hover:text-primary">
@@ -120,7 +120,7 @@
         <!-- Card 2 -->
         <a class="group flex flex-col h-full bg-white border border-gray-200 hover:border-transparent hover:shadow-lg focus:outline-none focus:border-transparent focus:shadow-lg transition duration-300 rounded-xl p-5" href="/products/doorway-flood-panel">
             <div class="aspect-w-16 aspect-h-11">
-                <img class="w-full object-cover rounded-xl" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80" alt="Flood Panels">
+                <img class="w-full object-cover rounded-xl" src="https://images.unsplash.com/photo-1484154218962-a197022b5858?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80" alt="Residential Doorway Flood Protection Panel">
             </div>
             <div class="my-6">
                 <h3 class="text-xl font-semibold text-gray-800 group-hover:text-primary">
@@ -139,7 +139,7 @@
         <!-- Card 3 -->
         <a class="group flex flex-col h-full bg-white border border-gray-200 hover:border-transparent hover:shadow-lg focus:outline-none focus:border-transparent focus:shadow-lg transition duration-300 rounded-xl p-5" href="/products/garage-dam-kit">
             <div class="aspect-w-16 aspect-h-11">
-                <img class="w-full object-cover rounded-xl" src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80" alt="Door Dams">
+                <img class="w-full object-cover rounded-xl" src="https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80" alt="Garage Door Flood Protection Dam Kit">
             </div>
             <div class="my-6">
                 <h3 class="text-xl font-semibold text-gray-800 group-hover:text-primary">
