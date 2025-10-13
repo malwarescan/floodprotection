@@ -85,7 +85,7 @@
         </div>
         
         <div>
-            <img class="rounded-xl" src="https://rubiconflood.com/wp-content/uploads/2024/flood-barrier-installation-hero.jpg" alt="Rubicon Flood Barrier Installation - Florida Home Protection">
+            <img class="rounded-xl" src="https://images.unsplash.com/photo-1563298723-dcfebaa392e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=900&h=600&q=80" alt="Professional Flood Barrier Installation">
         </div>
     </div>
 </div>
@@ -101,7 +101,7 @@
         <!-- Card 1 -->
         <a class="group flex flex-col h-full bg-white border border-gray-200 hover:border-transparent hover:shadow-lg focus:outline-none focus:border-transparent focus:shadow-lg transition duration-300 rounded-xl p-5" href="/products/modular-flood-barrier">
             <div class="aspect-w-16 aspect-h-11">
-                <img class="w-full object-cover rounded-xl" src="https://rubiconflood.com/wp-content/uploads/2024/modular-aluminum-flood-barrier-system.jpg" alt="Rubicon Modular Aluminum Flood Barrier System">
+                <img class="w-full object-cover rounded-xl" src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80" alt="Modular Aluminum Construction Materials">
             </div>
             <div class="my-6">
                 <h3 class="text-xl font-semibold text-gray-800 group-hover:text-primary">
@@ -120,7 +120,7 @@
         <!-- Card 2 -->
         <a class="group flex flex-col h-full bg-white border border-gray-200 hover:border-transparent hover:shadow-lg focus:outline-none focus:border-transparent focus:shadow-lg transition duration-300 rounded-xl p-5" href="/products/doorway-flood-panel">
             <div class="aspect-w-16 aspect-h-11">
-                <img class="w-full object-cover rounded-xl" src="https://rubiconflood.com/wp-content/uploads/2024/doorway-flood-panel-residential.jpg" alt="Rubicon Doorway Flood Panel Installation">
+                <img class="w-full object-cover rounded-xl" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80" alt="Modern Home Entrance Door">
             </div>
             <div class="my-6">
                 <h3 class="text-xl font-semibold text-gray-800 group-hover:text-primary">
@@ -139,7 +139,7 @@
         <!-- Card 3 -->
         <a class="group flex flex-col h-full bg-white border border-gray-200 hover:border-transparent hover:shadow-lg focus:outline-none focus:border-transparent focus:shadow-lg transition duration-300 rounded-xl p-5" href="/products/garage-dam-kit">
             <div class="aspect-w-16 aspect-h-11">
-                <img class="w-full object-cover rounded-xl" src="https://rubiconflood.com/wp-content/uploads/2024/garage-door-flood-dam-kit.jpg" alt="Rubicon Garage Door Flood Dam Kit">
+                <img class="w-full object-cover rounded-xl" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80" alt="Residential Garage Door">
             </div>
             <div class="my-6">
                 <h3 class="text-xl font-semibold text-gray-800 group-hover:text-primary">
