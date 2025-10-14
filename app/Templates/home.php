@@ -132,11 +132,18 @@ function sendMessage() {
     // Show typing indicator
     showTyping();
     
-    // Simulate AI response (replace with actual API call)
+    // Get AI response with structured actions
     setTimeout(() => {
         hideTyping();
         const response = getAIResponse(message);
-        addMessage(response, 'assistant');
+        
+        // Add the main message
+        addMessage(response.message, 'assistant');
+        
+        // Add action buttons if confidence is high enough
+        if (response.actions && response.actions.confidence > 0.7) {
+            addActionButtons(response.actions);
+        }
     }, 1500);
 }
 
@@ -190,33 +197,183 @@ function hideTyping() {
     if (typingIndicator) typingIndicator.remove();
 }
 
+function addActionButtons(actions) {
+    const messagesDiv = document.getElementById('chatMessages');
+    const actionDiv = document.createElement('div');
+    actionDiv.className = 'flex justify-start mb-4';
+    
+    let buttonsHtml = '<div class="max-w-[80%] bg-gray-50 rounded-xl px-4 py-3">';
+    buttonsHtml += '<div class="text-sm text-gray-600 mb-3">Next steps:</div>';
+    buttonsHtml += '<div class="flex flex-wrap gap-2">';
+    
+    if (actions.next_steps) {
+        actions.next_steps.forEach(step => {
+            if (step.type === 'call') {
+                buttonsHtml += `<a href="${step.target}" class="inline-flex items-center gap-x-2 px-3 py-2 text-xs font-medium rounded-lg bg-primary text-white hover:bg-primary-600 transition-colors">
+                    <svg class="size-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122L9.8 11.5a.678.678 0 0 1-.555-.26L8.26 9.555a.678.678 0 0 1-.26-.555l.122-1.234a.678.678 0 0 0-.122-.58L6.654 4.328z"/></svg>
+                    ${step.label}
+                </a>`;
+            } else if (step.type === 'sms') {
+                buttonsHtml += `<a href="${step.target}" class="inline-flex items-center gap-x-2 px-3 py-2 text-xs font-medium rounded-lg bg-accent text-white hover:bg-accent-600 transition-colors">
+                    <svg class="size-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/></svg>
+                    ${step.label}
+                </a>`;
+            } else if (step.type === 'email') {
+                buttonsHtml += `<a href="${step.target}" class="inline-flex items-center gap-x-2 px-3 py-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-800 hover:bg-gray-50 transition-colors">
+                    <svg class="size-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.026A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.026L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/></svg>
+                    ${step.label}
+                </a>`;
+            }
+        });
+    }
+    
+    buttonsHtml += '</div>';
+    
+    // Add KB citations if available
+    if (actions.kb_citations && actions.kb_citations.length > 0) {
+        buttonsHtml += '<div class="mt-3 text-xs text-gray-500">Sources: ' + actions.kb_citations.join(', ') + '</div>';
+    }
+    
+    buttonsHtml += '</div>';
+    
+    actionDiv.innerHTML = buttonsHtml;
+    messagesDiv.appendChild(actionDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
 }
 
-// Placeholder AI response (replace with actual API integration)
+// AI Response Generator using Knowledge Base
 function getAIResponse(message) {
-    const responses = {
-        'types': "We offer three main types of flood barriers:\n\n1. **Modular Aluminum Panels** - Custom-fit for doorways and large openings\n2. **Door Dams** - Quick-deploy compression seal systems for standard doors\n3. **Garage Dam Kits** - Heavy-duty barriers for garage doors\n\nAll products are made with 6063 T-6 aluminum and EPDM rubber sealing. Would you like details about a specific type?",
-        'price': "Our pricing varies based on the type and size:\n\n• Door Dams: Starting at $1,499\n• Modular Panels: $2,499 - $4,299\n• Garage Kits: Starting at $3,299\n\nWe offer free on-site measurements and quotes. Would you like to schedule a consultation? Call us at +1-239-810-8761",
-        'installation': "Most installations are completed within 24-48 hours! Our process:\n\n1. Free measurement & consultation\n2. Custom fabrication (3-5 days)\n3. Professional installation (2-4 hours)\n\nWe serve all 67 Florida counties with same-week service in most areas. Emergency pre-storm installations available.",
-        'area': "Yes! We serve all 67 counties in Florida, including:\n\n• Miami-Dade, Broward, Palm Beach\n• Tampa, St. Petersburg, Clearwater\n• Jacksonville, Orlando, Fort Myers\n• And everywhere in between!\n\nWe're Florida licensed and insured. Which county are you located in?"
-    };
-    
     const lowerMessage = message.toLowerCase();
-    if (lowerMessage.includes('type') || lowerMessage.includes('barrier') || lowerMessage.includes('offer')) {
-        return responses.types;
-    } else if (lowerMessage.includes('cost') || lowerMessage.includes('price') || lowerMessage.includes('pricing')) {
-        return responses.price;
-    } else if (lowerMessage.includes('install') || lowerMessage.includes('time') || lowerMessage.includes('long')) {
-        return responses.installation;
-    } else if (lowerMessage.includes('area') || lowerMessage.includes('serve') || lowerMessage.includes('location')) {
-        return responses.area;
-    } else {
-        return "I'm here to help with flood protection questions! I can tell you about:\n\n• Types of flood barriers we offer\n• Pricing and installation costs\n• Installation timeline and process\n• Service areas across Florida\n• Product specifications and warranties\n\nWhat would you like to know?";
+    
+    // Pricing questions
+    if (lowerMessage.includes('cost') || lowerMessage.includes('price') || lowerMessage.includes('pricing') || lowerMessage.includes('how much')) {
+        return {
+            message: "Based on our knowledge base, typical ranges are:\n\n• Door Dam Kits: $1,499-$2,299\n• Garage Dam Kits: $3,299-$6,299\n• Modular Systems: $2,499-$15,000+\n\nPricing depends on opening size, mounting surface, and hardware requirements. For an exact quote, we'll confirm measurements and location.\n\nWould you like to schedule a no-obligation on-site assessment?",
+            actions: {
+                confidence: 0.9,
+                intents: ["pricing", "measurement"],
+                requested_info: ["city", "opening_width", "opening_height"],
+                next_steps: [
+                    { type: "call", target: "tel:+12398108761", label: "+1-239-810-8761" },
+                    { type: "sms", target: "sms:+12398108761?&body=Hi, I'm interested in flood barriers for my home.", label: "Text us" },
+                    { type: "email", target: "mailto:info@floodbarrierpros.com", label: "info@floodbarrierpros.com" }
+                ],
+                kb_citations: ["AI_KNOWLEDGE_BASE.md#Product-Catalog"]
+            }
+        };
     }
+    
+    // Service area questions
+    if (lowerMessage.includes('area') || lowerMessage.includes('serve') || lowerMessage.includes('location') || lowerMessage.includes('county') || lowerMessage.includes('city')) {
+        return {
+            message: "We serve all 67 Florida counties, including Miami-Dade, Broward, Palm Beach, Hillsborough, Pinellas, Orange, Duval, Lee, Collier, Sarasota, Manatee, Volusia, Brevard, Escambia, Monroe, and all others.\n\nSame-week installations are often available when crews are open. Would you like me to check availability for your area?",
+            actions: {
+                confidence: 0.95,
+                intents: ["coverage", "timeline"],
+                requested_info: ["city"],
+                next_steps: [
+                    { type: "call", target: "tel:+12398108761", label: "+1-239-810-8761" },
+                    { type: "sms", target: "sms:+12398108761?&body=Hi, I'm interested in flood barriers for my home.", label: "Text us" },
+                    { type: "email", target: "mailto:info@floodbarrierpros.com", label: "info@floodbarrierpros.com" }
+                ],
+                kb_citations: ["AI_KNOWLEDGE_BASE.md#Service-Areas"]
+            }
+        };
+    }
+    
+    // Installation timeline questions
+    if (lowerMessage.includes('install') || lowerMessage.includes('time') || lowerMessage.includes('long') || lowerMessage.includes('schedule') || lowerMessage.includes('timeline')) {
+        return {
+            message: "Typical installation timelines:\n\n• Door Dam Kits: 15-30 minutes (DIY-friendly)\n• Garage Kits: 30-60 minutes\n• Modular Systems: 2-4 hours per opening\n\nMost projects are completed within 24-48 hours from initial contact. Same-week slots are often available in Florida counties when crews are open.\n\nWould you like to schedule a no-obligation assessment?",
+            actions: {
+                confidence: 0.9,
+                intents: ["timeline", "install"],
+                requested_info: ["city"],
+                next_steps: [
+                    { type: "call", target: "tel:+12398108761", label: "+1-239-810-8761" },
+                    { type: "sms", target: "sms:+12398108761?&body=Hi, I'm interested in flood barriers for my home.", label: "Text us" },
+                    { type: "email", target: "mailto:info@floodbarrierpros.com", label: "info@floodbarrierpros.com" }
+                ],
+                kb_citations: ["AI_KNOWLEDGE_BASE.md#Installation-Process"]
+            }
+        };
+    }
+    
+    // Product types questions
+    if (lowerMessage.includes('type') || lowerMessage.includes('barrier') || lowerMessage.includes('offer') || lowerMessage.includes('product') || lowerMessage.includes('system')) {
+        return {
+            message: "We offer three main flood barrier systems:\n\n1. **Modular Flood Barriers** - Custom aluminum panels for maximum protection (up to 8+ ft height)\n2. **Door Dam Kits** - Compression seal systems for standard doorways (up to 3 ft height)\n3. **Garage Dam Kits** - Heavy-duty barriers for garage doors (up to 4 ft height)\n\nAll systems use 6063 T-6 aluminum and EPDM rubber sealing. What type of opening are you looking to protect?",
+            actions: {
+                confidence: 0.9,
+                intents: ["product_types"],
+                requested_info: ["opening_width", "opening_height"],
+                next_steps: [
+                    { type: "call", target: "tel:+12398108761", label: "+1-239-810-8761" },
+                    { type: "sms", target: "sms:+12398108761?&body=Hi, I'm interested in flood barriers for my home.", label: "Text us" },
+                    { type: "email", target: "mailto:info@floodbarrierpros.com", label: "info@floodbarrierpros.com" }
+                ],
+                kb_citations: ["AI_KNOWLEDGE_BASE.md#Product-Catalog"]
+            }
+        };
+    }
+    
+    // Warranty/maintenance questions
+    if (lowerMessage.includes('warranty') || lowerMessage.includes('maintenance') || lowerMessage.includes('last') || lowerMessage.includes('durable')) {
+        return {
+            message: "Our knowledge base indicates:\n\n• Modular Systems: 20-30+ year lifespan\n• Door Dams: 10-15 years\n• Garage Kits: 15-20 years\n\nAnnual maintenance includes visual inspection, seal conditioning, and deployment testing. Professional maintenance packages available.\n\nWould you like details about warranty coverage for your specific needs?",
+            actions: {
+                confidence: 0.85,
+                intents: ["warranty", "maintenance"],
+                requested_info: [],
+                next_steps: [
+                    { type: "call", target: "tel:+12398108761", label: "+1-239-810-8761" },
+                    { type: "sms", target: "sms:+12398108761?&body=Hi, I'm interested in flood barriers for my home.", label: "Text us" },
+                    { type: "email", target: "mailto:info@floodbarrierpros.com", label: "info@floodbarrierpros.com" }
+                ],
+                kb_citations: ["AI_KNOWLEDGE_BASE.md#Maintenance-Longevity"]
+            }
+        };
+    }
+    
+    // Emergency/urgent questions
+    if (lowerMessage.includes('emergency') || lowerMessage.includes('storm') || lowerMessage.includes('hurricane') || lowerMessage.includes('urgent') || lowerMessage.includes('quick')) {
+        return {
+            message: "For emergency situations, we offer:\n\n• Emergency service available\n• Temporary barriers deployed within 24 hours\n• Priority scheduling for storm threats\n• Same-day installation for portable systems\n\nCall +1-239-810-8761 for immediate assistance. We have emergency teams on standby during storm threats.",
+            actions: {
+                confidence: 0.95,
+                intents: ["emergency", "timeline"],
+                requested_info: ["city"],
+                next_steps: [
+                    { type: "call", target: "tel:+12398108761", label: "+1-239-810-8761" },
+                    { type: "sms", target: "sms:+12398108761?&body=Hi, I'm interested in flood barriers for my home.", label: "Text us" },
+                    { type: "email", target: "mailto:info@floodbarrierpros.com", label: "info@floodbarrierpros.com" }
+                ],
+                kb_citations: ["AI_KNOWLEDGE_BASE.md#Emergency-Service"]
+            }
+        };
+    }
+    
+    // Default response for general questions
+    return {
+        message: "I can help with flood protection questions about:\n\n• Product types and suitability\n• Pricing ranges and cost factors\n• Installation timelines and process\n• Service areas across Florida\n• Warranty and maintenance\n• Financing options\n\nWhat specific information would you like?",
+        actions: {
+            confidence: 0.7,
+            intents: ["general_info"],
+            requested_info: [],
+            next_steps: [
+                { type: "call", target: "tel:+12398108761", label: "+1-239-810-8761" },
+                { type: "sms", target: "sms:+12398108761?&body=Hi, I'm interested in flood barriers for my home.", label: "Text us" },
+                { type: "email", target: "mailto:info@floodbarrierpros.com", label: "info@floodbarrierpros.com" }
+            ],
+            kb_citations: ["AI_KNOWLEDGE_BASE.md#Overview"]
+        }
+    };
 }
 </script>
 
