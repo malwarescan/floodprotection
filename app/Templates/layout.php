@@ -61,7 +61,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0">
                     <a class="flex-none focus:outline-none focus:opacity-80" href="/" aria-label="<?= htmlspecialchars(\App\Config::get('app_name')) ?>">
-                        <img src="https://rubiconflood.com/images/flood-barrier-pros-logo.png" alt="<?= htmlspecialchars(\App\Config::get('app_name')) ?>" class="h-8 md:h-10 w-auto">
+                        <img src="/assets/images/logo/flood-barrier-pros-logo.png" alt="<?= htmlspecialchars(\App\Config::get('app_name')) ?>" class="h-8 md:h-10 w-auto">
                     </a>
                 </div>
                 
@@ -127,7 +127,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 items-center gap-5">
                 <div>
                     <a class="flex-none focus:outline-none focus:opacity-80" href="/" aria-label="<?= htmlspecialchars(\App\Config::get('app_name')) ?>">
-                        <img src="https://rubiconflood.com/images/flood-barrier-pros-logo.png" alt="<?= htmlspecialchars(\App\Config::get('app_name')) ?>" class="h-8 md:h-10 w-auto">
+                        <img src="/assets/images/logo/flood-barrier-pros-logo.png" alt="<?= htmlspecialchars(\App\Config::get('app_name')) ?>" class="h-8 md:h-10 w-auto">
                     </a>
                 </div>
                 
