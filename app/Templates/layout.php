@@ -55,27 +55,27 @@
 </head>
 <body class="bg-gray-50">
     <!-- Preline Header -->
-    <header class="sticky top-0 inset-x-0 z-50 w-full bg-white border-b border-gray-200">
+    <header class="sticky top-0 inset-x-0 z-50 w-full bg-primary border-b border-primary-600">
         <nav class="max-w-[85rem] w-full mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between py-3 md:py-4">
                 <!-- Logo -->
                 <div class="flex-shrink-0">
                     <a class="flex-none focus:outline-none focus:opacity-80" href="/" aria-label="<?= htmlspecialchars(\App\Config::get('app_name')) ?>">
-                        <img src="/assets/images/logo/flood-barrier-pros-logo.png" alt="<?= htmlspecialchars(\App\Config::get('app_name')) ?>" class="h-8 md:h-10 w-auto">
+                        <img src="/assets/images/logo/flood-barrier-pros-logo.png" alt="<?= htmlspecialchars(\App\Config::get('app_name')) ?>" class="h-12 md:h-16 w-auto bg-white rounded-lg p-2">
                     </a>
                 </div>
                 
                 <!-- Desktop Navigation - Hidden on Mobile -->
                 <div class="hidden md:flex md:items-center md:gap-x-2 md:ms-auto">
-                    <a class="px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100" href="/blog">Blog</a>
-                    <a class="px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100" href="/news">News</a>
-                    <a class="px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100" href="/testimonials">Testimonials</a>
-                    <a class="px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100" href="/resources/door-dams/miami">Resources</a>
+                    <a class="px-3 py-2 text-sm text-white hover:bg-white/10 rounded-lg focus:outline-none focus:bg-white/10" href="/blog">Blog</a>
+                    <a class="px-3 py-2 text-sm text-white hover:bg-white/10 rounded-lg focus:outline-none focus:bg-white/10" href="/news">News</a>
+                    <a class="px-3 py-2 text-sm text-white hover:bg-white/10 rounded-lg focus:outline-none focus:bg-white/10" href="/testimonials">Testimonials</a>
+                    <a class="px-3 py-2 text-sm text-white hover:bg-white/10 rounded-lg focus:outline-none focus:bg-white/10" href="/resources/door-dams/miami">Resources</a>
                 </div>
                 
                 <!-- Desktop CTA Buttons -->
                 <div class="hidden md:flex md:items-center md:gap-2 md:ms-4">
-                    <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-primary text-primary hover:bg-primary hover:text-white focus:outline-none focus:bg-primary focus:text-white transition-colors" href="<?= \App\Config::getPhoneLink() ?>">
+                    <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-white text-white hover:bg-white hover:text-primary focus:outline-none focus:bg-white focus:text-primary transition-colors" href="<?= \App\Config::getPhoneLink() ?>">
                         <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                         Call
                     </a>
@@ -86,7 +86,7 @@
                 </div>
                 
                 <!-- Mobile Menu Button -->
-                <button type="button" class="hs-collapse-toggle md:hidden relative size-9 flex justify-center items-center rounded-lg border border-gray-200 text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100" id="hs-header-base-collapse" aria-expanded="false" aria-controls="hs-header-base" aria-label="Toggle navigation" data-hs-collapse="#hs-header-base">
+                <button type="button" class="hs-collapse-toggle md:hidden relative size-9 flex justify-center items-center rounded-lg border border-white text-white hover:bg-white/10 focus:outline-none focus:bg-white/10" id="hs-header-base-collapse" aria-expanded="false" aria-controls="hs-header-base" aria-label="Toggle navigation" data-hs-collapse="#hs-header-base">
                     <svg class="hs-collapse-open:hidden size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
                     <svg class="hs-collapse-open:block shrink-0 hidden size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                 </button>
@@ -95,14 +95,14 @@
             <!-- Mobile Navigation Menu -->
             <div id="hs-header-base" class="hs-collapse hidden overflow-hidden transition-all duration-300 md:hidden" aria-labelledby="hs-header-base-collapse">
                 <div class="pb-4 space-y-1">
-                    <a class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-lg" href="/blog">Blog</a>
-                    <a class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-lg" href="/news">News</a>
-                    <a class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-lg" href="/testimonials">Testimonials</a>
-                    <a class="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-lg" href="/resources/door-dams/miami">Resources</a>
+                    <a class="block px-3 py-2 text-sm text-white hover:bg-white/10 rounded-lg" href="/blog">Blog</a>
+                    <a class="block px-3 py-2 text-sm text-white hover:bg-white/10 rounded-lg" href="/news">News</a>
+                    <a class="block px-3 py-2 text-sm text-white hover:bg-white/10 rounded-lg" href="/testimonials">Testimonials</a>
+                    <a class="block px-3 py-2 text-sm text-white hover:bg-white/10 rounded-lg" href="/resources/door-dams/miami">Resources</a>
                     
                     <!-- Mobile CTA Buttons -->
                     <div class="pt-3 flex flex-col gap-2">
-                        <a class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors" href="<?= \App\Config::getPhoneLink() ?>">
+                        <a class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-white text-white hover:bg-white hover:text-primary transition-colors" href="<?= \App\Config::getPhoneLink() ?>">
                             <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                             Call
                         </a>
@@ -127,7 +127,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 items-center gap-5">
                 <div>
                     <a class="flex-none focus:outline-none focus:opacity-80" href="/" aria-label="<?= htmlspecialchars(\App\Config::get('app_name')) ?>">
-                        <img src="/assets/images/logo/flood-barrier-pros-logo.png" alt="<?= htmlspecialchars(\App\Config::get('app_name')) ?>" class="h-8 md:h-10 w-auto">
+                        <img src="/assets/images/logo/flood-barrier-pros-logo.png" alt="<?= htmlspecialchars(\App\Config::get('app_name')) ?>" class="h-10 md:h-12 w-auto bg-white rounded-lg p-1">
                     </a>
                 </div>
                 

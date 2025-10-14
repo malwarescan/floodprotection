@@ -430,7 +430,7 @@ function getAIResponse(message) {
         </div>
         
         <div>
-            <img class="rounded-xl" src="/assets/images/hero/professional-flood-barrier-installation.jpg" alt="Professional Flood Barrier Installation">
+            <img class="rounded-xl" src="/assets/images/homepage/cropped-rubiconfloodbarrier2-scaled-e1755554554647.jpg" alt="Professional Flood Barrier Installation">
         </div>
     </div>
 </div>
@@ -446,7 +446,7 @@ function getAIResponse(message) {
         <!-- Card 1 -->
         <a class="group flex flex-col h-full bg-white border border-gray-200 hover:border-transparent hover:shadow-lg focus:outline-none focus:border-transparent focus:shadow-lg transition duration-300 rounded-xl p-5" href="/products/modular-flood-barrier">
             <div class="aspect-w-16 aspect-h-11">
-                <img class="w-full object-cover rounded-xl" src="/assets/images/products/modular-aluminum-flood-barriers.jpg" alt="Modular Aluminum Flood Barriers">
+                <img class="w-full object-cover rounded-xl" src="/assets/images/homepage/cropped-2026-01-11-17.53.15-scaled-2.jpg" alt="Modular Aluminum Flood Barriers">
             </div>
             <div class="my-6">
                 <h3 class="text-xl font-semibold text-gray-800 group-hover:text-primary">
@@ -465,7 +465,7 @@ function getAIResponse(message) {
         <!-- Card 2 -->
         <a class="group flex flex-col h-full bg-white border border-gray-200 hover:border-transparent hover:shadow-lg focus:outline-none focus:border-transparent focus:shadow-lg transition duration-300 rounded-xl p-5" href="/products/doorway-flood-panel">
             <div class="aspect-w-16 aspect-h-11">
-                <img class="w-full object-cover rounded-xl" src="/assets/images/products/doorway-flood-panels.jpg" alt="Doorway Flood Panels">
+                <img class="w-full object-cover rounded-xl" src="/assets/images/homepage/cropped-IMG_0070-rotated-1.jpg" alt="Doorway Flood Panels">
             </div>
             <div class="my-6">
                 <h3 class="text-xl font-semibold text-gray-800 group-hover:text-primary">
@@ -484,7 +484,7 @@ function getAIResponse(message) {
         <!-- Card 3 -->
         <a class="group flex flex-col h-full bg-white border border-gray-200 hover:border-transparent hover:shadow-lg focus:outline-none focus:border-transparent focus:shadow-lg transition duration-300 rounded-xl p-5" href="/products/garage-dam-kit">
             <div class="aspect-w-16 aspect-h-11">
-                <img class="w-full object-cover rounded-xl" src="/assets/images/products/garage-dam-kits.jpg" alt="Garage Dam Kits">
+                <img class="w-full object-cover rounded-xl" src="/assets/images/homepage/cropped-cropped-rubicon_flood_privatehome-1-1536x1104.jpg" alt="Garage Dam Kits">
             </div>
             <div class="my-6">
                 <h3 class="text-xl font-semibold text-gray-800 group-hover:text-primary">
