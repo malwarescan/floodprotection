@@ -60,8 +60,8 @@
             <div class="flex items-center justify-between py-3 md:py-4">
                 <!-- Logo -->
                 <div class="flex-shrink-0">
-                    <a class="flex-none font-bold text-xl text-primary focus:outline-none focus:opacity-80" href="/" aria-label="<?= htmlspecialchars(\App\Config::get('app_name')) ?>">
-                        <?= htmlspecialchars(\App\Config::get('app_name')) ?>
+                    <a class="flex-none focus:outline-none focus:opacity-80" href="/" aria-label="<?= htmlspecialchars(\App\Config::get('app_name')) ?>">
+                        <img src="https://rubiconflood.com/images/flood-barrier-pros-logo.png" alt="<?= htmlspecialchars(\App\Config::get('app_name')) ?>" class="h-8 md:h-10 w-auto">
                     </a>
                 </div>
                 
@@ -109,8 +109,8 @@
                         <a class="py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg bg-accent text-white hover:bg-accent-600 transition-colors" href="<?= \App\Config::getSmsLink('Hi, I\'m interested in flood barriers for my home.') ?>">
                             <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                             Text Us
-                        </a>
-                    </div>
+            </a>
+        </div>
                 </div>
             </div>
         </nav>
@@ -126,8 +126,8 @@
             <!-- Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 items-center gap-5">
                 <div>
-                    <a class="flex-none font-bold text-xl text-primary focus:outline-none focus:opacity-80" href="/" aria-label="<?= htmlspecialchars(\App\Config::get('app_name')) ?>">
-                        <?= htmlspecialchars(\App\Config::get('app_name')) ?>
+                    <a class="flex-none focus:outline-none focus:opacity-80" href="/" aria-label="<?= htmlspecialchars(\App\Config::get('app_name')) ?>">
+                        <img src="https://rubiconflood.com/images/flood-barrier-pros-logo.png" alt="<?= htmlspecialchars(\App\Config::get('app_name')) ?>" class="h-8 md:h-10 w-auto">
                     </a>
                 </div>
                 
