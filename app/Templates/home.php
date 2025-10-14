@@ -76,6 +76,13 @@
                     Service Areas
                 </button>
             </div>
+            
+            <!-- Attribution -->
+            <div class="mt-6 text-center">
+                <p class="text-xs text-gray-500">
+                    Powered by <span class="font-semibold text-gray-700">ChatGPT</span> and <a href="https://ourcasa.ai" target="_blank" rel="noopener noreferrer" class="font-semibold text-primary hover:text-primary-600 transition-colors">OurCasa.ai</a>
+                </p>
+            </div>
         </div>
     </div>
 </div>
