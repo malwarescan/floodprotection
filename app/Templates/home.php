@@ -1,36 +1,217 @@
-<!-- Hero Section -->
-<div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-10">
-    <!-- Badge -->
-    <div class="flex justify-center">
-        <span class="inline-flex items-center gap-x-2 bg-white border border-gray-200 text-xs text-gray-600 p-2 px-3 rounded-full transition hover:border-gray-300">
-            Florida Licensed • Same-Week Installs • 67 Counties
-        </span>
-    </div>
-    
-    <!-- Title -->
-    <div class="mt-5 max-w-2xl text-center mx-auto">
-        <h1 class="block font-bold text-gray-800 text-4xl md:text-5xl lg:text-6xl">
-            Home Flood Barriers
-            <span class="bg-clip-text bg-gradient-to-tl from-accent to-primary text-transparent">Installed Right</span>
-        </h1>
-    </div>
-    
-    <!-- Subtitle -->
-    <div class="mt-5 max-w-3xl text-center mx-auto">
-        <p class="text-lg text-gray-600">Measured-to-fit panels, door & garage dams. Protect your home before the next storm. Serving all 67 Florida counties.</p>
-    </div>
-    
-    <!-- Buttons -->
-    <div class="mt-8 gap-3 flex justify-center">
-        <a class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-accent text-white hover:bg-accent-600 focus:outline-none focus:bg-accent-600 disabled:opacity-50 disabled:pointer-events-none" href="<?= \App\Config::getPhoneLink() ?>">
-            Get Protected Now
-            <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-        </a>
-        <a class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" href="/blog">
-            Learn How It Works
-        </a>
+<!-- AI Chat Hero Section -->
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10">
+    <!-- Chat Container -->
+    <div id="chatContainer" class="relative">
+        <!-- Initial State -->
+        <div id="initialState" class="text-center">
+            <div class="flex justify-center mb-6">
+                <span class="inline-flex items-center gap-x-2 bg-white border border-gray-200 text-xs text-gray-600 p-2 px-3 rounded-full">
+                    Florida Licensed • Same-Week Installs • 67 Counties
+                </span>
+            </div>
+            
+            <h1 class="block font-bold text-gray-800 text-4xl md:text-5xl lg:text-6xl mb-4">
+                Flood Protection
+                <span class="bg-clip-text bg-gradient-to-tl from-accent to-primary text-transparent">Expert Assistant</span>
+            </h1>
+            
+            <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                Ask me anything about flood barriers, installation, pricing, or protection solutions for your Florida home.
+            </p>
+        </div>
+
+        <!-- Chat Messages (Hidden Initially) -->
+        <div id="chatMessages" class="hidden mb-4 max-h-[500px] overflow-y-auto space-y-4 bg-white rounded-xl border border-gray-200 p-6">
+            <!-- Messages will be appended here -->
+        </div>
+
+        <!-- Input Area -->
+        <div class="max-w-3xl mx-auto">
+            <div class="relative">
+                <textarea 
+                    id="chatInput" 
+                    rows="1"
+                    class="p-4 pb-12 block w-full border-gray-200 rounded-xl text-sm focus:border-primary focus:ring-primary disabled:opacity-50 disabled:pointer-events-none resize-none"
+                    placeholder="Ask about flood barriers, installation, pricing..."
+                    style="min-height: 60px; max-height: 200px;"
+                ></textarea>
+
+                <div class="absolute bottom-px inset-x-px p-2 rounded-b-xl bg-white">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-x-1">
+                            <!-- Suggested prompts -->
+                            <button type="button" class="hidden sm:inline-flex items-center gap-x-1 text-xs text-gray-500 hover:text-primary" onclick="setSuggestion('What flood barriers do you recommend for a garage?')">
+                                <svg class="size-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/></svg>
+                                Example
+                            </button>
+                        </div>
+                        <div class="flex items-center gap-x-1">
+                            <button 
+                                type="button" 
+                                id="sendButton"
+                                class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-white bg-accent hover:bg-accent-600 focus:z-10 focus:outline-none focus:bg-accent-600"
+                                onclick="sendMessage()"
+                            >
+                                <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="mt-4 flex flex-wrap gap-2 justify-center">
+                <button onclick="setSuggestion('What types of flood barriers do you offer?')" class="py-2 px-3 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50">
+                    Types of Barriers
+                </button>
+                <button onclick="setSuggestion('How much does installation cost?')" class="py-2 px-3 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50">
+                    Pricing
+                </button>
+                <button onclick="setSuggestion('How long does installation take?')" class="py-2 px-3 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50">
+                    Installation Time
+                </button>
+                <button onclick="setSuggestion('Do you serve my area in Florida?')" class="py-2 px-3 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50">
+                    Service Areas
+                </button>
+            </div>
+        </div>
     </div>
 </div>
+
+<script>
+let chatActive = false;
+
+function setSuggestion(text) {
+    document.getElementById('chatInput').value = text;
+    document.getElementById('chatInput').focus();
+}
+
+function autoResize() {
+    const textarea = document.getElementById('chatInput');
+    textarea.style.height = 'auto';
+    textarea.style.height = Math.min(textarea.scrollHeight, 200) + 'px';
+}
+
+document.getElementById('chatInput').addEventListener('input', autoResize);
+document.getElementById('chatInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+    }
+});
+
+function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const message = input.value.trim();
+    
+    if (!message) return;
+    
+    // Show chat interface if first message
+    if (!chatActive) {
+        chatActive = true;
+        document.getElementById('initialState').classList.add('hidden');
+        document.getElementById('chatMessages').classList.remove('hidden');
+    }
+    
+    // Add user message
+    addMessage(message, 'user');
+    
+    // Clear input
+    input.value = '';
+    autoResize();
+    
+    // Show typing indicator
+    showTyping();
+    
+    // Simulate AI response (replace with actual API call)
+    setTimeout(() => {
+        hideTyping();
+        const response = getAIResponse(message);
+        addMessage(response, 'assistant');
+    }, 1500);
+}
+
+function addMessage(text, sender) {
+    const messagesDiv = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+    
+    if (sender === 'user') {
+        messageDiv.className = 'flex justify-end';
+        messageDiv.innerHTML = `
+            <div class="max-w-[80%] bg-primary text-white rounded-2xl px-4 py-3">
+                <p class="text-sm">${escapeHtml(text)}</p>
+            </div>
+        `;
+    } else {
+        messageDiv.className = 'flex justify-start';
+        messageDiv.innerHTML = `
+            <div class="max-w-[80%] bg-gray-100 text-gray-800 rounded-2xl px-4 py-3">
+                <div class="flex items-start gap-3">
+                    <svg class="shrink-0 size-5 text-accent mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+                    <div class="text-sm">${escapeHtml(text)}</div>
+                </div>
+            </div>
+        `;
+    }
+    
+    messagesDiv.appendChild(messageDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+function showTyping() {
+    const messagesDiv = document.getElementById('chatMessages');
+    const typingDiv = document.createElement('div');
+    typingDiv.id = 'typingIndicator';
+    typingDiv.className = 'flex justify-start';
+    typingDiv.innerHTML = `
+        <div class="bg-gray-100 rounded-2xl px-4 py-3">
+            <div class="flex gap-1">
+                <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0ms"></span>
+                <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 150ms"></span>
+                <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 300ms"></span>
+            </div>
+        </div>
+    `;
+    messagesDiv.appendChild(typingDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+function hideTyping() {
+    const typingIndicator = document.getElementById('typingIndicator');
+    if (typingIndicator) typingIndicator.remove();
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Placeholder AI response (replace with actual API integration)
+function getAIResponse(message) {
+    const responses = {
+        'types': "We offer three main types of flood barriers:\n\n1. **Modular Aluminum Panels** - Custom-fit for doorways and large openings\n2. **Door Dams** - Quick-deploy compression seal systems for standard doors\n3. **Garage Dam Kits** - Heavy-duty barriers for garage doors\n\nAll products are made with 6063 T-6 aluminum and EPDM rubber sealing. Would you like details about a specific type?",
+        'price': "Our pricing varies based on the type and size:\n\n• Door Dams: Starting at $1,499\n• Modular Panels: $2,499 - $4,299\n• Garage Kits: Starting at $3,299\n\nWe offer free on-site measurements and quotes. Would you like to schedule a consultation? Call us at +1-239-810-8761",
+        'installation': "Most installations are completed within 24-48 hours! Our process:\n\n1. Free measurement & consultation\n2. Custom fabrication (3-5 days)\n3. Professional installation (2-4 hours)\n\nWe serve all 67 Florida counties with same-week service in most areas. Emergency pre-storm installations available.",
+        'area': "Yes! We serve all 67 counties in Florida, including:\n\n• Miami-Dade, Broward, Palm Beach\n• Tampa, St. Petersburg, Clearwater\n• Jacksonville, Orlando, Fort Myers\n• And everywhere in between!\n\nWe're Florida licensed and insured. Which county are you located in?"
+    };
+    
+    const lowerMessage = message.toLowerCase();
+    if (lowerMessage.includes('type') || lowerMessage.includes('barrier') || lowerMessage.includes('offer')) {
+        return responses.types;
+    } else if (lowerMessage.includes('cost') || lowerMessage.includes('price') || lowerMessage.includes('pricing')) {
+        return responses.price;
+    } else if (lowerMessage.includes('install') || lowerMessage.includes('time') || lowerMessage.includes('long')) {
+        return responses.installation;
+    } else if (lowerMessage.includes('area') || lowerMessage.includes('serve') || lowerMessage.includes('location')) {
+        return responses.area;
+    } else {
+        return "I'm here to help with flood protection questions! I can tell you about:\n\n• Types of flood barriers we offer\n• Pricing and installation costs\n• Installation timeline and process\n• Service areas across Florida\n• Product specifications and warranties\n\nWhat would you like to know?";
+    }
+}
+</script>
 
 <!-- Features Section -->
 <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
