@@ -14,7 +14,7 @@
                 <!-- Card -->
                 <a class="group flex flex-col h-full border border-gray-200 hover:border-transparent hover:shadow-lg focus:outline-none focus:border-transparent focus:shadow-lg transition duration-300 rounded-xl p-5" href="/blog/<?= htmlspecialchars($post['slug']) ?>">
                     <div class="aspect-w-16 aspect-h-11">
-                        <img class="w-full object-cover rounded-xl" src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80" alt="<?= htmlspecialchars($post['title']) ?>">
+                        <img class="w-full object-cover rounded-xl" src="https://rubiconflood.com/images/flood-protection-blog.jpg" alt="<?= htmlspecialchars($post['title']) ?>">
                     </div>
                     <div class="my-6">
                         <div class="flex items-center gap-x-3 mb-3">

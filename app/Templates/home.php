@@ -23,7 +23,7 @@
         <!-- Chat Messages (Hidden Initially) -->
         <div id="chatMessages" class="hidden mb-4 max-h-[500px] overflow-y-auto space-y-4 bg-white rounded-xl border border-gray-200 p-6">
             <!-- Messages will be appended here -->
-        </div>
+    </div>
 
         <!-- Input Area -->
         <div class="max-w-3xl mx-auto">
@@ -430,7 +430,7 @@ function getAIResponse(message) {
         </div>
         
         <div>
-            <img class="rounded-xl" src="https://images.unsplash.com/photo-1563298723-dcfebaa392e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=900&h=600&q=80" alt="Professional Flood Barrier Installation">
+            <img class="rounded-xl" src="https://rubiconflood.com/images/professional-flood-barrier-installation.jpg" alt="Professional Flood Barrier Installation">
         </div>
     </div>
 </div>
@@ -446,7 +446,7 @@ function getAIResponse(message) {
         <!-- Card 1 -->
         <a class="group flex flex-col h-full bg-white border border-gray-200 hover:border-transparent hover:shadow-lg focus:outline-none focus:border-transparent focus:shadow-lg transition duration-300 rounded-xl p-5" href="/products/modular-flood-barrier">
             <div class="aspect-w-16 aspect-h-11">
-                <img class="w-full object-cover rounded-xl" src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80" alt="Modular Aluminum Construction Materials">
+                <img class="w-full object-cover rounded-xl" src="https://rubiconflood.com/images/modular-aluminum-flood-barriers.jpg" alt="Modular Aluminum Flood Barriers">
             </div>
             <div class="my-6">
                 <h3 class="text-xl font-semibold text-gray-800 group-hover:text-primary">
@@ -465,7 +465,7 @@ function getAIResponse(message) {
         <!-- Card 2 -->
         <a class="group flex flex-col h-full bg-white border border-gray-200 hover:border-transparent hover:shadow-lg focus:outline-none focus:border-transparent focus:shadow-lg transition duration-300 rounded-xl p-5" href="/products/doorway-flood-panel">
             <div class="aspect-w-16 aspect-h-11">
-                <img class="w-full object-cover rounded-xl" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80" alt="Modern Home Entrance Door">
+                <img class="w-full object-cover rounded-xl" src="https://rubiconflood.com/images/doorway-flood-panels.jpg" alt="Doorway Flood Panels">
             </div>
             <div class="my-6">
                 <h3 class="text-xl font-semibold text-gray-800 group-hover:text-primary">
@@ -484,7 +484,7 @@ function getAIResponse(message) {
         <!-- Card 3 -->
         <a class="group flex flex-col h-full bg-white border border-gray-200 hover:border-transparent hover:shadow-lg focus:outline-none focus:border-transparent focus:shadow-lg transition duration-300 rounded-xl p-5" href="/products/garage-dam-kit">
             <div class="aspect-w-16 aspect-h-11">
-                <img class="w-full object-cover rounded-xl" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=560&q=80" alt="Residential Garage Door">
+                <img class="w-full object-cover rounded-xl" src="https://rubiconflood.com/images/garage-dam-kits.jpg" alt="Garage Dam Kits">
             </div>
             <div class="my-6">
                 <h3 class="text-xl font-semibold text-gray-800 group-hover:text-primary">
@@ -499,8 +499,8 @@ function getAIResponse(message) {
                 <svg class="shrink-0 size-4 text-primary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </div>
         </a>
-    </div>
-</div>
+            </div>
+        </div>
 
 <!-- Coverage Section -->
 <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
