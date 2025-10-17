@@ -81,6 +81,24 @@ foreach ($newsArticles as $article) {
     $urlCount++;
 }
 
+// FAQ pages
+$faqDir = __DIR__ . '/../data/faqs/pages/';
+if (is_dir($faqDir)) {
+    $faqFiles = glob($faqDir . 'faq__*.json');
+    foreach ($faqFiles as $faqFile) {
+        $filename = basename($faqFile);
+        $slug = str_replace(['faq__', '.json'], '', $filename);
+        
+        $xml .= "  <url>\n";
+        $xml .= "    <loc>{$baseUrl}/faq/{$slug}</loc>\n";
+        $xml .= "    <lastmod>{$lastmod}</lastmod>\n";
+        $xml .= "    <changefreq>monthly</changefreq>\n";
+        $xml .= "    <priority>0.8</priority>\n";
+        $xml .= "  </url>\n";
+        $urlCount++;
+    }
+}
+
 // Matrix pages (city/service combinations)
 $matrixFile = __DIR__ . '/../app/Data/matrix.csv';
 if (file_exists($matrixFile)) {

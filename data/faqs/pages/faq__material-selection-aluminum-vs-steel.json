@@ -1,0 +1,26 @@
+[
+    {
+        "q": "Which material is better for flood barriers—aluminum or steel?",
+        "a": "<p>Aluminum offers superior corrosion resistance and lighter weight (⅓ steel density). Steel provides higher stiffness for tall walls &gt; 6 ft. Choice depends on span and exposure. For homes &lt; 5 ft flood height, aluminum is preferred.</p>"
+    },
+    {
+        "q": "How does cost compare between aluminum and steel barriers?",
+        "a": "<p>Steel averages 20–25 % cheaper per sq ft but requires galvanizing and repainting. Aluminum's lower maintenance offsets higher initial cost after 5 years.</p>"
+    },
+    {
+        "q": "Can aluminum panels rust?",
+        "a": "<p>No—they oxidize to a protective layer. Periodic rinsing removes salt deposits. Reference <a href=\"/faq/hardware-corrosion-control\">hardware corrosion control</a>.</p>"
+    },
+    {
+        "q": "Are mixed-material systems possible?",
+        "a": "<p>Yes—hybrid frames (steel posts + aluminum panels) balance weight and strength. Ensure isolation pads to avoid galvanic reaction.</p>"
+    },
+    {
+        "q": "Which material performs better under impact loads?",
+        "a": "<p>Steel has 2× impact resistance, making it ideal for vehicular barriers. Aluminum deflects elastically but returns to shape under design limits.</p>"
+    },
+    {
+        "q": "Do both materials meet FEMA standards?",
+        "a": "<p>Yes—both can be engineered to ASCE 24 and FEMA TB-3 standards with proper coatings and documentation.</p>"
+    }
+]

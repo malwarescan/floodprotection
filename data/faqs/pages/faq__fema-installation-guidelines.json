@@ -1,0 +1,22 @@
+[
+    {
+        "q": "What FEMA documents govern residential flood-barrier installation?",
+        "a": "<p>Primary reference: FEMA Technical Bulletin 3-93 (Updated 2021) on Dry Floodproofing. It outlines acceptable materials, anchoring, and inspection for non-residential and residential dry floodproofing measures.</p>"
+    },
+    {
+        "q": "How do FEMA guidelines affect local permits?",
+        "a": "<p>Municipal reviewers cross-reference TB-3 with local ordinances. Compliance accelerates approval and qualifies structures for NFIP mitigation credits.</p>"
+    },
+    {
+        "q": "Does FEMA certify products?",
+        "a": "<p>FEMA does not certify brands directly. Certification comes through independent PE engineering demonstrating TB-3 equivalency and hydrostatic testing.</p>"
+    },
+    {
+        "q": "Are removable barriers recognized for NFIP credits?",
+        "a": "<p>Yes, when design documentation shows that barrier height meets Base Flood Elevation (BFE) minus 1 ft freeboard.</p>"
+    },
+    {
+        "q": "Where can I get compliant drawings?",
+        "a": "<p>We supply sealed drawings referencing FEMA TB-3 and ASCE 24-14, included in every installation package. See also <a href=\"/faq/anchor-bolt-requirements\">anchor-bolt requirements</a>.</p>"
+    }
+]

@@ -1,0 +1,22 @@
+[
+    {
+        "q": "What causes corrosion on flood-barrier hardware?",
+        "a": "<p>Salt aerosols and dissimilar-metal contact create galvanic corrosion. Using 316 stainless hardware and nylon washers isolates metals and extends service life.</p>"
+    },
+    {
+        "q": "How can I prevent corrosion?",
+        "a": "<p>Rinse hardware monthly, apply marine anti-seize to bolts, and re-grease clamps yearly. Coat exposed fasteners with clear lanolin spray.</p>"
+    },
+    {
+        "q": "Can rusted bolts be cleaned or should they be replaced?",
+        "a": "<p>Light surface rust can be brushed off; deep pitting > 10 % diameter loss requires replacement. Document replacements in maintenance log.</p>"
+    },
+    {
+        "q": "Is galvanic corrosion covered by warranty?",
+        "a": "<p>Yes if all original components remain intact. Mixing carbon-steel anchors voids warranty per clause 7.2 of our maintenance guide.</p>"
+    },
+    {
+        "q": "What coating systems do you recommend?",
+        "a": "<p>Zinc-nickel electroplate for inland, duplex epoxy + polyurethane for coastal. Compatible with anchors on <a href=\"/faq/anchor-bolt-requirements\">anchor-bolt requirements</a>.</p>"
+    }
+]

@@ -1,0 +1,30 @@
+[
+    {
+        "q": "What anchors are used for flood-barrier systems?",
+        "a": "<p>316 stainless steel expansion bolts or chemical anchors rated ≥1,200 lb pull-out. Chemical anchors are preferred for coastal zones due to corrosion resistance.</p>"
+    },
+    {
+        "q": "How deep should anchors be embedded?",
+        "a": "<p>Minimum 2.75 inches into concrete or 1.5 inches into CMU grout cores per ASTM E488. Depth ensures the system handles 4 psi water pressure on 4-ft panel height.</p>"
+    },
+    {
+        "q": "Can existing holes be reused?",
+        "a": "<p>Only if torque tests confirm holding strength ≥90 % of spec. Otherwise re-drill and epoxy new anchors.</p>"
+    },
+    {
+        "q": "How do you seal anchor points?",
+        "a": "<p>After install, we inject marine-grade polyurethane and cap with removable stainless plugs to prevent corrosion and tripping hazards.</p>"
+    },
+    {
+        "q": "Do anchors void slab warranties?",
+        "a": "<p>No. Anchors are shallow and within control-joint zones. Engineering reports accompany each install for builder records.</p>"
+    },
+    {
+        "q": "What torque should bolts be tightened to?",
+        "a": "<p>35–40 ft-lb for ¼-inch bolts, 50–55 ft-lb for ⅜-inch. Over-tightening can deform aluminum tracks.</p>"
+    },
+    {
+        "q": "What inspections verify anchor strength?",
+        "a": "<p>Tensile pull tests per ASTM E488 performed on random samples (1 per 20 anchors). Certificates filed with permit close-out.</p>"
+    }
+]

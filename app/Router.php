@@ -42,13 +42,16 @@ class Router
         $this->addRoute('GET', '/news', 'NewsController@index');
         $this->addRoute('GET', '/news/{slug}', 'NewsController@show');
         
-        // Service pages: /{keyword} (service taxonomy) - must be after sitemap routes
+        // FAQ routes (must be before service routes to avoid conflicts)
+        $this->addRoute('GET', '/faq/{slug}', 'FaqController@show');
+        
+        // Service pages: /{keyword} (service taxonomy) - must be after FAQ routes
         $this->addServiceRoutes();
         
         // Matrix pages: /{keyword}/{city-slug} (must be last to avoid conflicts)
         $this->addRoute('GET', '/{keyword}/{city}', 'PagesController@matrix');
         
-        // Sitemap routes
+        // Sitemap routes (legacy)
         $this->addRoute('GET', '/sitemap.xml', 'SitemapController@index');
         $this->addRoute('GET', '/sitemap-pages.xml', 'SitemapController@pages');
         $this->addRoute('GET', '/sitemap-products.xml', 'SitemapController@products');
@@ -56,6 +59,20 @@ class Router
         $this->addRoute('GET', '/sitemap-news.xml', 'SitemapController@news');
         $this->addRoute('GET', '/sitemap-services.xml', 'SitemapController@services');
         $this->addRoute('GET', '/sitemap-cities.xml', 'SitemapController@cities');
+        
+        // New sectioned sitemap routes
+        $this->addRoute('GET', '/sitemaps/sitemap-index.xml', 'SitemapController@sitemapIndex');
+        $this->addRoute('GET', '/sitemaps/sitemap-index.xml.gz', 'SitemapController@sitemapIndexGz');
+        $this->addRoute('GET', '/sitemaps/sitemap-static.xml', 'SitemapController@sitemapStatic');
+        $this->addRoute('GET', '/sitemaps/sitemap-static.xml.gz', 'SitemapController@sitemapStaticGz');
+        $this->addRoute('GET', '/sitemaps/sitemap-products.xml', 'SitemapController@sitemapProducts');
+        $this->addRoute('GET', '/sitemaps/sitemap-products.xml.gz', 'SitemapController@sitemapProductsGz');
+        $this->addRoute('GET', '/sitemaps/sitemap-faq.xml', 'SitemapController@sitemapFaq');
+        $this->addRoute('GET', '/sitemaps/sitemap-faq.xml.gz', 'SitemapController@sitemapFaqGz');
+        $this->addRoute('GET', '/sitemaps/sitemap-reviews.xml', 'SitemapController@sitemapReviews');
+        $this->addRoute('GET', '/sitemaps/sitemap-reviews.xml.gz', 'SitemapController@sitemapReviewsGz');
+        $this->addRoute('GET', '/sitemaps/sitemap-blog.xml', 'SitemapController@sitemapBlog');
+        $this->addRoute('GET', '/sitemaps/sitemap-blog.xml.gz', 'SitemapController@sitemapBlogGz');
         
         // Feed routes
         $this->addRoute('GET', '/feed.xml', 'FeedController@rss');

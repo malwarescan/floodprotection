@@ -43,6 +43,90 @@ class SitemapController
         View::renderXml(View::renderSitemap($sitemaps, true));
     }
     
+    /**
+     * Serve generated sitemap files
+     */
+    private function serveSitemapFile(string $filename, bool $gzip = false): void
+    {
+        $filepath = __DIR__ . '/../../public/sitemaps/' . $filename;
+        
+        if (!file_exists($filepath)) {
+            http_response_code(404);
+            echo 'Sitemap not found';
+            return;
+        }
+        
+        $mimeType = $gzip ? 'application/gzip' : 'application/xml';
+        header('Content-Type: ' . $mimeType);
+        header('Content-Length: ' . filesize($filepath));
+        
+        if ($gzip) {
+            header('Content-Encoding: gzip');
+        }
+        
+        readfile($filepath);
+    }
+    
+    public function sitemapIndex()
+    {
+        $this->serveSitemapFile('sitemap-index.xml');
+    }
+    
+    public function sitemapIndexGz()
+    {
+        $this->serveSitemapFile('sitemap-index.xml.gz', true);
+    }
+    
+    public function sitemapStatic()
+    {
+        $this->serveSitemapFile('sitemap-static.xml');
+    }
+    
+    public function sitemapStaticGz()
+    {
+        $this->serveSitemapFile('sitemap-static.xml.gz', true);
+    }
+    
+    public function sitemapProducts()
+    {
+        $this->serveSitemapFile('sitemap-products.xml');
+    }
+    
+    public function sitemapProductsGz()
+    {
+        $this->serveSitemapFile('sitemap-products.xml.gz', true);
+    }
+    
+    public function sitemapFaq()
+    {
+        $this->serveSitemapFile('sitemap-faq.xml');
+    }
+    
+    public function sitemapFaqGz()
+    {
+        $this->serveSitemapFile('sitemap-faq.xml.gz', true);
+    }
+    
+    public function sitemapReviews()
+    {
+        $this->serveSitemapFile('sitemap-reviews.xml');
+    }
+    
+    public function sitemapReviewsGz()
+    {
+        $this->serveSitemapFile('sitemap-reviews.xml.gz', true);
+    }
+    
+    public function sitemapBlog()
+    {
+        $this->serveSitemapFile('sitemap-blog.xml');
+    }
+    
+    public function sitemapBlogGz()
+    {
+        $this->serveSitemapFile('sitemap-blog.xml.gz', true);
+    }
+    
     public function pages()
     {
         $root = Config::get('app_url');
@@ -78,6 +162,23 @@ class SitemapController
                 'changefreq' => 'weekly',
                 'priority' => '0.7'
             ];
+        }
+        
+        // Add FAQ pages
+        $faqDir = __DIR__ . '/../../data/faqs/pages/';
+        if (is_dir($faqDir)) {
+            $faqFiles = glob($faqDir . 'faq__*.json');
+            foreach ($faqFiles as $faqFile) {
+                $filename = basename($faqFile);
+                $slug = str_replace(['faq__', '.json'], '', $filename);
+                
+                $urls[] = [
+                    'url' => $root . '/faq/' . $slug,
+                    'lastmod' => date('Y-m-d'),
+                    'changefreq' => 'monthly',
+                    'priority' => '0.8'
+                ];
+            }
         }
         
         View::renderXml(View::renderSitemap($urls));

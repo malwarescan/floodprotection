@@ -19,6 +19,15 @@ function map_ctx(string $absUrl, string $title, string $desc, array $site, array
 
     $path = parse_url($absUrl, PHP_URL_PATH) ?? '/';
 
+    // FAQ pages
+    if (preg_match('#^/faq/([^/]+)/*$#', $path, $m)) {
+        $slug = $m[1];
+        // FAQ content is loaded via Faqs::locate() in schema-head.php
+        $ctx['breadcrumbs'][] = ['name'=>'FAQ', 'item'=>rtrim($site['url'],'/').'/faq/'];
+        $ctx['breadcrumbs'][] = ['name'=>$title, 'item'=>$absUrl];
+        return $ctx;
+    }
+
     // Products
     if (preg_match('#^/products/([^/]+)/*$#', $path, $m)) {
         $slug = $m[1];

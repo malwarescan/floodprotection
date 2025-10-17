@@ -1,0 +1,42 @@
+[
+    {
+        "q": "Why do some flood barriers leak at the base?",
+        "a": "<p>Base leaks usually stem from uneven thresholds or insufficient gasket compression. We correct these by laser-leveling the track and adjusting torque on compression bolts to 35–40 ft-lb.</p>"
+    },
+    {
+        "q": "Can DIY installation void certification?",
+        "a": "<p>Yes. Manufacturer performance ratings assume professional installation. DIY installs may fail inspection or insurance verification. We offer certified installer documentation for compliance.</p>"
+    },
+    {
+        "q": "What causes side-seal failure?",
+        "a": "<p>Misaligned tracks or missing neoprene inserts. Periodic lubrication with silicone grease extends life and prevents binding.</p>"
+    },
+    {
+        "q": "How do you fix barriers that won't seat properly?",
+        "a": "<p>Check for debris in the bottom track, verify panel orientation, and inspect for aluminum expansion in high heat. We recommend a 1⁄16-inch thermal allowance on panels wider than 60 inches.</p>"
+    },
+    {
+        "q": "Why does my barrier bow during heavy rain?",
+        "a": "<p>Bowing indicates unequal pressure or blocked scupper drains. Ensure drain holes remain clear and panels are evenly torqued.</p>"
+    },
+    {
+        "q": "How often should gaskets be replaced?",
+        "a": "<p>Every 5 years in coastal environments, 7–8 years inland. Degraded gaskets cause seepage even when panels appear tight.</p>"
+    },
+    {
+        "q": "What are common permitting mistakes?",
+        "a": "<p>Incorrect flood zone designation or missing engineering drawings. Our team files FEMA FIRM-based plans to prevent re-submittals.</p>"
+    },
+    {
+        "q": "Can barriers fail from water pressure?",
+        "a": "<p>Only if improperly anchored or overtopped. All systems are pressure-tested beyond expected static loads before shipment.</p>"
+    },
+    {
+        "q": "What to do if hardware rusts?",
+        "a": "<p>Replace corroded bolts with 316 stainless. Apply anti-seize compound annually to prevent galling.</p>"
+    },
+    {
+        "q": "Can existing leaks be repaired without full replacement?",
+        "a": "<p>Yes. We reseal with EPDM inserts and reset anchors without removing entire frames, restoring full hydrostatic rating.</p>"
+    }
+]

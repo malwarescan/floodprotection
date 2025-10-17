@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemaps
+Sitemap: https://floodbarrierpros.com/sitemaps/sitemap-index.xml.gz
+Sitemap: https://floodbarrierpros.com/sitemaps/sitemap-faq.xml.gz
+Sitemap: https://floodbarrierpros.com/sitemaps/sitemap-products.xml.gz

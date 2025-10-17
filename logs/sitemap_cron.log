@@ -1,0 +1,39 @@
+[2025-10-17 03:30:45] Starting sitemap regeneration cron job
+[2025-10-17 03:30:45] Sitemap regeneration completed successfully
+[2025-10-17 03:30:45] Output: Rubicon Sitemap Generator
+Base URL: https://floodbarrierpros.com
+Output: /Users/malware/Desktop/rubicon/public/sitemaps
+Max URLs per sitemap: 10000
+Gzip: enabled
+
+Generating sitemap-static.xml...
+  ✓ Generated: sitemap-static.xml.gz (270 bytes)
+Generating sitemap-products.xml...
+  ✓ Generated: sitemap-products.xml.gz (253 bytes)
+Generating sitemap-faq.xml...
+  ✓ Generated: sitemap-faq.xml.gz (956 bytes)
+Generating city sitemaps...
+Generating sitemap-reviews.xml...
+  ✓ Generated: sitemap-reviews.xml.gz (243 bytes)
+Generating sitemap-blog.xml...
+  ✓ Generated: sitemap-blog.xml.gz (308 bytes)
+Generating sitemap-index.xml...
+  ✓ Generated: sitemap-index.xml.gz (221 bytes)
+Updating robots.txt...
+  ✓ Updated: robots.txt
+
+Sitemap generation complete!
+Generated 5 sitemaps:
+  • sitemap-static.xml.gz
+  • sitemap-products.xml.gz
+  • sitemap-faq.xml.gz
+  • sitemap-reviews.xml.gz
+  • sitemap-blog.xml.gz
+
+Next steps:
+1. Submit sitemap-index.xml to Google Search Console
+2. Monitor indexation in GSC for each section
+3. Set up cron job for automatic regeneration
+   Example: 0 2 * * * php /Users/malware/Desktop/rubicon/bin/build_sitemaps.php
+
+[2025-10-17 03:30:45] Cron job completed successfully

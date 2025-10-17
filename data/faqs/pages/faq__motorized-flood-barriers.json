@@ -1,0 +1,26 @@
+[
+    {
+        "q": "How do motorized flood barriers operate?",
+        "a": "<p>Electric or hydraulic actuators raise barriers from recessed pits within 20 seconds. Integrated limit switches ensure full lock before flood onset.</p>"
+    },
+    {
+        "q": "What happens during a power outage?",
+        "a": "<p>Units include battery backup (48 V DC) good for two full cycles. Manual override crank supplied for redundancy.</p>"
+    },
+    {
+        "q": "Are motorized systems reliable in salt environments?",
+        "a": "<p>Yes—IP68 motors and 316 SS shafts resist corrosion. Annual lubrication per <a href=\"/faq/flood-barrier-maintenance\">maintenance schedule</a> required.</p>"
+    },
+    {
+        "q": "Can I connect barriers to smart-building systems?",
+        "a": "<p>Yes—Modbus RTU / BACnet integration enables remote monitoring, automatic alerts, and tie-in with storm sensors.</p>"
+    },
+    {
+        "q": "What permits are needed for motorized barriers?",
+        "a": "<p>Mechanical permit and electrical tie-in inspection. Drawings stamped by PE per Florida Building Code Sec 1612. See <a href=\"/home-flood-barriers/miami\">Miami installations</a>.</p>"
+    },
+    {
+        "q": "What is the lifespan of motors and actuators?",
+        "a": "<p>Rated 10,000 cycles (~20 years typical). Electronics potted against moisture for extended reliability.</p>"
+    }
+]

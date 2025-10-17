@@ -1,0 +1,26 @@
+[
+    {
+        "q": "Why should barriers be resealed after a storm event?",
+        "a": "<p>Stormwater carries silt and salts that degrade sealant bonds. Resealing restores watertight integrity and prevents micro-leakage on next deployment.</p>"
+    },
+    {
+        "q": "How do you reseal a flood barrier?",
+        "a": "<p>Clean joints with solvent, remove debris, dry 24 hrs, then apply marine polyurethane. Cure ≥ 48 hrs before reinstalling panels. See <a href=\"/faq/flood-panel-repair\">flood-panel repair</a>.</p>"
+    },
+    {
+        "q": "Can I reuse existing sealant?",
+        "a": "<p>No. Old sealant loses elasticity. Always scrape to bare metal before new application.</p>"
+    },
+    {
+        "q": "What inspection ensures proper reseal?",
+        "a": "<p>Hydrostatic test 6 in water column for 10 min; check for seepage lines. Document per FEMA TB-3 Appendix D.</p>"
+    },
+    {
+        "q": "How soon after resealing can I reinstall panels?",
+        "a": "<p>After 48 hrs cure at 70 °F. Faster only with moisture-cure sealants rated for submerged service.</p>"
+    },
+    {
+        "q": "Do you offer reseal service packages?",
+        "a": "<p>Yes—annual service includes cleaning, resealing, gasket check, and anchor torque verification across all Florida coastal regions.</p>"
+    }
+]

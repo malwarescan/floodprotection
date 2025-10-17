@@ -1,0 +1,26 @@
+[
+    {
+        "q": "What are common flood-panel repair issues?",
+        "a": "<p>Typical repairs include gasket deterioration, bent frames from impact, and stripped clamps. Minor aluminum warps ≤2 mm can be straightened using press blocks. Heavier damage requires factory re-certification.</p>"
+    },
+    {
+        "q": "Can leaking panels be resealed?",
+        "a": "<p>Yes. Remove gasket, clean track with isopropyl alcohol, insert new EPDM, and torque bolts evenly. Test with a 1-inch water column for 10 minutes. Reference <a href=\"/faq/resealing-after-storm\">resealing after storm</a>.</p>"
+    },
+    {
+        "q": "Do you provide on-site repair?",
+        "a": "<p>Yes across SW Florida—<a href=\"/home-flood-barriers/sarasota\">Sarasota</a> to <a href=\"/home-flood-barriers/cape-coral\">Cape Coral</a>. Repairs completed within 24 hours for emergency calls.</p>"
+    },
+    {
+        "q": "Is panel repainting possible?",
+        "a": "<p>Powder-coated finishes can be refinished with polyester marine coating after light sanding. Do not exceed 250 °F bake temp to preserve gasket adhesion.</p>"
+    },
+    {
+        "q": "When should damaged hardware be replaced?",
+        "a": "<p>Immediately if threads are corroded or heads stripped. Always use 316 SS replacements. Mix-metal hardware voids corrosion warranty.</p>"
+    },
+    {
+        "q": "How can I test repaired panels?",
+        "a": "<p>Perform hydrostatic test to 1.5× expected flood height. Document date and results for insurance submission.</p>"
+    }
+]

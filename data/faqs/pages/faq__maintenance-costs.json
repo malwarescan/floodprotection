@@ -1,0 +1,30 @@
+[
+    {
+        "q": "What are the yearly maintenance costs for flood barriers?",
+        "a": "<p>Expect $100–$250 per year for standard residential systems—includes inspection, gasket checks, and resealing. DIY inspections reduce cost further. See <a href=\"/faq/flood-barrier-maintenance\">maintenance guide</a>.</p>"
+    },
+    {
+        "q": "How often should I budget for gasket replacement?",
+        "a": "<p>Every 5 years in coastal climates; kits cost about $50 per opening. Include in your maintenance plan.</p>"
+    },
+    {
+        "q": "Do motorized barriers cost more to maintain?",
+        "a": "<p>Slightly—annual service for actuators averages $150 plus optional battery replacement every 5 years. See <a href=\"/faq/motorized-flood-barriers\">motorized barriers</a>.</p>"
+    },
+    {
+        "q": "Is maintenance mandatory for warranty?",
+        "a": "<p>Yes—manufacturer warranties require documented inspection logs. We provide digital forms to simplify compliance.</p>"
+    },
+    {
+        "q": "Can I perform maintenance myself?",
+        "a": "<p>Homeowners can clean panels, lubricate hardware, and test fitment. Professional inspection recommended yearly. Follow steps in <a href=\"/faq/panel-storage-tips\">panel storage tips</a>.</p>"
+    },
+    {
+        "q": "What if maintenance is skipped?",
+        "a": "<p>Skipping logs may void warranty and affect insurance validation. Always schedule a quick annual check to maintain coverage.</p>"
+    },
+    {
+        "q": "Do you offer service plans?",
+        "a": "<p>Yes—annual or multi-year service plans include inspection, reseal, and priority scheduling before hurricane season.</p>"
+    }
+]

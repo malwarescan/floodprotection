@@ -7,6 +7,7 @@ final class Faqs
     /**
      * Resolve a FAQ file path for a given absolute URL.
      * Strategy:
+     *  - FAQ pages:    /data/faqs/pages/faq__{slug}.json
      *  - Products:     /data/faqs/products/{slug}.json
      *  - City pages:   /data/faqs/city/{type}/{city}.json
      *  - Exact URL:    /data/faqs/pages/{slugified_path}.json
@@ -15,6 +16,12 @@ final class Faqs
     public static function locate(string $absUrl): array {
         $path = parse_url($absUrl, PHP_URL_PATH) ?? '/';
         $candidates = [];
+
+        // FAQ pages: /faq/{slug}
+        if (preg_match('#^/faq/([^/]+)/?$#i', $path, $m)) {
+            $slug = strtolower($m[1]);
+            $candidates[] = __DIR__.'/../data/faqs/pages/faq__'.$slug.'.json';
+        }
 
         // Products: /products/{slug}
         if (preg_match('#^/products/([^/]+)/?$#i', $path, $m)) {
