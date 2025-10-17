@@ -113,13 +113,15 @@ function generateSitemapIndex(array $sitemaps, string $baseUrl): string {
 function writeSitemap(string $filepath, string $content, bool $gzip = true): void {
   $content = $content . "\n";
   
+  // Always write the uncompressed version
+  file_put_contents($filepath, $content);
+  echo "  ✓ Generated: " . basename($filepath) . " (" . number_format(strlen($content)) . " bytes)\n";
+  
+  // Also write gzipped version if requested
   if ($gzip) {
     $gzipPath = $filepath . '.gz';
     file_put_contents($gzipPath, gzencode($content, 9));
     echo "  ✓ Generated: " . basename($gzipPath) . " (" . number_format(strlen(gzencode($content, 9))) . " bytes)\n";
-  } else {
-    file_put_contents($filepath, $content);
-    echo "  ✓ Generated: " . basename($filepath) . " (" . number_format(strlen($content)) . " bytes)\n";
   }
 }
 
@@ -247,7 +249,7 @@ $staticUrls = [
 $staticXml = generateSitemapXml($staticUrls, $BASE_URL);
 writeSitemap($OUTPUT_DIR . '/sitemap-static.xml', $staticXml, $GZIP);
 $sitemaps[] = [
-  'url' => $BASE_URL . '/sitemaps/sitemap-static.xml' . ($GZIP ? '.gz' : ''),
+  'url' => $BASE_URL . '/sitemaps/sitemap-static.xml',
   'lastmod' => date('Y-m-d')
 ];
 
@@ -262,7 +264,7 @@ $productUrls = [
 $productsXml = generateSitemapXml($productUrls, $BASE_URL);
 writeSitemap($OUTPUT_DIR . '/sitemap-products.xml', $productsXml, $GZIP);
 $sitemaps[] = [
-  'url' => $BASE_URL . '/sitemaps/sitemap-products.xml' . ($GZIP ? '.gz' : ''),
+  'url' => $BASE_URL . '/sitemaps/sitemap-products.xml',
   'lastmod' => date('Y-m-d')
 ];
 
@@ -272,7 +274,7 @@ $faqUrls = loadDataUrls($ROOT . '/data/faqs/pages', $BASE_URL, '', 'weekly', '0.
 $faqXml = generateSitemapXml($faqUrls, $BASE_URL);
 writeSitemap($OUTPUT_DIR . '/sitemap-faq.xml', $faqXml, $GZIP);
 $sitemaps[] = [
-  'url' => $BASE_URL . '/sitemaps/sitemap-faq.xml' . ($GZIP ? '.gz' : ''),
+  'url' => $BASE_URL . '/sitemaps/sitemap-faq.xml',
   'lastmod' => date('Y-m-d')
 ];
 
@@ -285,7 +287,7 @@ if (!empty($cityHomeUrls)) {
   $cityHomeXml = generateSitemapXml($cityHomeUrls, $BASE_URL);
   writeSitemap($OUTPUT_DIR . '/sitemap-city-home-flood-barriers.xml', $cityHomeXml, $GZIP);
   $sitemaps[] = [
-    'url' => $BASE_URL . '/sitemaps/sitemap-city-home-flood-barriers.xml' . ($GZIP ? '.gz' : ''),
+    'url' => $BASE_URL . '/sitemaps/sitemap-city-home-flood-barriers.xml',
     'lastmod' => date('Y-m-d')
   ];
 }
@@ -296,7 +298,7 @@ if (!empty($cityResidentialUrls)) {
   $cityResidentialXml = generateSitemapXml($cityResidentialUrls, $BASE_URL);
   writeSitemap($OUTPUT_DIR . '/sitemap-city-residential-flood-panels.xml', $cityResidentialXml, $GZIP);
   $sitemaps[] = [
-    'url' => $BASE_URL . '/sitemaps/sitemap-city-residential-flood-panels.xml' . ($GZIP ? '.gz' : ''),
+    'url' => $BASE_URL . '/sitemaps/sitemap-city-residential-flood-panels.xml',
     'lastmod' => date('Y-m-d')
   ];
 }
@@ -307,7 +309,7 @@ $reviewUrls = loadDataUrls($ROOT . '/data/reviews/products', $BASE_URL, '/testim
 $reviewsXml = generateSitemapXml($reviewUrls, $BASE_URL);
 writeSitemap($OUTPUT_DIR . '/sitemap-reviews.xml', $reviewsXml, $GZIP);
 $sitemaps[] = [
-  'url' => $BASE_URL . '/sitemaps/sitemap-reviews.xml' . ($GZIP ? '.gz' : ''),
+  'url' => $BASE_URL . '/sitemaps/sitemap-reviews.xml',
   'lastmod' => date('Y-m-d')
 ];
 
@@ -321,7 +323,7 @@ if (!empty($allBlogUrls)) {
   $blogXml = generateSitemapXml($allBlogUrls, $BASE_URL);
   writeSitemap($OUTPUT_DIR . '/sitemap-blog.xml', $blogXml, $GZIP);
   $sitemaps[] = [
-    'url' => $BASE_URL . '/sitemaps/sitemap-blog.xml' . ($GZIP ? '.gz' : ''),
+    'url' => $BASE_URL . '/sitemaps/sitemap-blog.xml',
     'lastmod' => date('Y-m-d')
   ];
 }
@@ -341,9 +343,9 @@ $robotsContent .= "Disallow: /private/\n\n";
 
 // Add sitemap references
 $robotsContent .= "# Sitemaps\n";
-$robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-index.xml" . ($GZIP ? '.gz' : '') . "\n";
-$robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-faq.xml" . ($GZIP ? '.gz' : '') . "\n";
-$robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-products.xml" . ($GZIP ? '.gz' : '') . "\n";
+$robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-index.xml\n";
+$robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-faq.xml\n";
+$robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-products.xml\n";
 
 file_put_contents($robotsPath, $robotsContent);
 echo "  ✓ Updated: robots.txt\n";

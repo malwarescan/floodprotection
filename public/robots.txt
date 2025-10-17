@@ -4,6 +4,6 @@ Disallow: /admin/
 Disallow: /private/
 
 # Sitemaps
-Sitemap: https://floodbarrierpros.com/sitemaps/sitemap-index.xml.gz
-Sitemap: https://floodbarrierpros.com/sitemaps/sitemap-faq.xml.gz
-Sitemap: https://floodbarrierpros.com/sitemaps/sitemap-products.xml.gz
+Sitemap: https://floodbarrierpros.com/sitemaps/sitemap-index.xml
+Sitemap: https://floodbarrierpros.com/sitemaps/sitemap-faq.xml
+Sitemap: https://floodbarrierpros.com/sitemaps/sitemap-products.xml
