@@ -561,7 +561,14 @@ class Schema
             
             $productId = $baseUrl . '/products/' . $productSlug . '#product';
             $productUrl = $baseUrl . '/products/' . $productSlug;
-            $productImage = $baseUrl . '/assets/' . $productSlug . '.jpg';
+            // Map to existing product images
+            if ($productSlug === 'modular-flood-barrier') {
+                $productImage = $baseUrl . '/assets/products/modular-aluminum-flood-barriers.jpg';
+            } elseif ($productSlug === 'garage-dam-kit') {
+                $productImage = $baseUrl . '/assets/products/garage-dam-kits.jpg';
+            } else { // doorway-flood-panel
+                $productImage = $baseUrl . '/assets/products/doorway-flood-panels.jpg';
+            }
             $reviewId = $baseUrl . '/testimonials#' . ($r['review_id'] ?? 'rev-' . $position);
 
             // Optional aggregateRating from aggregates map keyed by product slug
@@ -581,6 +588,7 @@ class Schema
                 'item' => [
                     '@type' => 'Review',
                     '@id' => $reviewId,
+                    'name' => !empty($r['title']) ? $r['title'] : 'Customer review',
                     'datePublished' => $r['date'] ?? date('Y-m-d'),
                     'author' => ['@type' => 'Person', 'name' => $r['author'] ?? 'Anonymous'],
                     'reviewRating' => [
