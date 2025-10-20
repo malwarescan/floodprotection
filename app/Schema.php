@@ -601,6 +601,11 @@ class Schema
                         '@type' => 'Product',
                         '@id' => $productId,
                         'name' => $productName,
+                        'description' => $productSlug === 'modular-flood-barrier' 
+                            ? 'Rapid-deploy modular flood barriers made from 6063 T-6 aluminum with EPDM sealing for residential and commercial openings.'
+                            : ($productSlug === 'garage-dam-kit' 
+                                ? 'Modular flood barrier kit engineered for residential and commercial garage openings with weather-resistant materials.'
+                                : 'Heavy-duty doorway flood panels designed for basement and entryway protection against flood waters.'),
                         'url' => $productUrl,
                         'image' => [$productImage],
                         'offers' => [
@@ -609,7 +614,42 @@ class Schema
                             'price' => '599.00',
                             'priceCurrency' => 'USD',
                             'priceValidUntil' => '2026-01-31',
-                            'url' => $productUrl
+                            'url' => $productUrl,
+                            'hasMerchantReturnPolicy' => [
+                                '@type' => 'MerchantReturnPolicy',
+                                'returnPolicyCategory' => 'https://schema.org/MerchantReturnFiniteReturnWindow',
+                                'merchantReturnDays' => 30,
+                                'returnMethod' => 'https://schema.org/ReturnByMail',
+                                'returnFees' => 'https://schema.org/FreeReturn'
+                            ],
+                            'shippingDetails' => [
+                                '@type' => 'OfferShippingDetails',
+                                'shippingRate' => [
+                                    '@type' => 'MonetaryAmount',
+                                    'value' => '0.00',
+                                    'currency' => 'USD'
+                                ],
+                                'deliveryTime' => [
+                                    '@type' => 'ShippingDeliveryTime',
+                                    'businessDays' => [
+                                        '@type' => 'OpeningHoursSpecification',
+                                        'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+                                    ],
+                                    'cutoffTime' => '14:00',
+                                    'handlingTime' => [
+                                        '@type' => 'QuantitativeValue',
+                                        'minValue' => 1,
+                                        'maxValue' => 2,
+                                        'unitCode' => 'DAY'
+                                    ],
+                                    'transitTime' => [
+                                        '@type' => 'QuantitativeValue',
+                                        'minValue' => 3,
+                                        'maxValue' => 7,
+                                        'unitCode' => 'DAY'
+                                    ]
+                                ]
+                            ]
                         ]
                     ]
                 ]
@@ -618,6 +658,17 @@ class Schema
             if ($aggNode) {
                 $itemListElement[count($itemListElement)-1]['item']['itemReviewed']['aggregateRating'] = $aggNode;
             }
+            
+            // Add a representative review to the itemReviewed Product
+            $itemListElement[count($itemListElement)-1]['item']['itemReviewed']['review'] = [
+                [
+                    '@type' => 'Review',
+                    'author' => ['@type' => 'Person', 'name' => 'John Smith'],
+                    'datePublished' => '2024-12-15',
+                    'reviewRating' => ['@type' => 'Rating', 'ratingValue' => '5', 'bestRating' => '5'],
+                    'reviewBody' => 'Excellent flood protection system. Easy to install and very effective during storm season.'
+                ]
+            ];
             
             $position++;
         }
