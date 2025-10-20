@@ -1,5 +1,5 @@
-# PHP + Apache - using specific tag for better reliability
-FROM php:8.2.15-apache
+# PHP + Apache - using alternative registry for better reliability
+FROM docker.io/php:8.2-apache
 
 # Serve from /public
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
