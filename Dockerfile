@@ -1,21 +1,5 @@
-# PHP + Apache - using Ubuntu-based image for better reliability
-FROM ubuntu:22.04
-
-# Install PHP and Apache
-RUN apt-get update && apt-get install -y \
-    apache2 \
-    php8.2 \
-    php8.2-cli \
-    php8.2-common \
-    php8.2-mysql \
-    php8.2-zip \
-    php8.2-gd \
-    php8.2-mbstring \
-    php8.2-curl \
-    php8.2-xml \
-    php8.2-bcmath \
-    libapache2-mod-php8.2 \
-    && rm -rf /var/lib/apt/lists/*
+# PHP + Apache - using alternative registry during Docker Hub outage
+FROM quay.io/php/php:8.2-apache
 
 # Serve from /public
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
