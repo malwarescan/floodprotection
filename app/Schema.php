@@ -544,23 +544,16 @@ class Schema
             'RFP-BASEMENT' => 'Doorway Flood Panel'
         ];
         
-        foreach ($reviews as $r) {
-            $sku = $r['sku'] ?? '';
-            
-            // Find matching product by SKU prefix
-            $productSlug = 'modular-flood-barrier'; // default
-            $productName = 'Modular Flood Barrier System'; // default
-            
-            foreach ($skuMap as $prefix => $slug) {
-                if (strpos($sku, $prefix) === 0) {
-                    $productSlug = $slug;
-                    $productName = $productNames[$prefix];
-                    break;
-                }
-            }
+        // Create canonical products (one per product type)
+        $canonicalProducts = [];
+        foreach ($aggregates as $productSlug => $agg) {
+            $productName = 'Modular Flood Barrier System';
+            if ($productSlug === 'garage-dam-kit') $productName = 'Garage Door Flood Dam Kit';
+            elseif ($productSlug === 'doorway-flood-panel') $productName = 'Doorway Flood Panel';
             
             $productId = $baseUrl . '/products/' . $productSlug . '#product';
             $productUrl = $baseUrl . '/products/' . $productSlug;
+            
             // Map to existing product images
             if ($productSlug === 'modular-flood-barrier') {
                 $productImage = $baseUrl . '/assets/products/modular-aluminum-flood-barriers.jpg';
@@ -569,18 +562,94 @@ class Schema
             } else { // doorway-flood-panel
                 $productImage = $baseUrl . '/assets/products/doorway-flood-panels.jpg';
             }
-            $reviewId = $baseUrl . '/testimonials#' . ($r['review_id'] ?? 'rev-' . $position);
-
-            // Optional aggregateRating from aggregates map keyed by product slug
-            $aggNode = null;
-            if (!empty($aggregates[$productSlug]) && (int)$aggregates[$productSlug]['count'] > 0) {
-                $avg = round($aggregates[$productSlug]['sum'] / $aggregates[$productSlug]['count'], 1);
-                $aggNode = [
+            
+            $avg = round($agg['sum'] / $agg['count'], 1);
+            $canonicalProducts[$productSlug] = [
+                '@type' => 'Product',
+                '@id' => $productId,
+                'name' => $productName,
+                'description' => $productSlug === 'modular-flood-barrier' 
+                    ? 'Rapid-deploy modular flood barriers made from 6063 T-6 aluminum with EPDM sealing for residential and commercial openings.'
+                    : ($productSlug === 'garage-dam-kit' 
+                        ? 'Modular flood barrier kit engineered for residential and commercial garage openings with weather-resistant materials.'
+                        : 'Heavy-duty doorway flood panels designed for basement and entryway protection against flood waters.'),
+                'url' => $productUrl,
+                'image' => [$productImage],
+                'aggregateRating' => [
                     '@type' => 'AggregateRating',
                     'ratingValue' => (string)$avg,
-                    'reviewCount' => (string)(int)$aggregates[$productSlug]['count']
-                ];
+                    'reviewCount' => (string)(int)$agg['count']
+                ],
+                'review' => [
+                    [
+                        '@type' => 'Review',
+                        'author' => ['@type' => 'Person', 'name' => 'John Smith'],
+                        'datePublished' => '2024-12-15',
+                        'reviewRating' => ['@type' => 'Rating', 'ratingValue' => '5', 'bestRating' => '5'],
+                        'reviewBody' => 'Excellent flood protection system. Easy to install and very effective during storm season.'
+                    ]
+                ],
+                'offers' => [
+                    '@type' => 'Offer',
+                    'availability' => 'https://schema.org/InStock',
+                    'price' => '599.00',
+                    'priceCurrency' => 'USD',
+                    'priceValidUntil' => '2026-01-31',
+                    'url' => $productUrl,
+                    'hasMerchantReturnPolicy' => [
+                        '@type' => 'MerchantReturnPolicy',
+                        'returnPolicyCategory' => 'https://schema.org/MerchantReturnFiniteReturnWindow',
+                        'merchantReturnDays' => 30,
+                        'returnMethod' => 'https://schema.org/ReturnByMail',
+                        'returnFees' => 'https://schema.org/FreeReturn'
+                    ],
+                    'shippingDetails' => [
+                        '@type' => 'OfferShippingDetails',
+                        'shippingRate' => [
+                            '@type' => 'MonetaryAmount',
+                            'value' => '0.00',
+                            'currency' => 'USD'
+                        ],
+                        'deliveryTime' => [
+                            '@type' => 'ShippingDeliveryTime',
+                            'businessDays' => [
+                                '@type' => 'OpeningHoursSpecification',
+                                'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+                            ],
+                            'cutoffTime' => '14:00',
+                            'handlingTime' => [
+                                '@type' => 'QuantitativeValue',
+                                'minValue' => 1,
+                                'maxValue' => 2,
+                                'unitCode' => 'DAY'
+                            ],
+                            'transitTime' => [
+                                '@type' => 'QuantitativeValue',
+                                'minValue' => 3,
+                                'maxValue' => 7,
+                                'unitCode' => 'DAY'
+                            ]
+                        ]
+                    ]
+                ]
+            ];
+        }
+        
+        foreach ($reviews as $r) {
+            $sku = $r['sku'] ?? '';
+            
+            // Find matching product by SKU prefix
+            $productSlug = 'modular-flood-barrier'; // default
+            
+            foreach ($skuMap as $prefix => $slug) {
+                if (strpos($sku, $prefix) === 0) {
+                    $productSlug = $slug;
+                    break;
+                }
             }
+            
+            $productId = $baseUrl . '/products/' . $productSlug . '#product';
+            $reviewId = $baseUrl . '/testimonials#' . ($r['review_id'] ?? 'rev-' . $position);
             
             $itemListElement[] = [
                 '@type' => 'ListItem',
@@ -597,87 +666,24 @@ class Schema
                         'bestRating' => '5'
                     ],
                     'reviewBody' => $r['body'] ?? '',
-                    'itemReviewed' => [
-                        '@type' => 'Product',
-                        '@id' => $productId,
-                        'name' => $productName,
-                        'description' => $productSlug === 'modular-flood-barrier' 
-                            ? 'Rapid-deploy modular flood barriers made from 6063 T-6 aluminum with EPDM sealing for residential and commercial openings.'
-                            : ($productSlug === 'garage-dam-kit' 
-                                ? 'Modular flood barrier kit engineered for residential and commercial garage openings with weather-resistant materials.'
-                                : 'Heavy-duty doorway flood panels designed for basement and entryway protection against flood waters.'),
-                        'url' => $productUrl,
-                        'image' => [$productImage],
-                        'offers' => [
-                            '@type' => 'Offer',
-                            'availability' => 'https://schema.org/InStock',
-                            'price' => '599.00',
-                            'priceCurrency' => 'USD',
-                            'priceValidUntil' => '2026-01-31',
-                            'url' => $productUrl,
-                            'hasMerchantReturnPolicy' => [
-                                '@type' => 'MerchantReturnPolicy',
-                                'returnPolicyCategory' => 'https://schema.org/MerchantReturnFiniteReturnWindow',
-                                'merchantReturnDays' => 30,
-                                'returnMethod' => 'https://schema.org/ReturnByMail',
-                                'returnFees' => 'https://schema.org/FreeReturn'
-                            ],
-                            'shippingDetails' => [
-                                '@type' => 'OfferShippingDetails',
-                                'shippingRate' => [
-                                    '@type' => 'MonetaryAmount',
-                                    'value' => '0.00',
-                                    'currency' => 'USD'
-                                ],
-                                'deliveryTime' => [
-                                    '@type' => 'ShippingDeliveryTime',
-                                    'businessDays' => [
-                                        '@type' => 'OpeningHoursSpecification',
-                                        'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
-                                    ],
-                                    'cutoffTime' => '14:00',
-                                    'handlingTime' => [
-                                        '@type' => 'QuantitativeValue',
-                                        'minValue' => 1,
-                                        'maxValue' => 2,
-                                        'unitCode' => 'DAY'
-                                    ],
-                                    'transitTime' => [
-                                        '@type' => 'QuantitativeValue',
-                                        'minValue' => 3,
-                                        'maxValue' => 7,
-                                        'unitCode' => 'DAY'
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ];
-
-            if ($aggNode) {
-                $itemListElement[count($itemListElement)-1]['item']['itemReviewed']['aggregateRating'] = $aggNode;
-            }
-            
-            // Add a representative review to the itemReviewed Product
-            $itemListElement[count($itemListElement)-1]['item']['itemReviewed']['review'] = [
-                [
-                    '@type' => 'Review',
-                    'author' => ['@type' => 'Person', 'name' => 'John Smith'],
-                    'datePublished' => '2024-12-15',
-                    'reviewRating' => ['@type' => 'Rating', 'ratingValue' => '5', 'bestRating' => '5'],
-                    'reviewBody' => 'Excellent flood protection system. Easy to install and very effective during storm season.'
+                    'itemReviewed' => ['@id' => $productId] // Reference canonical product
                 ]
             ];
             
             $position++;
         }
         
-        return [
+        // Add canonical products to the graph
+        $result = [
             '@type' => 'ItemList',
             'name' => 'Customer Testimonials',
             'itemListElement' => $itemListElement
         ];
+        
+        // Include canonical products in the result for the controller to add to graph
+        $result['_canonicalProducts'] = array_values($canonicalProducts);
+        
+        return $result;
     }
 
     public static function graph($items)

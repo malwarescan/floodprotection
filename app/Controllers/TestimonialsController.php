@@ -88,11 +88,15 @@ class TestimonialsController
         }
 
         // JSON-LD: ItemList with Review objects pointing to canonical products
-        $jsonld = Schema::graph([
+        $itemListResult = Schema::reviewItemList($slice, Config::get('app_url'), $aggregates);
+        $canonicalProducts = $itemListResult['_canonicalProducts'] ?? [];
+        unset($itemListResult['_canonicalProducts']); // Remove from ItemList
+        
+        $jsonld = Schema::graph(array_merge([
             Schema::website(Config::get('app_url')),
-            Schema::reviewItemList($slice, Config::get('app_url'), $aggregates),
+            $itemListResult,
             Schema::breadcrumb([['Home', '/'], ['Testimonials', '/testimonials']])
-        ]);
+        ], $canonicalProducts));
 
         // View data
         $cities = array_values(array_unique(array_filter(array_map(fn($r) => $r['_city'], $all))));
