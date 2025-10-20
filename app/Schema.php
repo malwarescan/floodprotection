@@ -517,7 +517,7 @@ class Schema
         return $org;
     }
     
-    public static function reviewItemList($reviews, $baseUrl)
+    public static function reviewItemList($reviews, $baseUrl, $aggregates = [])
     {
         $itemListElement = [];
         $position = 1;
@@ -563,6 +563,17 @@ class Schema
             $productUrl = $baseUrl . '/products/' . $productSlug;
             $productImage = $baseUrl . '/assets/' . $productSlug . '.jpg';
             $reviewId = $baseUrl . '/testimonials#' . ($r['review_id'] ?? 'rev-' . $position);
+
+            // Optional aggregateRating from aggregates map keyed by product slug
+            $aggNode = null;
+            if (!empty($aggregates[$productSlug]) && (int)$aggregates[$productSlug]['count'] > 0) {
+                $avg = round($aggregates[$productSlug]['sum'] / $aggregates[$productSlug]['count'], 1);
+                $aggNode = [
+                    '@type' => 'AggregateRating',
+                    'ratingValue' => (string)$avg,
+                    'reviewCount' => (string)(int)$aggregates[$productSlug]['count']
+                ];
+            }
             
             $itemListElement[] = [
                 '@type' => 'ListItem',
@@ -595,6 +606,10 @@ class Schema
                     ]
                 ]
             ];
+
+            if ($aggNode) {
+                $itemListElement[count($itemListElement)-1]['item']['itemReviewed']['aggregateRating'] = $aggNode;
+            }
             
             $position++;
         }

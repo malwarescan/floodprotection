@@ -64,10 +64,33 @@ class TestimonialsController
         $desc = 'Read real homeowner reviews of our USA-made home flood barriers and door/garage dam kits.';
         $canonical = Config::get('app_url') . '/testimonials';
 
+        // Compute per-product aggregates across ALL testimonials (not just current page)
+        $aggregates = [];
+        foreach ($filtered as $r) {
+            $sku = $r['sku'] ?? '';
+            if (!$sku) continue;
+            $sku = strtoupper($sku);
+            // Map SKU prefixes to canonical product slugs
+            $productSlug = 'modular-flood-barrier';
+            if (strpos($sku, 'RFP-GARAGE') === 0 || strpos($sku, 'RFP-DOORDAM') === 0) {
+                $productSlug = 'garage-dam-kit';
+            } elseif (strpos($sku, 'RFP-PANEL') === 0 || strpos($sku, 'RFP-DOOR-PANEL') === 0 || strpos($sku, 'RFP-BASEMENT') === 0) {
+                $productSlug = 'doorway-flood-panel';
+            } elseif (strpos($sku, 'RFP-HOMEFLO') === 0 || strpos($sku, 'RFP-MOD-BARRIER') === 0) {
+                $productSlug = 'modular-flood-barrier';
+            }
+
+            if (!isset($aggregates[$productSlug])) {
+                $aggregates[$productSlug] = ['sum' => 0, 'count' => 0];
+            }
+            $aggregates[$productSlug]['sum'] += (int)($r['rating'] ?? 0);
+            $aggregates[$productSlug]['count'] += 1;
+        }
+
         // JSON-LD: ItemList with Review objects pointing to canonical products
         $jsonld = Schema::graph([
             Schema::website(Config::get('app_url')),
-            Schema::reviewItemList($slice, Config::get('app_url')),
+            Schema::reviewItemList($slice, Config::get('app_url'), $aggregates),
             Schema::breadcrumb([['Home', '/'], ['Testimonials', '/testimonials']])
         ]);
 
