@@ -439,6 +439,42 @@ class PagesController
         return View::renderPage('return-policy', $data);
     }
     
+    public function privacyPolicy()
+    {
+        $data = [
+            'title' => 'Privacy Policy | ' . Config::get('app_name'),
+            'description' => 'Flood Barrier Pros privacy policy. Learn how we collect, use, and protect your personal information.',
+            'canonical' => Config::get('app_url') . '/privacy-policy',
+            'jsonld' => Schema::graph([
+                Schema::website(Config::get('app_url')),
+                Schema::breadcrumb([
+                    ['Home', '/'],
+                    ['Privacy Policy', '/privacy-policy']
+                ])
+            ])
+        ];
+        
+        return View::renderPage('privacy-policy', $data);
+    }
+    
+    public function termsOfService()
+    {
+        $data = [
+            'title' => 'Terms of Service | ' . Config::get('app_name'),
+            'description' => 'Terms of service for Flood Barrier Pros. Read our terms and conditions for using our flood protection services.',
+            'canonical' => Config::get('app_url') . '/terms-of-service',
+            'jsonld' => Schema::graph([
+                Schema::website(Config::get('app_url')),
+                Schema::breadcrumb([
+                    ['Home', '/'],
+                    ['Terms of Service', '/terms-of-service']
+                ])
+            ])
+        ];
+        
+        return View::renderPage('terms-of-service', $data);
+    }
+    
     private function notFound()
     {
         http_response_code(404);

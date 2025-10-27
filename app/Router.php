@@ -18,6 +18,8 @@ class Router
         
         // Policy pages
         $this->addRoute('GET', '/return-policy', 'PagesController@returnPolicy');
+        $this->addRoute('GET', '/privacy-policy', 'PagesController@privacyPolicy');
+        $this->addRoute('GET', '/terms-of-service', 'PagesController@termsOfService');
         
         // Resources pages: /resources/{topic-slug}/{city}
         $this->addRoute('GET', '/resources/{topic}/{city}', 'PagesController@resources');
