@@ -1,0 +1,33 @@
+region,slug,county,state,notes,surge_profile,service_focus,priority
+Naples,naples,Collier,FL,"Gulf-front & bayside; older slabs + luxury builds","3–5 ft surge zones; wave setup in openings","Perimeter barriers + garage/slab QA + pump plan",1
+Marco Island,marco-island,Collier,FL,"Bridges + canals; salt-corrosion risk","3–6 ft; canal backflow + wind fetch","Perimeter systems, marine-grade hardware",1
+Bonita Springs,bonita-springs,Lee,FL,"Imperial River + Gulf access","Riverine + surge mix","Door plugs for single openings; perimeter near river",2
+Estero,estero,Lee,FL,"Low-lying pockets; new builds","Sheet flow + pond overflow","Door plugs + drainage/pump upgrades",2
+Fort Myers,fort-myers,Lee,FL,"Downtown & riverfront; mixed ages","Caloosahatchee riverine + wind-push","Perimeter for multi-openings; slab uplift mitigation",1
+Cape Coral,cape-coral,Lee,FL,"Canal grid; lock effects; salt spray","Backflow via canals + wind-driven rain","Backflow valves + perimeter near canals",1
+Lehigh Acres,lehigh-acres,Lee,FL,"Inland; sheet flow; new slabs","Pond overflow; intense rainfall","Threshold sealing + pump sizing",3
+Sanibel,sanibel,Lee,FL,"Barrier island; turtle regs; high corrosion","High surge + waves + debris","Perimeter systems; height margin ≥1'",1
+Captiva,captiva,Lee,FL,"Barrier island; luxury builds","Extreme surge/wave impacts","Perimeter; storage/deployment plans",1
+Fort Myers Beach,fort-myers-beach,Lee,FL,"Rebuilds; mixed foundations","High surge; scouring","Perimeter + elevation guidance",1
+North Fort Myers,north-fort-myers,Lee,FL,"River-adjacent; older slabs","Riverine surges; seepage under slabs","Slab QA + joint sealing + pumps",2
+Pine Island,pine-island,Lee,FL,"Matlacha/Bokeelia/St. James","Open fetch; debris risk","Perimeter + rigid panels",1
+Matlacha,matlacha,Lee,FL,"Low bridges; tidal squeeze","Fast-rising surge","Rapid-deploy perimeter + pump-out",1
+Bokeelia,bokeelia,Lee,FL,"Northern tip exposure","Wind/wave setup","Perimeter height audit",2
+St. James City,st-james-city,Lee,FL,"South exposure","Wave impacts","Perimeter + anchoring QA",2
+Port Charlotte,port-charlotte,Charlotte,FL,"Charlotte Harbor; canals","Back-bay surge; brackish","Perimeter + backflow valves",1
+Punta Gorda,punta-gorda,Charlotte,FL,"Harborfront rebuilds","Harbor surge + riverine","Door plugs on single points; perimeter downtown",1
+Rotonda West,rotonda-west,Charlotte,FL,"Platted inland; ponds","Sheet flow; pond overtop","Threshold sealing + pumps",3
+Englewood,englewood,Charlotte,FL,"Gulf + Lemon Bay","Barrier+bay surge","Perimeter + corrosion plan",2
+Golden Gate,golden-gate,Collier,FL,"Drainage canals","Canal backflow","Backflow valves + door plugs",3
+Immokalee,immokalee,Collier,FL,"Inland; heavy rain","Sheet flow","Thresholds + pumps",3
+Goodland,goodland,Collier,FL,"Extreme low elevation","Frequent surge","Perimeter + elevation counseling",1
+North Naples,north-naples,Collier,FL,"Gulf-front condos; HOAs","Garage openings; salt","Rigid panels + pump rooms",2
+Vineyards,vineyards,Collier,FL,"Master-planned","Pond/road overflow","Door plugs + HOA coordination",3
+Ave Maria,ave-maria,Collier,FL,"Inland new builds","Heavy rain; sheet flow","Threshold QA + pump sizing",3
+Labelle,labelle,Hendry,FL,"Caloosahatchee inland","River rise","Backflow + door sealing",3
+Clewiston,clewiston,Hendry,FL,"Lake Okeechobee prox","Lake surge wind setup","Perimeter planning",3
+Moore Haven,moore-haven,Glades,FL,"River/lake junction","Backwater rise","Backflow + perimeter",3
+Everglades City,everglades-city,Collier,FL,"Historic; very low","Frequent surge + debris","Perimeter + rigid panels + elevation",1
+Chokoloskee,chokoloskee,Collier,FL,"Islet community","Extreme surge","Perimeter + elevation",1
+Tamiami,tamiami,Collier,FL,"US-41 corridor","Roadway sheet flow","Thresholds + trench drains",3
+
