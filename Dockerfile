@@ -1,5 +1,5 @@
-# PHP + Apache - using alternative registry during Docker Hub outage
-FROM quay.io/php/php:8.2-apache
+# PHP + Apache
+FROM php:8.2-apache
 
 # Serve from /public
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
