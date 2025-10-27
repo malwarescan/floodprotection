@@ -88,9 +88,24 @@ class BlogController
                 ]
             ];
             
-            // Add FAQPage if FAQ section exists in content
-            if (strpos($post['content'], '## Frequently Asked Questions') !== false) {
-                $schemaBlocks[] = Schema::faq([]); // Will be filled by template
+            // Parse FAQs from content and add FAQPage schema
+            $faqs = self::parseFaqFromMarkdown($post['content']);
+            if (!empty($faqs)) {
+                $faqSchema = [
+                    '@type' => 'FAQPage',
+                    'mainEntity' => []
+                ];
+                foreach ($faqs as $faq) {
+                    $faqSchema['mainEntity'][] = [
+                        '@type' => 'Question',
+                        'name' => $faq['q'],
+                        'acceptedAnswer' => [
+                            '@type' => 'Answer',
+                            'text' => strip_tags($faq['a'])
+                        ]
+                    ];
+                }
+                $schemaBlocks[] = $faqSchema;
             }
             
             $schemaBlocks[] = $newsArticle;
@@ -113,6 +128,47 @@ class BlogController
         ];
         
         return View::renderPage('blog-post', $data);
+    }
+    
+    private function parseFaqFromMarkdown($content)
+    {
+        $faqs = [];
+        
+        // Look for FAQ section
+        if (strpos($content, '## Frequently Asked Questions') === false) {
+            return $faqs;
+        }
+        
+        // Extract FAQ section
+        preg_match('/## Frequently Asked Questions\s*\n(.*?)(?=\n##|\z)/s', $content, $matches);
+        
+        if (empty($matches[1])) {
+            return $faqs;
+        }
+        
+        $faqSection = $matches[1];
+        
+        // Parse FAQ items - looking for ### heading (question) followed by paragraph (answer)
+        // Split by triple headings first
+        preg_match_all('/### (.+?)\n\n(.+?)(?=\n###|$)/s', $faqSection, $matches, PREG_SET_ORDER);
+        
+        foreach ($matches as $match) {
+            $question = trim($match[1]);
+            $answer = trim($match[2]);
+            
+            // Clean up answer - remove extra whitespace and newlines
+            $answer = preg_replace('/\n+/', ' ', $answer);
+            $answer = trim($answer);
+            
+            if (!empty($question) && !empty($answer)) {
+                $faqs[] = [
+                    'q' => $question,
+                    'a' => $answer
+                ];
+            }
+        }
+        
+        return $faqs;
     }
     
     private function notFound()
