@@ -67,7 +67,8 @@ class NewsController
                     [$article['title'], $url]
                 ])
             ]),
-            'isNewsArticle' => true // All articles in /news are news articles
+            'isNewsArticle' => true, // All articles in /news are news articles
+            'googleAnalyticsId' => Config::get('google_analytics_id', '')
         ];
         
         return View::renderPage('news-article', $data);

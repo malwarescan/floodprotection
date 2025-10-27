@@ -24,7 +24,8 @@ class Config
                 'brand' => 'Rubicon Flood Control',
                 'contact_name' => 'Dylan DiFalco',
                 'contact_title' => 'Sales Manager',
-                'google_publisher_code' => '' // Add your Reader Revenue Manager code snippet here
+                'google_publisher_code' => '', // Add your Reader Revenue Manager code snippet here
+                'google_analytics_id' => '' // Add your Google Analytics ID from Publisher Center
             ];
         }
         

@@ -128,7 +128,8 @@ class BlogController
             'description' => $post['description'],
             'post' => $post,
             'jsonld' => Schema::graph($schemaBlocks),
-            'isNewsArticle' => $isNewsArticle
+            'isNewsArticle' => $isNewsArticle,
+            'googleAnalyticsId' => Config::get('google_analytics_id', '')
         ];
         
         return View::renderPage('blog-post', $data);

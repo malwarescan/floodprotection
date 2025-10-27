@@ -88,6 +88,9 @@
                 });
               });
             </script>
+            
+            <!-- Google Contributions Widget -->
+            <div class="swg-contribution-button" data-theme="light" data-lang="en"></div>
             <?php endif; ?>
         </article>
         <!-- End Main Content -->

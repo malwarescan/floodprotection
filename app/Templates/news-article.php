@@ -28,6 +28,9 @@
             });
           });
         </script>
+        
+        <!-- Google Contributions Widget -->
+        <div class="swg-contribution-button" data-theme="light" data-lang="en"></div>
         <?php endif; ?>
 
         <div class="article-navigation">
