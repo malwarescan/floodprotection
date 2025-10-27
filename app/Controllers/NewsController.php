@@ -66,7 +66,8 @@ class NewsController
                     ['News', Config::get('app_url') . '/news'],
                     [$article['title'], $url]
                 ])
-            ])
+            ]),
+            'isNewsArticle' => true // All articles in /news are news articles
         ];
         
         return View::renderPage('news-article', $data);

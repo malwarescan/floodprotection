@@ -120,11 +120,15 @@ class BlogController
             );
         }
         
+        // Add Google Subscribe with Google script for news articles
+        $isNewsArticle = isset($post['articleType']) && $post['articleType'] === 'news';
+        
         $data = [
             'title' => $post['title'] . ' | ' . Config::get('app_name'),
             'description' => $post['description'],
             'post' => $post,
-            'jsonld' => Schema::graph($schemaBlocks)
+            'jsonld' => Schema::graph($schemaBlocks),
+            'isNewsArticle' => $isNewsArticle
         ];
         
         return View::renderPage('blog-post', $data);
