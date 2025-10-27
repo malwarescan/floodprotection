@@ -1,0 +1,30 @@
+paths:
+  csv_in: "public/sitemaps/sitemap-optimized.csv"
+  ndjson_out: "public/sitemaps/sitemap-ai.ndjson"
+
+csv:
+  format: "auto"
+  has_header: true
+
+limits:
+  max_urls: 0
+
+schema:
+  default_type: "WebPage"
+  fields:
+    include_headline: true
+    include_summary: true
+    include_keywords: true
+
+mapping:
+  url: ["url","loc","link","page","address"]
+  lastmod: ["lastmod","last_modified","modified","updated","last_modified_at"]
+  canonical_id: ["canonical_id","id","slug","uid"]
+
+security:
+  allow_user_agents: ["ChatGPT-User","PerplexityBot","CCBot"]
+  signed_key_env: "DLN_CSV_SIGNING_KEY"
+
+headers:
+  cache_max_age: 86400
+
