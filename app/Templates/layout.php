@@ -52,6 +52,14 @@
     <?php if (!empty($jsonld)): ?>
     <script type="application/ld+json"><?= json_encode($jsonld, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?></script>
     <?php endif; ?>
+    
+    <!-- Google Reader Revenue Manager -->
+    <?php
+    $publisherCode = \App\Config::get('google_publisher_code');
+    if (!empty($publisherCode)):
+        echo $publisherCode;
+    endif;
+    ?>
 </head>
 <body class="bg-gray-50">
     <!-- Preline Header -->
