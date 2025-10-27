@@ -48,6 +48,9 @@ class Router
         // FAQ routes (must be before service routes to avoid conflicts)
         $this->addRoute('GET', '/faq/{slug}', 'FaqController@show');
         
+        // Naples-specific high-value landing page
+        $this->addRoute('GET', '/fl/naples/flood-barriers', 'PagesController@naplesFloodBarriers');
+        
         // Service pages: /{keyword} (service taxonomy) - must be after FAQ routes
         $this->addServiceRoutes();
         

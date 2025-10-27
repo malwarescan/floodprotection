@@ -308,6 +308,96 @@ class PagesController
         return View::renderPage('service', $data);
     }
     
+    public function naplesFloodBarriers()
+    {
+        $canonical = Config::get('app_url') . '/fl/naples/flood-barriers';
+        
+        // Load FAQs
+        require_once __DIR__ . '/../../lib/Faqs.php';
+        $faqs = \Faqs::locate($canonical);
+        
+        // Enhanced SEO for Naples
+        $title = "Flood Barriers & Floodproofing in Naples, FL | Permitted & Engineered";
+        $description = "Naples flood barriers & floodproofing services. Permit-ready submittals, engineer-sealed options, 48-hour Collier County site surveys. Waterfront & HOA-compliant solutions.";
+        
+        // Naples-specific schema
+        $schemaBlocks = [
+            Schema::website(Config::get('app_url')),
+            [
+                '@type' => 'LocalBusiness',
+                '@id' => $canonical . '#org',
+                'name' => Config::get('brand'),
+                'url' => Config::get('app_url'),
+                'telephone' => Config::get('phone'),
+                'areaServed' => [
+                    ['@type' => 'AdministrativeArea', 'name' => 'Collier County FL']
+                ],
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'addressLocality' => 'Naples',
+                    'addressRegion' => 'FL',
+                    'addressCountry' => 'US'
+                ]
+            ],
+            [
+                '@type' => 'Service',
+                '@id' => $canonical . '#service',
+                'serviceType' => 'Flood Barrier Installation',
+                'provider' => ['@id' => $canonical . '#org'],
+                'areaServed' => [
+                    ['@type' => 'City', 'name' => 'Naples FL']
+                ],
+                'hasOfferCatalog' => [
+                    '@type' => 'OfferCatalog',
+                    'name' => 'Flood Protection Options',
+                    'itemListElement' => [
+                        [
+                            '@type' => 'Offer',
+                            'itemOffered' => [
+                                '@type' => 'Service',
+                                'name' => 'Aluminum Flood Plank Systems'
+                            ]
+                        ],
+                        [
+                            '@type' => 'Offer',
+                            'itemOffered' => [
+                                '@type' => 'Service',
+                                'name' => 'Self-Deploying Water Dams'
+                            ]
+                        ],
+                        [
+                            '@type' => 'Offer',
+                            'itemOffered' => [
+                                '@type' => 'Service',
+                                'name' => 'Water-Filled Diversion Tubes'
+                            ]
+                        ]
+                    ]
+                ]
+            ],
+            Schema::breadcrumb([
+                ['Home', Config::get('app_url')],
+                ['Florida', Config::get('app_url') . '/fl/'],
+                ['Naples Flood Barriers', $canonical]
+            ])
+        ];
+        
+        // Add FAQ schema if FAQs exist
+        if (!empty($faqs)) {
+            $schemaBlocks[] = Schema::faq($faqs);
+        }
+        
+        $data = [
+            'title' => $title,
+            'description' => $description,
+            'canonical' => $canonical,
+            'faqs' => $faqs,
+            'jsonld' => Schema::graph($schemaBlocks)
+        ];
+        
+        return View::renderPage('naples-page', $data);
+    }
+    
     public function robots()
     {
         header('Content-Type: text/plain');
