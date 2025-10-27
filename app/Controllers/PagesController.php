@@ -50,7 +50,7 @@ class PagesController
         // Load FAQs for this URL
         require_once __DIR__ . '/../../lib/Faqs.php';
         $canonical = Config::get('app_url') . $row['url_path'];
-        $faqs = Faqs::locate($canonical);
+        $faqs = \Faqs::locate($canonical);
         
         // Always generate fresh schema with fixed offers/offerCount
         $schemaItems = [];
