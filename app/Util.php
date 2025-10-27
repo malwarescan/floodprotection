@@ -200,10 +200,13 @@ class Util
         // Escape HTML entities first
         $html = htmlspecialchars($markdown, ENT_NOQUOTES);
         
-        // Headers (must come before other patterns)
+        // Skip the first H1 (since it's already in the page header) by converting to H2
+        // Match the first instance of H1
+        $html = preg_replace('/^# (.+)$/m', '<h2>$1</h2>', $html, 1);
+        
+        // Convert remaining headers
         $html = preg_replace('/^### (.+)$/m', '<h3>$1</h3>', $html);
         $html = preg_replace('/^## (.+)$/m', '<h2>$1</h2>', $html);
-        $html = preg_replace('/^# (.+)$/m', '<h1>$1</h1>', $html);
         
         // Bold
         $html = preg_replace('/\*\*(.+?)\*\*/s', '<strong>$1</strong>', $html);
