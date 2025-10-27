@@ -350,17 +350,54 @@ $robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-products.xml\n";
 file_put_contents($robotsPath, $robotsContent);
 echo "  ✓ Updated: robots.txt\n";
 
+// Generate lightweight CSV sitemap for AI/RAG crawlers
+echo "Generating CSV sitemap for AI crawlers...\n";
+$csvPath = $OUTPUT_DIR . '/sitemap-optimized.csv';
+$csvContent = "url,lastmod\n";
+
+// Collect all URLs from all sitemaps
+$allUrls = array_merge(
+  $staticUrls,
+  $productUrls,
+  $faqUrls,
+  $reviewUrls,
+  $allBlogUrls
+);
+
+// Add city URLs if they exist
+if (!empty($cityHomeUrls)) {
+  $allUrls = array_merge($allUrls, $cityHomeUrls);
+}
+if (!empty($cityResidentialUrls)) {
+  $allUrls = array_merge($allUrls, $cityResidentialUrls);
+}
+
+foreach ($allUrls as $urlData) {
+  $url = str_replace('"', '""', $urlData['url']);
+  $lastmod = $urlData['lastmod'];
+  $csvContent .= "\"$url\",\"$lastmod\"\n";
+}
+
+file_put_contents($csvPath, $csvContent);
+echo "  ✓ Generated: sitemap-optimized.csv (" . number_format(strlen($csvContent)) . " bytes)\n";
+
+// Compress CSV
+$gzipCsv = $csvPath . '.gz';
+file_put_contents($gzipCsv, gzencode($csvContent, 9));
+echo "  ✓ Generated: sitemap-optimized.csv.gz (" . number_format(strlen(gzencode($csvContent, 9))) . " bytes)\n";
+
 // Summary
 echo "\n";
 echo "Sitemap generation complete!\n";
-echo "Generated " . count($sitemaps) . " sitemaps:\n";
+echo "Generated " . count($sitemaps) . " XML sitemaps + 1 CSV sitemap:\n";
 foreach ($sitemaps as $sitemap) {
   echo "  • " . basename($sitemap['url']) . "\n";
 }
+echo "  • sitemap-optimized.csv (AI/RAG optimized)\n";
 echo "\n";
 echo "Next steps:\n";
-echo "1. Submit sitemap-index.xml to Google Search Console\n";
-echo "2. Monitor indexation in GSC for each section\n";
+echo "1. Submit sitemap-index.xml.gz to Google Search Console\n";
+echo "2. AI crawlers can use sitemap-optimized.csv.gz for token efficiency\n";
 echo "3. Set up cron job for automatic regeneration\n";
 echo "   Example: 0 2 * * * php $ROOT/bin/build_sitemaps.php\n";
 echo "\n";
