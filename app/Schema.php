@@ -135,12 +135,14 @@ class Schema
         return [
             '@type' => 'FAQPage',
             'mainEntity' => array_map(function($qa) {
+                // Strip HTML tags for schema text field
+                $textAnswer = strip_tags($qa['a']);
                 return [
                     '@type' => 'Question',
                     'name' => $qa['q'],
                     'acceptedAnswer' => [
                         '@type' => 'Answer',
-                        'text' => $qa['a']
+                        'text' => $textAnswer
                     ]
                 ];
             }, $qna)

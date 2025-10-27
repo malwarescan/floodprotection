@@ -47,8 +47,26 @@ class PagesController
             return;
         }
         
+        // Load FAQs for this URL
+        require_once __DIR__ . '/../../lib/Faqs.php';
+        $canonical = Config::get('app_url') . $row['url_path'];
+        $faqs = Faqs::locate($canonical);
+        
         // Always generate fresh schema with fixed offers/offerCount
+        $schemaItems = [];
+        $schemaItems[] = Schema::website(Config::get('app_url'));
         $jsonld = Schema::generateMatrixSchema($row);
+        
+        // Add FAQ schema if we have FAQs
+        if (!empty($faqs)) {
+            $schemaItems[] = Schema::faq($faqs);
+        }
+        
+        // Merge the matrix schema with FAQ schema
+        if (isset($jsonld['@graph']) && is_array($jsonld['@graph'])) {
+            $schemaItems = array_merge($schemaItems, $jsonld['@graph']);
+            $jsonld = Schema::graph($schemaItems);
+        }
         
         $data = [
             'title' => $row['title'],
@@ -67,6 +85,7 @@ class PagesController
             'county' => $row['county'],
             'keyword' => $row['keyword'],
             'resources' => $row['resources'],
+            'faqs' => $faqs,
             'jsonld' => $jsonld
         ];
         
@@ -223,23 +242,67 @@ class PagesController
         }
         
         $serviceName = ucwords(str_replace('-', ' ', $keyword));
-        $title = "{$serviceName} in Florida | Professional Installation";
-        $description = "{$serviceName} for Florida homes & businesses. Expert installation, code-compliant, fast service. Free on-site assessment available.";
+        $canonical = Config::get('app_url') . '/' . $keyword;
+        
+        // Load FAQs
+        require_once __DIR__ . '/../../lib/Faqs.php';
+        $faqs = \Faqs::locate($canonical);
+        
+        // Enhanced SEO with EEAATT keywords
+        $keywordVariations = [
+            'home-flood-barriers' => [
+                'title' => "Home Flood Barriers in Florida | FEMA-Approved Installation | Flood Barrier Pros",
+                'description' => "Expert home flood barriers installation throughout Florida. FEMA-approved flood panels for doors, windows, and garages. Free assessment, insurance discounts, $899-$1,499 starting price."
+            ],
+            'residential-flood-panels' => [
+                'title' => "Residential Flood Panels in Florida | Custom Installation | FEMA-Certified",
+                'description' => "Professional residential flood panels for Florida homes. FEMA-certified, reusable panels for maximum flood protection. Expert installation, insurance premium reductions available."
+            ]
+        ];
+        
+        $seo = $keywordVariations[$keyword] ?? [
+            'title' => "{$serviceName} Services in Florida | Professional Installation & FEMA-Approved",
+            'description' => "Expert {$serviceName} installation throughout Florida. FEMA-approved, code-compliant, insurance-qualified flood barriers. Free assessment, fast installation, warranty coverage."
+        ];
+        
+        $schemaBlocks = [
+            Schema::website(Config::get('app_url')),
+            [
+                '@type' => 'Service',
+                'name' => "{$serviceName} Services",
+                'description' => $seo['description'],
+                'provider' => [
+                    '@type' => 'Organization',
+                    'name' => Config::get('brand')
+                ],
+                'areaServed' => ['@type' => 'State', 'name' => 'Florida'],
+                'serviceType' => 'Flood Protection',
+                'availableChannel' => [
+                    '@type' => 'ServiceChannel',
+                    'serviceUrl' => $canonical,
+                    'servicePhone' => Config::get('phone')
+                ]
+            ],
+            Schema::breadcrumb([
+                ['Home', Config::get('app_url')],
+                [$serviceName, Config::get('app_url') . '/' . $keyword]
+            ])
+        ];
+        
+        // Add FAQ schema if FAQs exist
+        if (!empty($faqs)) {
+            $schemaBlocks[] = Schema::faq($faqs);
+        }
         
         $data = [
-            'title' => $title,
-            'description' => $description,
+            'title' => $seo['title'],
+            'description' => $seo['description'],
+            'canonical' => $canonical,
             'keyword' => $keyword,
             'serviceName' => $serviceName,
             'cities' => $cities,
-            'jsonld' => Schema::graph([
-                Schema::website(Config::get('app_url')),
-                Schema::service($serviceName, "Florida", Config::get('brand')),
-                Schema::breadcrumb([
-                    ['Home', Config::get('app_url')],
-                    [$serviceName, Config::get('app_url') . '/' . $keyword]
-                ])
-            ])
+            'faqs' => $faqs,
+            'jsonld' => Schema::graph($schemaBlocks)
         ];
         
         return View::renderPage('service', $data);

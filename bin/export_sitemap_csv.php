@@ -131,3 +131,5 @@ function writeRow($handle, array $fields, string $sep, bool $isGz): void {
 
 echo "\nDone!\n";
 
+
+
