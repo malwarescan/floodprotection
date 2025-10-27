@@ -49,7 +49,7 @@ class BlogController
         $url = Config::get('app_url') . '/blog/' . $slug;
         $baseUrl = Config::get('app_url');
         
-        // Determine article type and build appropriate schema
+        // Build schema blocks
         $schemaBlocks = [
             Schema::website($baseUrl),
             Schema::breadcrumb([
@@ -59,76 +59,41 @@ class BlogController
             ])
         ];
         
-        // Check if this is a news article
-        if (isset($post['articleType']) && $post['articleType'] === 'news') {
-            $newsArticle = [
-                '@type' => 'NewsArticle',
-                'headline' => $post['title'],
-                'image' => isset($post['image']) ? $post['image'] : $baseUrl . '/assets/images/blog/flood-protection-blog.jpg',
-                'datePublished' => $post['date'],
-                'dateModified' => isset($post['dateModified']) ? $post['dateModified'] : $post['date'],
-                'author' => [
-                    '@type' => 'Organization',
-                    'name' => isset($post['author']) ? $post['author'] : 'Flood Barrier Pros Editorial Team',
-                    'url' => $baseUrl . '/about/'
-                ],
-                'publisher' => [
-                    '@type' => 'Organization',
-                    'name' => Config::get('app_name'),
-                    'logo' => [
-                        '@type' => 'ImageObject',
-                        'url' => $baseUrl . '/assets/images/logo/flood-barrier-pros-logo.png'
-                    ]
-                ],
-                'articleSection' => isset($post['city']) && $post['city'] ? 'Local News' : 'News',
-                'keywords' => isset($post['tags']) ? implode(', ', (array)$post['tags']) : '',
-                'mainEntityOfPage' => [
-                    '@type' => 'WebPage',
-                    '@id' => $url
-                ]
-            ];
-            
-            // Parse FAQs from content and add FAQPage schema
-            $faqs = self::parseFaqFromMarkdown($post['content']);
-            if (!empty($faqs)) {
-                $faqSchema = [
-                    '@type' => 'FAQPage',
-                    'mainEntity' => []
-                ];
-                foreach ($faqs as $faq) {
-                    $faqSchema['mainEntity'][] = [
-                        '@type' => 'Question',
-                        'name' => $faq['q'],
-                        'acceptedAnswer' => [
-                            '@type' => 'Answer',
-                            'text' => strip_tags($faq['a'])
-                        ]
-                    ];
-                }
-                $schemaBlocks[] = $faqSchema;
-            }
-            
-            $schemaBlocks[] = $newsArticle;
-        } else {
-            // Regular blog post schema
-            $schemaBlocks[] = Schema::blogPosting(
-                $baseUrl,
-                $post['title'],
-                $post['description'],
-                $post['date'],
-                $url
-            );
-        }
+        // Use BlogPosting schema for all blog posts (not NewsArticle)
+        // According to Google's 2025 updates, NewsArticle is only for actual journalism
+        $schemaBlocks[] = Schema::blogPosting(
+            $baseUrl,
+            $post['title'],
+            $post['description'],
+            $post['date'],
+            $url
+        );
         
-        // Add Google Subscribe with Google script for news articles
-        $isNewsArticle = isset($post['articleType']) && $post['articleType'] === 'news';
+        // Parse FAQs from content and add FAQPage schema if present
+        $faqs = self::parseFaqFromMarkdown($post['content']);
+        if (!empty($faqs)) {
+            $faqSchema = [
+                '@type' => 'FAQPage',
+                'mainEntity' => []
+            ];
+            foreach ($faqs as $faq) {
+                $faqSchema['mainEntity'][] = [
+                    '@type' => 'Question',
+                    'name' => $faq['q'],
+                    'acceptedAnswer' => [
+                        '@type' => 'Answer',
+                        'text' => strip_tags($faq['a'])
+                    ]
+                ];
+            }
+            $schemaBlocks[] = $faqSchema;
+        }
         
         $data = [
             'title' => $post['title'] . ' | ' . Config::get('app_name'),
             'description' => $post['description'],
             'post' => $post,
             'jsonld' => Schema::graph($schemaBlocks),
-            'isNewsArticle' => $isNewsArticle,
             'googleAnalyticsId' => Config::get('google_analytics_id', '')
         ];
         

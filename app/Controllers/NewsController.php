@@ -67,7 +67,6 @@ class NewsController
                     [$article['title'], $url]
                 ])
             ]),
-            'isNewsArticle' => true, // All articles in /news are news articles
             'googleAnalyticsId' => Config::get('google_analytics_id', '')
         ];
         

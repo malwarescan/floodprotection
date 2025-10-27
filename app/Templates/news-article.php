@@ -14,24 +14,6 @@
             <?= \App\Util::markdownToHtml($article['content']) ?>
         </div>
 
-        <!-- Google Subscribe with Google (for news articles) -->
-        <?php if (isset($isNewsArticle) && $isNewsArticle): ?>
-        <script async type="application/javascript"
-                src="https://news.google.com/swg/js/v1/swg-basic.js"></script>
-        <script>
-          (self.SWG_BASIC = self.SWG_BASIC || []).push( basicSubscriptions => {
-            basicSubscriptions.init({
-              type: "NewsArticle",
-              isPartOfType: ["Product"],
-              isPartOfProductId: "CAowuYvCDA:openaccess",
-              clientOptions: { theme: "light", lang: "en" },
-            });
-          });
-        </script>
-        
-        <!-- Google Contributions Widget -->
-        <div class="swg-contribution-button" data-theme="light" data-lang="en"></div>
-        <?php endif; ?>
 
         <div class="article-navigation">
             <a href="/news" class="btn btn-outline">← Back to News</a>
