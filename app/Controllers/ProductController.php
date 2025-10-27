@@ -10,8 +10,8 @@ class ProductController
 {
     public function modularFloodBarrier()
     {
-        $title = 'Modular Flood Barrier System | Rubicon Flood Protection';
-        $description = 'Rapid-deploy modular flood barriers made from 6063 T-6 aluminum with EPDM sealing. Quick installation, no sandbags, minimal cleanup.';
+        $title = 'Modular Flood Barriers | Aluminum Reusable Systems';
+        $description = 'Modular flood barriers (aluminum, FEMA-aligned). Quick deploy, reusable, no sandbags. Fast installation & free assessment.';
         $canonical = Config::get('app_url') . '/products/modular-flood-barrier';
         
         // Product schema with reviews
@@ -139,8 +139,8 @@ class ProductController
     
     public function garageDamKit()
     {
-        $title = 'Garage Door Flood Dam Kit | Rubicon Flood Protection';
-        $description = 'Modular flood barrier kit engineered for residential and commercial garage openings. Fast install, reusable components.';
+        $title = 'Garage Flood Dam Kit | Door Barrier Installation';
+        $description = 'Garage flood dam kits for door openings. Quick install, weather-resistant seals. Reusable components & fast deployment.';
         $canonical = Config::get('app_url') . '/products/garage-dam-kit';
         
         // Product schema with reviews
@@ -287,8 +287,8 @@ class ProductController
     
     public function doorwayFloodPanel()
     {
-        $title = 'Doorway Flood Panel | Rubicon Flood Protection';
-        $description = 'Reusable, quick-install flood panel system for doors and entries. Clean deployment, strong sealing, easy storage.';
+        $title = 'Doorway Flood Panels | Entry Protection Systems';
+        $description = 'Doorway flood panels for basement & entry protection. Quick install, strong seals, easy storage. Reusable design.';
         $canonical = Config::get('app_url') . '/products/doorway-flood-panel';
         
         // Product schema with reviews

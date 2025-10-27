@@ -12,8 +12,8 @@ class PagesController
     public function home()
     {
         $data = [
-            'title' => 'Florida Flood Protection Services | ' . Config::get('app_name'),
-            'description' => 'Professional flood protection services throughout Florida. Custom barriers, panels, and dry floodproofing solutions. Free quotes, fast installation.',
+            'title' => 'Flood Barriers & Protection Systems | ' . Config::get('app_name'),
+            'description' => 'FEMA-aligned flood barriers for Florida homes & businesses. Quick installation, reusable panels, free assessment. Serving Miami, Tampa, Orlando.',
             'jsonld' => Schema::graph([
                 Schema::website(Config::get('app_url')),
                 Schema::organization(
@@ -154,8 +154,8 @@ class PagesController
             $title = \App\SEO::titleSanford();
             $description = \App\SEO::descSanford();
         } else {
-            $title = "Flood Protection Services in {$cityName} | " . Config::get('app_name');
-            $description = "Professional flood protection services in {$cityName}, Florida. Custom barriers, panels, and dry floodproofing solutions. Free quotes, fast installation.";
+            $title = "Flood Barriers in {$cityName} | {$cityName} Flood Protection";
+            $description = "Flood barriers & panels for {$cityName}, FL. Custom installation, FEMA-aligned, free assessment. Quick installation & local service.";
         }
         
         $data = [
@@ -223,8 +223,8 @@ class PagesController
         }
         
         $serviceName = ucwords(str_replace('-', ' ', $keyword));
-        $title = "{$serviceName} Services in Florida | " . Config::get('app_name');
-        $description = "Professional {$serviceName} services throughout Florida. Custom solutions for residential and commercial properties. Free quotes, fast installation.";
+        $title = "{$serviceName} in Florida | Professional Installation";
+        $description = "{$serviceName} for Florida homes & businesses. Expert installation, code-compliant, fast service. Free on-site assessment available.";
         
         $data = [
             'title' => $title,

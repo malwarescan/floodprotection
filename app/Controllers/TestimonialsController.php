@@ -59,9 +59,9 @@ class TestimonialsController
         $page = min($page, $pages);
         $slice = array_slice($filtered, ($page - 1) * $per, $per);
 
-        // Meta
-        $title = 'Customer Testimonials | ' . Config::get('app_name');
-        $desc = 'Read real homeowner reviews of our USA-made home flood barriers and door/garage dam kits.';
+        // Meta - Google best practices: unique, keyword-rich, under 60 chars
+        $title = 'Customer Reviews & Testimonials | ' . Config::get('app_name');
+        $desc = 'Real customer reviews and testimonials for flood barriers, door panels, and garage dam kits. Verified purchases from Florida homeowners.';
         $canonical = Config::get('app_url') . '/testimonials';
 
         // Compute per-product aggregates across ALL testimonials (not just current page)

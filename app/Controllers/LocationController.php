@@ -20,8 +20,8 @@ class LocationController
         
         $cityName = ucwords(str_replace('-', ' ', $city));
         $productName = $productData['name'];
-        $title = "{$productName} – {$cityName}, FL | Flood Barrier Pros";
-        $description = "Professional {$productName} installation in {$cityName}, Florida. Fast installation, quality materials, local expertise.";
+        $title = "{$productName} in {$cityName}, FL | Install & Service";
+        $description = "{$productName} installation in {$cityName}, FL. Local experts, fast service, free assessment. Code-compliant & quality materials.";
         $canonical = Config::get('app_url') . "/fl/{$city}/{$product}";
         
         // WebPage schema

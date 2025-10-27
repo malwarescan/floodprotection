@@ -14,8 +14,8 @@ class BlogController
         $posts = Util::getBlogPosts(10);
         
         $data = [
-            'title' => 'Flood Protection Blog | ' . Config::get('app_name'),
-            'description' => 'Expert tips, guides, and news about flood protection in Florida. Learn how to protect your home from flooding.',
+            'title' => 'Flood Protection Blog | Tips & Guides',
+            'description' => 'Flood protection guides & tips for Florida. Expert advice on barriers, panels, storm preparedness. Practical strategies.',
             'posts' => $posts,
             'jsonld' => Schema::graph([
                 Schema::website(Config::get('app_url')),

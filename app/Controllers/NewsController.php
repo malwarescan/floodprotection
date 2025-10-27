@@ -14,8 +14,8 @@ class NewsController
         $articles = Util::getNewsArticles(10);
         
         $data = [
-            'title' => 'Flood Protection News | ' . Config::get('app_name'),
-            'description' => 'Latest news and updates about flood protection, storm alerts, and emergency preparedness in Florida.',
+            'title' => 'Flood Protection News | Storm Alerts & Updates',
+            'description' => 'Latest flood protection news & storm alerts for Florida. Emergency preparedness, FEMA updates, weather alerts.',
             'articles' => $articles,
             'jsonld' => Schema::graph([
                 Schema::website(Config::get('app_url')),
