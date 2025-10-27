@@ -1,57 +1,109 @@
-<article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-        <!-- Header -->
-        <header class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-8 md:p-12">
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
-                <?= htmlspecialchars($post['title']) ?>
-            </h1>
-            <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center text-blue-100">
-                <time datetime="<?= htmlspecialchars($post['date']) ?>" class="flex items-center">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+<!-- Blog Post -->
+<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <!-- Breadcrumb -->
+    <nav class="flex mb-8" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a class="inline-flex items-center text-sm text-gray-700 hover:text-primary" href="/">
+                    Home
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                     </svg>
-                    <?= \App\Util::formatDate($post['date'], 'F j, Y') ?>
-                </time>
-                <?php if (!empty($post['city'])): ?>
-                <span class="flex items-center text-blue-100">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <a class="ms-1 text-sm text-gray-700 hover:text-primary md:ms-2" href="/blog">Blog</a>
+                </div>
+            </li>
+            <li aria-current="page">
+                <div class="flex items-center">
+                    <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                     </svg>
-                    <?= htmlspecialchars($post['city']) ?>
-                </span>
-                <?php endif; ?>
-            </div>
-        </header>
+                    <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Article</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
+    <!-- End Breadcrumb -->
 
-        <!-- Content -->
-        <div class="p-8 md:p-12">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Content -->
+        <article class="lg:col-span-2">
+            <!-- Post Header -->
+            <header class="mb-8">
+                <h1 class="text-3xl font-bold md:text-4xl md:leading-tight text-primary mb-4">
+                    <?= htmlspecialchars($post['title']) ?>
+                </h1>
+                <div class="flex flex-wrap items-center gap-3 text-sm text-gray-600">
+                    <div class="flex items-center gap-x-2">
+                        <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4m8-4v4m-9 4h10M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
+                        <time datetime="<?= htmlspecialchars($post['date']) ?>">
+                            <?= \App\Util::formatDate($post['date'], 'F j, Y') ?>
+                        </time>
+                    </div>
+                    <?php if (!empty($post['city'])): ?>
+                    <div class="flex items-center gap-x-2">
+                        <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <?= htmlspecialchars($post['city']) ?>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </header>
+            <!-- End Post Header -->
+
+            <!-- Post Content -->
             <div class="prose prose-lg max-w-none">
                 <?= \App\Util::markdownToHtml($post['content']) ?>
             </div>
+            <!-- End Post Content -->
 
             <?php if (!empty($post['tags'])): ?>
+            <!-- Tags -->
             <div class="mt-12 pt-8 border-t border-gray-200">
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">Tags</h3>
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Tags</h3>
                 <div class="flex flex-wrap gap-2">
                     <?php foreach ($post['tags'] as $tag): ?>
-                    <span class="inline-flex items-center px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-medium hover:bg-blue-100 transition">
+                    <span class="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors">
                         <?= htmlspecialchars($tag) ?>
                     </span>
                     <?php endforeach; ?>
                 </div>
             </div>
+            <!-- End Tags -->
             <?php endif; ?>
-        </div>
+        </article>
+        <!-- End Main Content -->
 
-        <!-- Navigation -->
-        <div class="px-8 md:px-12 pb-8 md:pb-12">
-            <a href="/blog" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold transition">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                </svg>
-                Back to Blog
-            </a>
-        </div>
+        <!-- Sidebar -->
+        <aside class="lg:col-span-1">
+            <!-- Back to Blog -->
+            <div class="sticky top-24">
+                <a class="inline-flex items-center gap-x-2 text-sm text-gray-600 hover:text-primary border border-gray-200 hover:border-primary transition-colors rounded-lg px-4 py-3" href="/blog">
+                    <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+                    Back to Blog
+                </a>
+
+                <!-- CTA Card -->
+                <div class="mt-8 bg-gradient-to-br from-primary-600 to-primary border border-primary-600 rounded-xl p-6">
+                    <h3 class="text-white font-bold text-lg mb-2">Need Help?</h3>
+                    <p class="text-white/90 text-sm mb-4">Get a free assessment for your property.</p>
+                    <div class="flex flex-col gap-2">
+                        <a class="inline-flex justify-center items-center gap-x-2 bg-white text-primary hover:bg-gray-100 font-semibold rounded-lg px-4 py-3 transition-colors" href="<?= \App\Config::getPhoneLink() ?>">
+                            <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            Call Us
+                        </a>
+                        <a class="inline-flex justify-center items-center gap-x-2 bg-accent text-white hover:bg-accent-600 font-semibold rounded-lg px-4 py-3 transition-colors" href="<?= \App\Config::getSmsLink('Hi, I\'m interested in flood barriers.') ?>">
+                            <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            Text Us
+                        </a>
+                    </div>
+                </div>
+                <!-- End CTA Card -->
+            </div>
+        </aside>
+        <!-- End Sidebar -->
     </div>
-</article>
+</div>
+<!-- End Blog Post -->
