@@ -11,21 +11,24 @@
     <div class="max-w-3xl mx-auto prose prose-gray">
         <div class="space-y-6">
             <section>
-                <h2 class="text-2xl font-semibold text-gray-800">30-Day Return Policy</h2>
+                <h2 class="text-2xl font-semibold text-gray-800">Defective Product Return Policy</h2>
                 <p class="text-gray-600 mt-3">
-                    At Flood Barrier Pros, we stand behind the quality of our products. If you're not completely satisfied with your purchase, you may return it within 30 days of delivery for a full refund or exchange.
+                    At Flood Barrier Pros, we stand behind the quality of our products. If you receive a defective product or a product damaged in transit, we will replace it or provide a full refund. All defective or damaged products must be reported within 30 days of delivery.
                 </p>
             </section>
 
             <section>
-                <h2 class="text-2xl font-semibold text-gray-800">Eligibility Requirements</h2>
+                <h2 class="text-2xl font-semibold text-gray-800">Eligibility for Returns</h2>
                 <ul class="list-disc list-inside space-y-2 text-gray-600 mt-3">
-                    <li>Items must be unused and in their original packaging</li>
-                    <li>Items must be in new, undamaged condition</li>
-                    <li>All original components and accessories must be included</li>
-                    <li>Return must be initiated within 30 days of delivery date</li>
-                    <li>For custom or custom-sized products, returns are subject to manufacturer approval</li>
+                    <li>Products that arrived defective or damaged</li>
+                    <li>Products damaged during transit</li>
+                    <li>Manufacturing defects discovered within 30 days of delivery</li>
+                    <li>Missing components or incorrect parts</li>
+                    <li>Products that do not meet advertised specifications</li>
                 </ul>
+                <p class="text-gray-600 mt-4 italic">
+                    <strong>Note:</strong> We do not accept returns on non-defective products. All sales on properly functioning products are final.
+                </p>
             </section>
 
             <section>
@@ -42,7 +45,7 @@
             <section>
                 <h2 class="text-2xl font-semibold text-gray-800">Return Shipping</h2>
                 <p class="text-gray-600 mt-3">
-                    Return shipping fees are covered by the customer for standard returns. We provide a prepaid return label for defective items or items damaged in transit. Custom orders may incur additional return shipping costs.
+                    All return shipping costs are covered by Flood Barrier Pros for defective items or items damaged in transit. We provide a prepaid return label upon approval of your return claim. Custom orders that are defective will have return shipping covered.
                 </p>
             </section>
 
@@ -54,20 +57,24 @@
             </section>
 
             <section>
-                <h2 class="text-2xl font-semibold text-gray-800">Non-Returnable Items</h2>
+                <h2 class="text-2xl font-semibold text-gray-800">All Sales Final on Non-Defective Products</h2>
+                <p class="text-gray-600 mt-3">
+                    We do not accept returns on properly functioning, non-defective products. All sales are final. This includes:
+                </p>
                 <ul class="list-disc list-inside space-y-2 text-gray-600 mt-3">
-                    <li>Products that have been installed, modified, or damaged by customer</li>
-                    <li>Products that show signs of misuse or abuse</li>
-                    <li>Products missing original packaging or components</li>
-                    <li>Custom orders (unless defective or damaged)</li>
-                    <li>Products purchased from authorized dealers (subject to dealer policy)</li>
+                    <li>Products that are in working condition as advertised</li>
+                    <li>Products that have been installed or used</li>
+                    <li>Change of mind or buyer's remorse returns</li>
+                    <li>Size exchanges on functioning products</li>
+                    <li>Custom or bespoke products (unless defective)</li>
+                    <li>Products that have been modified or altered by the customer</li>
                 </ul>
             </section>
 
             <section>
-                <h2 class="text-2xl font-semibold text-gray-800">Exchanges</h2>
+                <h2 class="text-2xl font-semibold text-gray-800">Exchanges for Defective Items</h2>
                 <p class="text-gray-600 mt-3">
-                    We offer exchanges for different sizes or models of the same product type within the 30-day return window. Exchange items are subject to availability. Additional charges may apply for higher-value replacement items.
+                    For defective products, we offer exchanges for the same or similar product within the 30-day window. Replacement items are subject to availability. If a replacement is not available, we will provide a full refund.
                 </p>
             </section>
 

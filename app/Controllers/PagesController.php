@@ -272,7 +272,7 @@ class PagesController
     {
         $data = [
             'title' => 'Return Policy | ' . Config::get('app_name'),
-            'description' => '30-day return policy for Flood Barrier Pros products. Free returns on defective items, simple exchange process, full refund guarantee.',
+            'description' => 'Return policy for Flood Barrier Pros: Full refund on defective products within 30 days. All non-defective sales are final.',
             'canonical' => Config::get('app_url') . '/return-policy',
             'jsonld' => Schema::graph([
                 Schema::website(Config::get('app_url')),
