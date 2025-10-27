@@ -16,6 +16,9 @@ class Router
         // Home page
         $this->addRoute('GET', '/', 'PagesController@home');
         
+        // Policy pages
+        $this->addRoute('GET', '/return-policy', 'PagesController@returnPolicy');
+        
         // Resources pages: /resources/{topic-slug}/{city}
         $this->addRoute('GET', '/resources/{topic}/{city}', 'PagesController@resources');
         

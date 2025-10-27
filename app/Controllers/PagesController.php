@@ -268,6 +268,24 @@ class PagesController
         exit;
     }
     
+    public function returnPolicy()
+    {
+        $data = [
+            'title' => 'Return Policy | ' . Config::get('app_name'),
+            'description' => '30-day return policy for Flood Barrier Pros products. Free returns on defective items, simple exchange process, full refund guarantee.',
+            'canonical' => Config::get('app_url') . '/return-policy',
+            'jsonld' => Schema::graph([
+                Schema::website(Config::get('app_url')),
+                Schema::breadcrumb([
+                    ['Home', '/'],
+                    ['Return Policy', '/return-policy']
+                ])
+            ])
+        ];
+        
+        return View::renderPage('return-policy', $data);
+    }
+    
     private function notFound()
     {
         http_response_code(404);
