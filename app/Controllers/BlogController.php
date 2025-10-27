@@ -152,16 +152,27 @@ class BlogController
         
         $faqSection = $matches[1];
         
-        // Parse FAQ items - looking for ### heading (question) followed by paragraph (answer)
-        // Split by triple headings first
-        preg_match_all('/### (.+?)\n\n(.+?)(?=\n###|$)/s', $faqSection, $matches, PREG_SET_ORDER);
+        // Parse FAQ items - split on ### headers
+        $faqItems = preg_split('/\n### /', $faqSection);
         
-        foreach ($matches as $match) {
-            $question = trim($match[1]);
-            $answer = trim($match[2]);
+        foreach ($faqItems as $item) {
+            // Skip if empty
+            if (trim($item) === '') continue;
+            
+            // Split on first newline to get question and answer
+            $parts = preg_split('/\n/', $item, 2);
+            
+            if (count($parts) < 2) continue;
+            
+            $question = trim($parts[0]);
+            $answer = trim($parts[1]);
+            
+            // Remove ### from question if present (from first FAQ item)
+            $question = preg_replace('/^###\s*/', '', $question);
             
             // Clean up answer - remove extra whitespace and newlines
             $answer = preg_replace('/\n+/', ' ', $answer);
+            $answer = preg_replace('/\s+/', ' ', $answer);
             $answer = trim($answer);
             
             if (!empty($question) && !empty($answer)) {
