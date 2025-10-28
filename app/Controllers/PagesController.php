@@ -494,6 +494,7 @@ class PagesController
             }
         }
         
+        // Debug: Ensure data is passed correctly
         $data = [
             'title' => 'Southwest Florida Flood Protection Regions | Flood Barrier Pros',
             'description' => 'Find engineered flood protection services across Southwest Florida: Collier, Lee, Charlotte, Hendry, Glades.',
@@ -508,6 +509,7 @@ class PagesController
             ])
         ];
         
+        // Return rendered page
         return View::renderPage('regions', $data);
     }
     
