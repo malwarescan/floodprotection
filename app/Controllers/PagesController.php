@@ -475,6 +475,43 @@ class PagesController
         return View::renderPage('terms-of-service', $data);
     }
     
+    public function regionsIndex()
+    {
+        // Load regions from CSV
+        $csv = __DIR__ . '/../../data/swfl_regions.csv';
+        $regions = [];
+        
+        if (file_exists($csv)) {
+            $handle = fopen($csv, 'r');
+            if ($handle !== false) {
+                $head = fgetcsv($handle, 0, ',', '"', "\\");
+                while (($row = fgetcsv($handle, 0, ',', '"', "\\")) !== false) {
+                    if (count($row) === count($head)) {
+                        $regions[] = array_combine($head, $row);
+                    }
+                }
+                fclose($handle);
+            }
+        }
+        
+        // Include the regions index page
+        require_once __DIR__ . '/../../regions/index.php';
+        exit;
+    }
+    
+    public function showRegion($slug)
+    {
+        // Load the region page
+        $regionPath = __DIR__ . '/../../regions/' . $slug . '/index.php';
+        
+        if (file_exists($regionPath)) {
+            require_once $regionPath;
+            exit;
+        } else {
+            $this->notFound();
+        }
+    }
+    
     private function notFound()
     {
         http_response_code(404);

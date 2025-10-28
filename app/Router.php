@@ -53,6 +53,10 @@ class Router
         // Naples-specific high-value landing page
         $this->addRoute('GET', '/fl/naples/flood-barriers', 'PagesController@naplesFloodBarriers');
         
+        // Regions pages: /regions and /regions/{slug}
+        $this->addRoute('GET', '/regions', 'PagesController@regionsIndex');
+        $this->addRoute('GET', '/regions/{slug}', 'PagesController@showRegion');
+        
         // Service pages: /{keyword} (service taxonomy) - must be after FAQ routes
         $this->addServiceRoutes();
         
