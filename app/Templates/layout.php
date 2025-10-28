@@ -8,7 +8,9 @@
     <link rel="canonical" href="<?= htmlspecialchars($canonical) ?>"/>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/assets/images/logo/flood-barrier-pros-logo.png"/>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="apple-touch-icon" href="/favicon.ico"/>
     
     <!-- Open Graph -->
     <meta property="og:title" content="<?= htmlspecialchars($title) ?>"/>
