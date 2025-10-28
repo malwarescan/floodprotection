@@ -7,6 +7,9 @@
     <meta name="description" content="<?= htmlspecialchars($description) ?>"/>
     <link rel="canonical" href="<?= htmlspecialchars($canonical) ?>"/>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/images/logo/flood-barrier-pros-logo.png"/>
+    
     <!-- Open Graph -->
     <meta property="og:title" content="<?= htmlspecialchars($title) ?>"/>
     <meta property="og:description" content="<?= htmlspecialchars($description) ?>"/>
