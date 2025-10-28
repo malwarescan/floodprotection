@@ -169,7 +169,8 @@ class Router
     {
         // Convert {param} to named capture groups
         $pattern = preg_replace('/\{([^}]+)\}/', '(?P<$1>[^/]+)', $pattern);
-        return '#^' . $pattern . '$#';
+        // Make trailing slash optional
+        return '#^' . $pattern . '/?$#';
     }
     
     private function notFound()
