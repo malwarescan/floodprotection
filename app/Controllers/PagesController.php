@@ -494,8 +494,11 @@ class PagesController
             }
         }
         
-        // Include the regions index page
-        require_once __DIR__ . '/../../regions/index.php';
+        // Load and output the regions index page
+        ob_start();
+        include __DIR__ . '/../../regions/index.php';
+        $content = ob_get_clean();
+        echo $content;
         exit;
     }
     
@@ -505,7 +508,10 @@ class PagesController
         $regionPath = __DIR__ . '/../../regions/' . $slug . '/index.php';
         
         if (file_exists($regionPath)) {
-            require_once $regionPath;
+            ob_start();
+            include $regionPath;
+            $content = ob_get_clean();
+            echo $content;
             exit;
         } else {
             $this->notFound();
