@@ -494,11 +494,8 @@ class PagesController
             }
         }
         
-        // Load and output the regions index page
-        ob_start();
+        // Output regions index page directly
         include __DIR__ . '/../../regions/index.php';
-        $content = ob_get_clean();
-        echo $content;
         exit;
     }
     
@@ -508,10 +505,7 @@ class PagesController
         $regionPath = __DIR__ . '/../../regions/' . $slug . '/index.php';
         
         if (file_exists($regionPath)) {
-            ob_start();
             include $regionPath;
-            $content = ob_get_clean();
-            echo $content;
             exit;
         } else {
             $this->notFound();
