@@ -478,8 +478,6 @@ class PagesController
     public function regionsIndex()
     {
         // Load regions from CSV
-        function esc($s){return htmlspecialchars($s,ENT_QUOTES,'UTF-8');}
-        require_once __DIR__ . '/../../includes/swfl-nav.php';
         $csv = __DIR__ . '/../../data/swfl_regions.csv';
         $regions = [];
         
@@ -496,18 +494,26 @@ class PagesController
             }
         }
         
-        $title = "Southwest Florida Flood Protection Regions | Flood Barrier Pros";
-        $description = "Find engineered flood protection services across Southwest Florida: Collier, Lee, Charlotte, Hendry, Glades.";
-        $canonical = Config::get('app_url') . '/regions';
+        $data = [
+            'title' => 'Southwest Florida Flood Protection Regions | Flood Barrier Pros',
+            'description' => 'Find engineered flood protection services across Southwest Florida: Collier, Lee, Charlotte, Hendry, Glades.',
+            'canonical' => Config::get('app_url') . '/regions',
+            'regionsList' => $regions,
+            'jsonld' => Schema::graph([
+                Schema::website(Config::get('app_url')),
+                Schema::breadcrumb([
+                    ['Home', Config::get('app_url')],
+                    ['Regions', Config::get('app_url') . '/regions']
+                ])
+            ])
+        ];
         
-        include __DIR__ . '/../../regions/index.php';
-        exit;
+        return View::renderPage('regions', $data);
     }
     
     public function showRegion($slug)
     {
         // Load regions data
-        function esc($s){return htmlspecialchars($s,ENT_QUOTES,'UTF-8');}
         require_once __DIR__ . '/../../lib/swfl-schema.php';
         $csv = __DIR__ . '/../../data/swfl_regions.csv';
         $rows = [];
@@ -539,19 +545,23 @@ class PagesController
             return;
         }
         
-        // Set up title and meta
-        $title = $r['region']." Flood Barriers, Perimeter Systems & Pump Plans | Flood Barrier Pros";
-        $description = "Engineered flood protection in ".$r['region'].": door plugs, perimeter barriers, slab uplift mitigation, and pump sizing. County: ".$r['county'].".";
-        $canonical = Config::get('app_url') . '/regions/' . $slug;
+        // Build schema
+        $schemaBlocks = [
+            Schema::website(Config::get('app_url')),
+            jsonld_service($r),
+            jsonld_breadcrumb($r),
+            jsonld_faq()
+        ];
         
-        // Load the region page content
-        $regionPath = __DIR__ . '/../../regions/' . $slug . '/index.php';
-        if (file_exists($regionPath)) {
-            include $regionPath;
-            exit;
-        } else {
-            $this->notFound();
-        }
+        $data = [
+            'title' => $r['region']." Flood Barriers, Perimeter Systems & Pump Plans | Flood Barrier Pros",
+            'description' => "Engineered flood protection in ".$r['region'].": door plugs, perimeter barriers, slab uplift mitigation, and pump sizing. County: ".$r['county'].".",
+            'canonical' => Config::get('app_url') . '/regions/' . $slug,
+            'regionData' => $r,
+            'jsonld' => Schema::graph($schemaBlocks)
+        ];
+        
+        return View::renderPage('regions', $data);
     }
     
     private function notFound()
