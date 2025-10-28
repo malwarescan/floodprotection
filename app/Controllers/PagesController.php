@@ -478,6 +478,7 @@ class PagesController
     public function regionsIndex()
     {
         // Load regions from CSV
+        require_once __DIR__ . '/../../includes/swfl-nav.php';
         $csv = __DIR__ . '/../../data/swfl_regions.csv';
         $regions = [];
         
@@ -494,16 +495,55 @@ class PagesController
             }
         }
         
-        // Output regions index page directly
+        $title = "Southwest Florida Flood Protection Regions | Flood Barrier Pros";
+        $description = "Find engineered flood protection services across Southwest Florida: Collier, Lee, Charlotte, Hendry, Glades.";
+        $canonical = Config::get('app_url') . '/regions';
+        
         include __DIR__ . '/../../regions/index.php';
         exit;
     }
     
     public function showRegion($slug)
     {
-        // Load the region page
-        $regionPath = __DIR__ . '/../../regions/' . $slug . '/index.php';
+        // Load regions data
+        require_once __DIR__ . '/../../lib/swfl-schema.php';
+        $csv = __DIR__ . '/../../data/swfl_regions.csv';
+        $rows = [];
         
+        if (file_exists($csv)) {
+            $handle = fopen($csv, 'r');
+            if ($handle !== false) {
+                $head = fgetcsv($handle, 0, ',', '"', "\\");
+                while (($row = fgetcsv($handle, 0, ',', '"', "\\")) !== false) {
+                    if (count($row) === count($head)) {
+                        $rows[] = array_combine($head, $row);
+                    }
+                }
+                fclose($handle);
+            }
+        }
+        
+        // Find the region
+        $r = null;
+        foreach ($rows as $row) {
+            if ($row['slug'] === $slug) {
+                $r = $row;
+                break;
+            }
+        }
+        
+        if (!$r) {
+            $this->notFound();
+            return;
+        }
+        
+        // Set up title and meta
+        $title = $r['region']." Flood Barriers, Perimeter Systems & Pump Plans | Flood Barrier Pros";
+        $description = "Engineered flood protection in ".$r['region'].": door plugs, perimeter barriers, slab uplift mitigation, and pump sizing. County: ".$r['county'].".";
+        $canonical = Config::get('app_url') . '/regions/' . $slug;
+        
+        // Load the region page content
+        $regionPath = __DIR__ . '/../../regions/' . $slug . '/index.php';
         if (file_exists($regionPath)) {
             include $regionPath;
             exit;

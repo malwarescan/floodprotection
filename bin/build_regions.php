@@ -19,20 +19,11 @@ foreach($rows as $r){
   if(!is_dir($dir)) mkdir($dir,0775,true);
   
   $html = <<<'PHP'
-<?php
-require_once __DIR__."/../../includes/swfl-head.php";
-require_once __DIR__."/../../includes/swfl-nav.php";
-require_once __DIR__."/../../includes/swfl-footer.php";
-require_once __DIR__."/../../lib/swfl-schema.php";
-
-$r = __REGION_DATA__;
-$title = $r['region']." Flood Barriers, Perimeter Systems & Pump Plans | Flood Barrier Pros";
-$meta  = "Engineered flood protection in ".$r['region'].": door plugs, perimeter barriers, slab uplift mitigation, and pump sizing. County: ".$r['county'].".";
-
-require_once __DIR__."/../../includes/swfl-head.php";
+<!-- Region Page Content -->
+<?php 
+require_once __DIR__."/../../includes/swfl-nav.php"; 
+regions_nav($rows); 
 ?>
-
-<?php require_once __DIR__."/../../includes/swfl-nav.php"; regions_nav(__ALL_REGIONS__); ?>
 
 <main class="max-w-6xl mx-auto px-4 py-8">
   <header class="mb-8">
