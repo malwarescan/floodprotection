@@ -21,6 +21,7 @@ foreach($rows as $r){
   $html = <<<'PHP'
 <!-- Region Page Content -->
 <?php 
+function esc($s){return htmlspecialchars($s,ENT_QUOTES,'UTF-8');}
 require_once __DIR__."/../../includes/swfl-nav.php"; 
 regions_nav($rows); 
 ?>

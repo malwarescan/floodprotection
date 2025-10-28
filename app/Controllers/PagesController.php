@@ -478,6 +478,7 @@ class PagesController
     public function regionsIndex()
     {
         // Load regions from CSV
+        function esc($s){return htmlspecialchars($s,ENT_QUOTES,'UTF-8');}
         require_once __DIR__ . '/../../includes/swfl-nav.php';
         $csv = __DIR__ . '/../../data/swfl_regions.csv';
         $regions = [];
@@ -506,6 +507,7 @@ class PagesController
     public function showRegion($slug)
     {
         // Load regions data
+        function esc($s){return htmlspecialchars($s,ENT_QUOTES,'UTF-8');}
         require_once __DIR__ . '/../../lib/swfl-schema.php';
         $csv = __DIR__ . '/../../data/swfl_regions.csv';
         $rows = [];
