@@ -71,12 +71,16 @@
         <!-- Regions Index Page -->
         <h1 class="text-3xl font-semibold mb-6 text-gray-900">Southwest Florida Regions We Serve</h1>
         <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <?php foreach($regionsList as $r): ?>
-            <a class="block border rounded-2xl p-4 hover:bg-gray-50 shadow-sm bg-white transition hover:shadow-md" href="/regions/<?= htmlspecialchars($r['slug']) ?>/">
-                <div class="font-medium text-gray-900"><?= htmlspecialchars($r['region']) ?></div>
-                <div class="text-sm text-gray-600 mt-1"><?= htmlspecialchars($r['county']) ?> County • <?= htmlspecialchars($r['surge_profile']) ?></div>
-            </a>
-            <?php endforeach; ?>
+            <?php if (isset($regionsList) && is_array($regionsList)): ?>
+                <?php foreach($regionsList as $r): ?>
+                <a class="block border rounded-2xl p-4 hover:bg-gray-50 shadow-sm bg-white transition hover:shadow-md" href="/regions/<?= htmlspecialchars($r['slug']) ?>/">
+                    <div class="font-medium text-gray-900"><?= htmlspecialchars($r['region']) ?></div>
+                    <div class="text-sm text-gray-600 mt-1"><?= htmlspecialchars($r['county']) ?> County • <?= htmlspecialchars($r['surge_profile']) ?></div>
+                </a>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p class="text-gray-600">No regions data available.</p>
+            <?php endif; ?>
         </div>
         <?php endif; ?>
     </div>
