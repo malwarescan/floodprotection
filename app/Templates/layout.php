@@ -8,9 +8,11 @@
     <link rel="canonical" href="<?= htmlspecialchars($canonical) ?>"/>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
-    <link rel="apple-touch-icon" href="/favicon.ico"/>
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" href="/favicon-48.png" sizes="48x48">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#1B365D">
     
     <!-- Open Graph -->
     <meta property="og:title" content="<?= htmlspecialchars($title) ?>"/>

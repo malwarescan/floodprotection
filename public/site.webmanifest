@@ -1,0 +1,11 @@
+{
+  "name": "Flood Barrier Pros",
+  "short_name": "FloodBarrier",
+  "icons": [
+    { "src": "/favicon-48.png", "sizes": "48x48", "type": "image/png", "purpose": "any" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ],
+  "theme_color": "#1B365D",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
