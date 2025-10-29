@@ -409,8 +409,57 @@ class PagesController
     
     public function favicon()
     {
-        // Return a simple 204 No Content for favicon requests
-        http_response_code(204);
+        $this->serveStaticFile('favicon.ico', 'image/x-icon');
+    }
+    
+    public function faviconSvg()
+    {
+        $this->serveStaticFile('favicon.svg', 'image/svg+xml');
+    }
+    
+    public function favicon16x16()
+    {
+        $this->serveStaticFile('favicon-16x16.png', 'image/png');
+    }
+    
+    public function favicon32x32()
+    {
+        $this->serveStaticFile('favicon-32x32.png', 'image/png');
+    }
+    
+    public function favicon192()
+    {
+        $this->serveStaticFile('favicon-192.png', 'image/png');
+    }
+    
+    public function appleTouchIcon()
+    {
+        $this->serveStaticFile('apple-touch-icon.png', 'image/png');
+    }
+    
+    public function siteWebmanifest()
+    {
+        $this->serveStaticFile('site.webmanifest', 'application/manifest+json');
+    }
+    
+    private function serveStaticFile($filename, $contentType)
+    {
+        $filePath = __DIR__ . '/../../public/' . $filename;
+        
+        if (!file_exists($filePath)) {
+            http_response_code(404);
+            exit;
+        }
+        
+        // Set content type
+        header('Content-Type: ' . $contentType);
+        
+        // Set caching headers (1 year)
+        header('Cache-Control: public, max-age=31536000, immutable');
+        header('Expires: ' . gmdate('D, d M Y H:i:s', time() + 31536000) . ' GMT');
+        
+        // Send file
+        readfile($filePath);
         exit;
     }
     

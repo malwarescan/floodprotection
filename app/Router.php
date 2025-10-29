@@ -13,6 +13,15 @@ class Router
     
     private function registerRoutes()
     {
+        // Favicon routes - must be at the top to avoid conflicts
+        $this->addRoute('GET', '/favicon.ico', 'PagesController@favicon');
+        $this->addRoute('GET', '/favicon.svg', 'PagesController@faviconSvg');
+        $this->addRoute('GET', '/favicon-16x16.png', 'PagesController@favicon16x16');
+        $this->addRoute('GET', '/favicon-32x32.png', 'PagesController@favicon32x32');
+        $this->addRoute('GET', '/favicon-192.png', 'PagesController@favicon192');
+        $this->addRoute('GET', '/apple-touch-icon.png', 'PagesController@appleTouchIcon');
+        $this->addRoute('GET', '/site.webmanifest', 'PagesController@siteWebmanifest');
+        
         // Home page
         $this->addRoute('GET', '/', 'PagesController@home');
         
@@ -91,7 +100,6 @@ class Router
         
         // Other routes
         $this->addRoute('GET', '/robots.txt', 'PagesController@robots');
-        $this->addRoute('GET', '/favicon.ico', 'PagesController@favicon');
         $this->addRoute('GET', '/healthz', 'PagesController@health');
     }
     
