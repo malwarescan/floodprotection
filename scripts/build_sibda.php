@@ -107,16 +107,19 @@ while (($row = fgetcsv($in, 0, ',', '"', '\\')) !== false) {
     $currency = trim($matrixRow['product_currency'] ?? 'USD');
     
     if ($priceMin && $priceMax) {
-      $costRange = "$currency $priceMin-$priceMax";
-      $obj["cost_range"] = $costRange;
-      
-      // Calculate p50 and p90 estimates
+      // Format cost values with $ symbol and thousand separators
       $min = (int)$priceMin;
       $max = (int)$priceMax;
+      $obj["cost_range"] = "$" . number_format($min) . "-$" . number_format($max);
+      
+      // Calculate p50 and p90 estimates
       $p50 = (int)(($min + $max) / 2);
       $p90 = (int)($min + ($max - $min) * 0.9);
-      $obj["cost_p50"] = "$currency $p50";
-      $obj["cost_p90"] = "$currency $p90";
+      $obj["cost_p50"] = "$" . number_format($p50);
+      $obj["cost_p90"] = "$" . number_format($p90);
+      
+      // Add currency as separate field
+      $obj["cost_currency"] = $currency;
     }
     
     // Add best season (before hurricane season in Florida)
