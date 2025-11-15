@@ -189,5 +189,17 @@
     
     <!-- Preline JS -->
     <script src="https://cdn.jsdelivr.net/npm/preline@2.0.3/dist/preline.min.js"></script>
+    
+    <!-- Casa AI Widget -->
+    <div id="casa-widget"></div>
+    <script src="https://ourcasa.ai/embed.js"></script>
+    <script>
+      if (typeof CasaEmbed !== 'undefined') {
+        CasaEmbed.init({
+          domain: 'floodbarrierpros.com',
+          vertical: 'flood_protection'
+        });
+      }
+    </script>
 </body>
 </html>
