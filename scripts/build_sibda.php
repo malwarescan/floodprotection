@@ -72,6 +72,9 @@ if ($hasHeader) {
 }
 
 $count = 0;
+$processedUrls = []; // Track URLs we've already processed
+
+// First pass: Process sitemap CSV
 while (($row = fgetcsv($in, 0, ',', '"', '\\')) !== false) {
   if (!count($row)) continue;
 
@@ -88,6 +91,7 @@ while (($row = fgetcsv($in, 0, ',', '"', '\\')) !== false) {
 
   // Extract URL path to match with matrix.csv
   $urlPath = parse_url($url, PHP_URL_PATH) ?? '';
+  $processedUrls[$urlPath] = true; // Mark as processed
   $matrixRow = $matrixData[$urlPath] ?? null;
 
   $obj = [
@@ -142,6 +146,54 @@ while (($row = fgetcsv($in, 0, ',', '"', '\\')) !== false) {
 }
 
 fclose($in);
+
+// Second pass: Add matrix.csv entries that weren't in sitemap CSV
+$baseUrl = 'https://floodbarrierpros.com';
+foreach ($matrixData as $urlPath => $matrixRow) {
+  // Skip if already processed
+  if (isset($processedUrls[$urlPath])) continue;
+  
+  // Only process entries with price data (location pages)
+  $priceMin = trim($matrixRow['product_price_min'] ?? '');
+  $priceMax = trim($matrixRow['product_price_max'] ?? '');
+  if (!$priceMin || !$priceMax) continue;
+  
+  // Build full URL
+  $url = $baseUrl . $urlPath;
+  $lastmod = trim($matrixRow['lastmod'] ?? '');
+  
+  $currency = trim($matrixRow['product_currency'] ?? 'USD');
+  $min = (int)$priceMin;
+  $max = (int)$priceMax;
+  
+  $city = trim($matrixRow['city'] ?? '');
+  
+  $obj = [
+    "@id"          => $url,
+    "@type"        => $defaultType,
+    "headline"     => "",
+    "summary"      => "",
+    "keywords"     => [],
+    "lastModified" => normalizeDate($lastmod),
+    "contentHash"  => substr(sha1($url), 0, 12),
+    "cost_range"   => "$" . number_format($min) . "-$" . number_format($max),
+    "cost_p50"     => "$" . number_format((int)(($min + $max) / 2)),
+    "cost_p90"     => "$" . number_format((int)($min + ($max - $min) * 0.9)),
+    "cost_currency" => $currency,
+    "best_season"  => "April-May (before hurricane season)",
+    "typical_duration" => "1-2 days installation"
+  ];
+  
+  if ($city) {
+    $obj["location"] = $city . ", FL";
+  }
+  
+  fwrite($out, json_encode($obj, JSON_UNESCAPED_UNICODE) . "\n");
+  $count++;
+  
+  if ($maxUrls > 0 && $count >= $maxUrls) break;
+}
+
 fclose($out);
 
 echo "WROTE: $outPath ($count rows)\n";
