@@ -1,9 +1,19 @@
 User-agent: *
 Allow: /
+
 Disallow: /admin/
 Disallow: /private/
 
-# Sitemaps
-Sitemap: https://floodbarrierpros.com/sitemaps/sitemap-index.xml
-Sitemap: https://floodbarrierpros.com/sitemaps/sitemap-faq.xml
-Sitemap: https://floodbarrierpros.com/sitemaps/sitemap-products.xml
+# Sitemaps (canonical www URLs)
+Sitemap: https://www.floodbarrierpros.com/sitemaps/sitemap-index.xml
+Sitemap: https://www.floodbarrierpros.com/sitemaps/sitemap-index.xml.gz
+Sitemap: https://www.floodbarrierpros.com/sitemaps/sitemap-static.xml
+Sitemap: https://www.floodbarrierpros.com/sitemaps/sitemap-static.xml.gz
+Sitemap: https://www.floodbarrierpros.com/sitemaps/sitemap-products.xml
+Sitemap: https://www.floodbarrierpros.com/sitemaps/sitemap-products.xml.gz
+Sitemap: https://www.floodbarrierpros.com/sitemaps/sitemap-faq.xml
+Sitemap: https://www.floodbarrierpros.com/sitemaps/sitemap-faq.xml.gz
+Sitemap: https://www.floodbarrierpros.com/sitemaps/sitemap-reviews.xml
+Sitemap: https://www.floodbarrierpros.com/sitemaps/sitemap-reviews.xml.gz
+Sitemap: https://www.floodbarrierpros.com/sitemaps/sitemap-blog.xml
+Sitemap: https://www.floodbarrierpros.com/sitemaps/sitemap-blog.xml.gz

@@ -8,6 +8,24 @@ use App\View;
 
 class ProductController
 {
+    public function index()
+    {
+        $data = [
+            'title' => 'Flood Protection Products | ' . Config::get('app_name'),
+            'description' => 'Browse our complete line of flood protection products: modular flood barriers, garage dam kits, and doorway flood panels. FEMA-aligned, reusable systems.',
+            'canonical' => Config::get('app_url') . '/products',
+            'jsonld' => Schema::graph([
+                Schema::website(Config::get('app_url')),
+                Schema::breadcrumb([
+                    ['Home', Config::get('app_url')],
+                    ['Products', Config::get('app_url') . '/products']
+                ])
+            ])
+        ];
+        
+        return View::renderPage('products-index', $data);
+    }
+    
     public function modularFloodBarrier()
     {
         $title = 'Modular Flood Barriers | Aluminum Reusable Systems';

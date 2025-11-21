@@ -401,9 +401,26 @@ class PagesController
     public function robots()
     {
         header('Content-Type: text/plain');
+        $baseUrl = Config::get('app_url');
         echo "User-agent: *\n";
         echo "Allow: /\n";
-        echo "Sitemap: " . Config::get('app_url') . "/sitemap.xml\n";
+        echo "\n";
+        echo "Disallow: /admin/\n";
+        echo "Disallow: /private/\n";
+        echo "\n";
+        echo "# Sitemaps (canonical www URLs)\n";
+        echo "Sitemap: {$baseUrl}/sitemaps/sitemap-index.xml\n";
+        echo "Sitemap: {$baseUrl}/sitemaps/sitemap-index.xml.gz\n";
+        echo "Sitemap: {$baseUrl}/sitemaps/sitemap-static.xml\n";
+        echo "Sitemap: {$baseUrl}/sitemaps/sitemap-static.xml.gz\n";
+        echo "Sitemap: {$baseUrl}/sitemaps/sitemap-products.xml\n";
+        echo "Sitemap: {$baseUrl}/sitemaps/sitemap-products.xml.gz\n";
+        echo "Sitemap: {$baseUrl}/sitemaps/sitemap-faq.xml\n";
+        echo "Sitemap: {$baseUrl}/sitemaps/sitemap-faq.xml.gz\n";
+        echo "Sitemap: {$baseUrl}/sitemaps/sitemap-reviews.xml\n";
+        echo "Sitemap: {$baseUrl}/sitemaps/sitemap-reviews.xml.gz\n";
+        echo "Sitemap: {$baseUrl}/sitemaps/sitemap-blog.xml\n";
+        echo "Sitemap: {$baseUrl}/sitemaps/sitemap-blog.xml.gz\n";
         exit;
     }
     
@@ -613,6 +630,70 @@ class PagesController
         ];
         
         return View::renderPage('regions', $data);
+    }
+    
+    public function resourcesIndex()
+    {
+        // Load all unique topics from resources
+        $resourcesData = Util::getCsvData('resources.csv');
+        $topics = [];
+        
+        foreach ($resourcesData as $row) {
+            $topic = $row['topic'] ?? '';
+            if ($topic && !isset($topics[$topic])) {
+                $topics[$topic] = [
+                    'slug' => Util::slugify($topic),
+                    'name' => ucwords(str_replace('-', ' ', $topic)),
+                    'count' => 0
+                ];
+            }
+            if ($topic) {
+                $topics[$topic]['count']++;
+            }
+        }
+        
+        $data = [
+            'title' => 'Flood Protection Resources & Guides | ' . Config::get('app_name'),
+            'description' => 'Expert resources and guides for flood protection: door dams, flood barriers, installation tips, and more. Find answers to common questions.',
+            'canonical' => Config::get('app_url') . '/resources',
+            'topics' => array_values($topics),
+            'jsonld' => Schema::graph([
+                Schema::website(Config::get('app_url')),
+                Schema::breadcrumb([
+                    ['Home', Config::get('app_url')],
+                    ['Resources', Config::get('app_url') . '/resources']
+                ])
+            ])
+        ];
+        
+        return View::renderPage('resources-index', $data);
+    }
+    
+    public function contact()
+    {
+        $data = [
+            'title' => 'Contact Us | ' . Config::get('app_name'),
+            'description' => 'Get in touch with Flood Barrier Pros for flood protection solutions. Free assessments, expert installation, and professional service throughout Florida.',
+            'canonical' => Config::get('app_url') . '/contact',
+            'jsonld' => Schema::graph([
+                Schema::website(Config::get('app_url')),
+                Schema::organization(
+                    'Flood Barrier Pros',
+                    Config::get('app_url'),
+                    Config::get('app_url') . '/logo.png',
+                    'Rubicon Flood Protection',
+                    Config::get('phone'),
+                    Config::get('email'),
+                    []
+                ),
+                Schema::breadcrumb([
+                    ['Home', Config::get('app_url')],
+                    ['Contact', Config::get('app_url') . '/contact']
+                ])
+            ])
+        ];
+        
+        return View::renderPage('contact', $data);
     }
     
     private function notFound()

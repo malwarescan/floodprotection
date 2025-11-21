@@ -417,4 +417,21 @@ class Util
         
         return array_slice($services, 0, $limit);
     }
+    
+    /**
+     * Normalize URL to use www version for canonical URLs
+     * Ensures all canonical URLs consistently use www.floodbarrierpros.com
+     */
+    public static function normalizeCanonicalUrl($url)
+    {
+        // If URL is relative, prepend base URL
+        if (strpos($url, 'http') !== 0) {
+            $url = Config::get('app_url') . $url;
+        }
+        
+        // Normalize to www version
+        $url = preg_replace('/^https?:\/\/(?!www\.)(floodbarrierpros\.com)/', 'https://www.$1', $url);
+        
+        return $url;
+    }
 }

@@ -29,8 +29,10 @@ class Router
         $this->addRoute('GET', '/return-policy', 'PagesController@returnPolicy');
         $this->addRoute('GET', '/privacy-policy', 'PagesController@privacyPolicy');
         $this->addRoute('GET', '/terms-of-service', 'PagesController@termsOfService');
+        $this->addRoute('GET', '/contact', 'PagesController@contact');
         
-        // Resources pages: /resources/{topic-slug}/{city}
+        // Resources pages: /resources and /resources/{topic-slug}/{city}
+        $this->addRoute('GET', '/resources', 'PagesController@resourcesIndex');
         $this->addRoute('GET', '/resources/{topic}/{city}', 'PagesController@resources');
         
         // City pages: /city/{city-slug}
@@ -40,7 +42,8 @@ class Router
         $this->addRoute('GET', '/testimonials', 'TestimonialsController@index');
         $this->addRoute('GET', '/testimonials/{sku}', 'TestimonialsController@showSku');
         
-        // Canonical product pages
+        // Products listing and canonical product pages
+        $this->addRoute('GET', '/products', 'ProductController@index');
         $this->addRoute('GET', '/products/modular-flood-barrier', 'ProductController@modularFloodBarrier');
         $this->addRoute('GET', '/products/garage-dam-kit', 'ProductController@garageDamKit');
         $this->addRoute('GET', '/products/doorway-flood-panel', 'ProductController@doorwayFloodPanel');
@@ -134,6 +137,13 @@ class Router
         $method = $_SERVER['REQUEST_METHOD'];
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         
+        // Handle redirects before normal routing
+        $redirect = $this->handleRedirects($uri);
+        if ($redirect) {
+            header('Location: ' . $redirect, true, 301);
+            exit;
+        }
+        
         foreach ($this->routes as $route) {
             if ($route['method'] !== $method) {
                 continue;
@@ -179,6 +189,102 @@ class Router
         $pattern = preg_replace('/\{([^}]+)\}/', '(?P<$1>[^/]+)', $pattern);
         // Make trailing slash optional
         return '#^' . $pattern . '/?$#';
+    }
+    
+    private function handleRedirects($uri)
+    {
+        // Remove trailing slash for consistency (except root)
+        if ($uri !== '/' && substr($uri, -1) === '/') {
+            return rtrim($uri, '/');
+        }
+        
+        // Fix malformed URLs with double underscores (e.g., /fl__naples__flood-barriers -> /fl/naples/flood-barriers)
+        if (strpos($uri, '__') !== false) {
+            // Replace double underscores with single dashes, then convert to proper path
+            $fixed = str_replace('__', '-', $uri);
+            // Convert pattern like /fl-naples-flood-barriers to /fl/naples/flood-barriers
+            if (preg_match('#^/fl-([^-]+)-(.+)$#', $fixed, $matches)) {
+                return '/fl/' . $matches[1] . '/' . $matches[2];
+            }
+            // Fallback: just replace double underscores with slashes
+            return str_replace('__', '/', $uri);
+        }
+        
+        // Redirect old product SKU URLs to canonical product pages or location pages
+        if (preg_match('#^/products/rfp-(.+)$#', $uri, $matches)) {
+            $sku = strtolower($matches[1]);
+            
+            // Map SKU prefixes to canonical products
+            $productMap = [
+                'mod-barrier' => '/products/modular-flood-barrier',
+                'homeflo' => '/products/modular-flood-barrier',
+                'home-flo' => '/products/modular-flood-barrier',
+                'garage' => '/products/garage-dam-kit',
+                'doordam' => '/products/garage-dam-kit',
+                'panel' => '/products/doorway-flood-panel',
+                'basement' => '/products/doorway-flood-panel',
+                'door-panel' => '/products/doorway-flood-panel',
+                'resident' => '/products/modular-flood-barrier',
+                'flood-pr' => '/products/modular-flood-barrier',
+                'portable' => '/products/modular-flood-barrier'
+            ];
+            
+            // Try to extract city from SKU
+            $cityMap = [
+                'miami' => 'miami', 'tampa' => 'tampa', 'orlando' => 'orlando',
+                'jax' => 'jacksonville', 'naples' => 'naples', 'fortmyers' => 'fort-myers',
+                'pensacola' => 'pensacola', 'keywest' => 'key-west', 'key-we' => 'key-west',
+                'starke' => 'starke', 'jensen' => 'jensen-beach', 'fort-p' => 'fort-pierce',
+                'fernandina' => 'fernandina-beach', 'mirama' => 'miramar', 'flagle' => 'flagler-beach',
+                'wesley' => 'wesley-chapel', 'maccle' => 'macclenny', 'auburn' => 'auburn',
+                'cross' => 'cross-city', 'bunnel' => 'bunnell', 'mount' => 'mount-dora',
+                'madiso' => 'madison', 'crysta' => 'crystal-river', 'tamara' => 'tamarac',
+                'blount' => 'blountstown', 'west-p' => 'west-palm-beach', 'deland' => 'deland',
+                'the-vi' => 'the-villages', 'largo' => 'largo'
+            ];
+            
+            // Determine product type
+            $productSlug = 'modular-flood-barrier'; // default
+            foreach ($productMap as $prefix => $canonical) {
+                if (strpos($sku, $prefix) === 0 || strpos($sku, '-' . $prefix) !== false) {
+                    $productSlug = basename($canonical);
+                    break;
+                }
+            }
+            
+            // Try to extract city
+            $city = null;
+            foreach ($cityMap as $key => $cityName) {
+                if (strpos($sku, $key) !== false) {
+                    $city = $cityName;
+                    break;
+                }
+            }
+            
+            // If we found a city, redirect to location page, otherwise canonical product
+            if ($city) {
+                return "/fl/{$city}/{$productSlug}";
+            } else {
+                return "/products/{$productSlug}";
+            }
+        }
+        
+        // Redirect testimonials with product names to testimonials index
+        if (preg_match('#^/testimonials/(doorway-flood-panel|modular-flood-barrier|garage-dam-kit)$#', $uri, $matches)) {
+            return '/testimonials';
+        }
+        
+        // Redirect /door-flood-dams/{city} to /resources/door-dams/{city}
+        if (preg_match('#^/door-flood-dams/(.+)$#', $uri, $matches)) {
+            return '/resources/door-dams/' . $matches[1];
+        }
+        
+        // Redirect /resources/door-dams (without city) to /resources
+        if ($uri === '/resources/door-dams') {
+            return '/resources';
+        }
+        
+        return null;
     }
     
     private function notFound()

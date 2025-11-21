@@ -22,14 +22,24 @@ class View
     {
         $content = self::render($template, $data);
         
+        // Normalize canonical URL to always use www version
+        $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
+        $canonical = Util::normalizeCanonicalUrl($requestUri);
+        
         $defaultData = [
             'title' => Config::get('app_name'),
             'description' => 'Professional flood protection services in Florida',
-            'canonical' => Config::get('app_url') . ($_SERVER['REQUEST_URI'] ?? '/'),
+            'canonical' => $canonical,
             'jsonld' => []
         ];
         
         $data = array_merge($defaultData, $data);
+        
+        // Ensure canonical in data is also normalized
+        if (isset($data['canonical'])) {
+            $data['canonical'] = Util::normalizeCanonicalUrl($data['canonical']);
+        }
+        
         $data['content'] = $content;
         
         return self::render('layout', $data);

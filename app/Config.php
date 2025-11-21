@@ -11,7 +11,7 @@ class Config
         if ($config === null) {
             $config = [
                 'app_name' => 'Flood Barrier Pros',
-                'app_url' => 'https://floodbarrierpros.com',
+                'app_url' => 'https://www.floodbarrierpros.com',
                 'app_env' => $_ENV['APP_ENV'] ?? 'production',
                 'data_path' => __DIR__ . '/Data',
                 'templates_path' => __DIR__ . '/Templates',

@@ -46,9 +46,12 @@ if (!is_dir($OUTPUT_DIR)) {
 if (!isset($opts['base'])) {
   $configFile = $ROOT.'/app/Config.php';
   if (is_file($configFile)) {
-    $config = include $configFile;
-    if (isset($config['app_url'])) {
-      $BASE_URL = rtrim($config['app_url'], '/');
+    require_once $configFile;
+    if (class_exists('App\Config')) {
+      $baseUrl = \App\Config::get('app_url');
+      if ($baseUrl) {
+        $BASE_URL = rtrim($baseUrl, '/');
+      }
     }
   }
 }
@@ -341,11 +344,20 @@ $robotsContent .= "Allow: /\n";
 $robotsContent .= "Disallow: /admin/\n";
 $robotsContent .= "Disallow: /private/\n\n";
 
-// Add sitemap references
-$robotsContent .= "# Sitemaps\n";
+// Add sitemap references (canonical www URLs)
+$robotsContent .= "# Sitemaps (canonical www URLs)\n";
 $robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-index.xml\n";
-$robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-faq.xml\n";
+$robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-index.xml.gz\n";
+$robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-static.xml\n";
+$robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-static.xml.gz\n";
 $robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-products.xml\n";
+$robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-products.xml.gz\n";
+$robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-faq.xml\n";
+$robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-faq.xml.gz\n";
+$robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-reviews.xml\n";
+$robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-reviews.xml.gz\n";
+$robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-blog.xml\n";
+$robotsContent .= "Sitemap: $BASE_URL/sitemaps/sitemap-blog.xml.gz\n";
 
 file_put_contents($robotsPath, $robotsContent);
 echo "  ✓ Updated: robots.txt\n";
