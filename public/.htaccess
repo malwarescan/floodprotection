@@ -1,20 +1,20 @@
 RewriteEngine On
 
-# Allow static files in /data/ directory to be served directly (before redirects)
-# This prevents redirect loops for data files
-RewriteCond %{REQUEST_URI} ^/data/ [NC]
+# Allow static files in /data/ and /sitemaps/ directories to be served directly (before redirects)
+# This prevents redirect loops for data and sitemap files
+RewriteCond %{REQUEST_URI} ^/(data|sitemaps)/ [NC]
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
 # Force HTTPS - redirect HTTP to HTTPS (must be first)
-# Skip redirect for /data/ files
-RewriteCond %{REQUEST_URI} !^/data/ [NC]
+# Skip redirect for /data/ and /sitemaps/ files
+RewriteCond %{REQUEST_URI} !^/(data|sitemaps)/ [NC]
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 # Redirect non-www to www (canonical domain) - only for HTTPS
-# Skip redirect for /data/ files
-RewriteCond %{REQUEST_URI} !^/data/ [NC]
+# Skip redirect for /data/ and /sitemaps/ files
+RewriteCond %{REQUEST_URI} !^/(data|sitemaps)/ [NC]
 RewriteCond %{HTTPS} on
 RewriteCond %{HTTP_HOST} ^floodbarrierpros\.com$ [NC]
 RewriteRule ^(.*)$ https://www.floodbarrierpros.com/$1 [R=301,L]
