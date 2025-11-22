@@ -97,6 +97,8 @@ class Router
         $this->addRoute('GET', '/sitemaps/sitemap-reviews.xml.gz', 'SitemapController@sitemapReviewsGz');
         $this->addRoute('GET', '/sitemaps/sitemap-blog.xml', 'SitemapController@sitemapBlog');
         $this->addRoute('GET', '/sitemaps/sitemap-blog.xml.gz', 'SitemapController@sitemapBlogGz');
+        $this->addRoute('GET', '/sitemaps/sitemap-regions.xml', 'SitemapController@sitemapRegions');
+        $this->addRoute('GET', '/sitemaps/sitemap-ai.ndjson', 'SitemapController@sitemapAiNdjson');
         
         // Feed routes
         $this->addRoute('GET', '/feed.xml', 'FeedController@rss');

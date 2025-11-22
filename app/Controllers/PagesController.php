@@ -168,10 +168,38 @@ class PagesController
         
         $cityName = ucwords(str_replace('-', ' ', $city));
         
-        // CTR-optimized meta for Sanford (GSC shows pos 5.1, 0% CTR - needs lift)
-        if (strtolower($city) === 'sanford') {
-            $title = \App\SEO::titleSanford();
-            $description = \App\SEO::descSanford();
+        // CTR-optimized meta for specific cities (GSC shows 0% CTR - needs lift)
+        $cityMetaMap = [
+            'sanford' => [
+                'title' => \App\SEO::titleSanford(),
+                'description' => \App\SEO::descSanford()
+            ],
+            'south-miami' => [
+                'title' => 'Flood Barriers South Miami FL | Local Installation',
+                'description' => 'Flood barrier installation in South Miami, FL. Local experts, FEMA-aligned systems, free assessment. Serving South Miami area.'
+            ],
+            'pinellas-park' => [
+                'title' => 'Flood Barriers Pinellas Park FL | Local Installation',
+                'description' => 'Flood barrier installation in Pinellas Park, FL. Local experts, FEMA-aligned systems, free assessment. Serving Pinellas Park area.'
+            ],
+            'clearwater' => [
+                'title' => 'Flood Barriers Clearwater FL | Local Installation',
+                'description' => 'Flood barrier installation in Clearwater, FL. Local experts, FEMA-aligned systems, free assessment. Serving Clearwater area.'
+            ],
+            'st-pete-beach' => [
+                'title' => 'Flood Barriers St Pete Beach FL | Local Installation',
+                'description' => 'Flood barrier installation in St Pete Beach, FL. Local experts, FEMA-aligned systems, free assessment. Serving St Pete Beach area.'
+            ],
+            'north-miami' => [
+                'title' => 'Flood Barriers North Miami FL | Local Installation',
+                'description' => 'Flood barrier installation in North Miami, FL. Local experts, FEMA-aligned systems, free assessment. Serving North Miami area.'
+            ]
+        ];
+        
+        $citySlug = strtolower($city);
+        if (isset($cityMetaMap[$citySlug])) {
+            $title = $cityMetaMap[$citySlug]['title'];
+            $description = $cityMetaMap[$citySlug]['description'];
         } else {
             $title = "Flood Barriers in {$cityName} | {$cityName} Flood Protection";
             $description = "Flood barriers & panels for {$cityName}, FL. Custom installation, FEMA-aligned, free assessment. Quick installation & local service.";

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>FloodBarrierPros GSC Audit Dataset – JSONL SEO Diagnostics Index</title>
+  <meta name="description" content="A structured dataset providing JSONL records on Google Search Console audit results, URL performance metrics, meta optimization recommendations, and SEO diagnostics for FloodBarrierPros.">
+  <meta name="robots" content="index, follow">
+  
+  <!-- DATASET SCHEMA -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "FloodBarrierPros GSC Audit Dataset",
+    "description": "A machine-readable dataset containing JSONL records for Google Search Console audit results, including URL performance metrics (clicks, impressions, CTR, position), status classifications, recommended actions, SEO meta optimization recommendations, and page purpose outlines across FloodBarrierPros.",
+    "url": "https://www.floodbarrierpros.com/data/gsc-audit-gateway",
+    "distribution": [
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://www.floodbarrierpros.com/data/gsc-audit-output.jsonl"
+      }
+    ],
+    "creator": {
+      "@type": "Organization",
+      "name": "FloodBarrierPros",
+      "url": "https://www.floodbarrierpros.com"
+    },
+    "license": "https://creativecommons.org/licenses/by/4.0/"
+  }
+  </script>
+</head>
+<body>
+<h1>FloodBarrierPros GSC Audit Structured JSONL Dataset</h1>
+<p>
+This page provides the indexable HTML wrapper for the FloodBarrierPros Google Search Console audit dataset. The JSONL file referenced below contains comprehensive SEO diagnostic data including URL performance metrics, status classifications, recommended actions (KEEP_AS_IS, REWRITE_META, CONSOLIDATE, PAGE_MISSING_CREATE, DEINDEX_OR_NOINDEX), priority levels, and SEO-optimized meta recommendations for 385 URLs. Search engines may index this page, while the dataset itself is consumed through the JSON feed.
+</p>
+<p>
+The JSONL feed includes fields such as:
+</p>
+<ul>
+  <li>URL</li>
+  <li>GSC metrics: clicks, impressions, CTR, position</li>
+  <li>Status guess: EXISTS, PROBABLY_404, PROBABLY_SOFT_404, UNKNOWN</li>
+  <li>Recommended action: KEEP_AS_IS, REWRITE_META, CONSOLIDATE, PAGE_MISSING_CREATE, DEINDEX_OR_NOINDEX</li>
+  <li>Priority: HIGH, MEDIUM, LOW</li>
+  <li>Recommended meta title and description</li>
+  <li>Recommended H1 and page purpose</li>
+  <li>Content outline recommendations</li>
+</ul>
+<script 
+  type="application/json" 
+  src="https://www.floodbarrierpros.com/data/gsc-audit-output.jsonl">
+</script>
+</body>
+</html>
+

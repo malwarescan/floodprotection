@@ -59,6 +59,7 @@ class SitemapController
         $mimeType = $gzip ? 'application/gzip' : 'application/xml';
         header('Content-Type: ' . $mimeType);
         header('Content-Length: ' . filesize($filepath));
+        header('X-Robots-Tag: noindex, nofollow'); // Prevent indexing of sitemap files
         
         if ($gzip) {
             header('Content-Encoding: gzip');
@@ -125,6 +126,28 @@ class SitemapController
     public function sitemapBlogGz()
     {
         $this->serveSitemapFile('sitemap-blog.xml.gz', true);
+    }
+    
+    public function sitemapRegions()
+    {
+        $this->serveSitemapFile('sitemap-regions.xml');
+    }
+    
+    public function sitemapAiNdjson()
+    {
+        $filepath = __DIR__ . '/../../public/sitemaps/sitemap-ai.ndjson';
+        
+        if (!file_exists($filepath)) {
+            http_response_code(404);
+            echo 'Sitemap not found';
+            return;
+        }
+        
+        header('Content-Type: application/x-ndjson');
+        header('Content-Length: ' . filesize($filepath));
+        header('X-Robots-Tag: noindex, nofollow'); // Prevent indexing of sitemap files
+        
+        readfile($filepath);
     }
     
     public function pages()

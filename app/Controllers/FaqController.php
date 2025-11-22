@@ -60,6 +60,16 @@ class FaqController
                 'title' => 'Flood Barrier Insurance Benefits – FAQ Guide',
                 'description' => 'Learn how flood barriers can reduce insurance premiums and provide protection benefits. Expert answers about insurance discounts.',
                 'canonical' => \App\Config::get('app_url') . '/faq/flood-barrier-insurance-benefits'
+            ],
+            'flood-barrier-maintenance' => [
+                'title' => 'Flood Barrier Maintenance FAQ | Flood Barrier Pros',
+                'description' => 'Frequently asked questions about flood barrier maintenance. Expert answers from licensed flood protection contractors in Florida.',
+                'canonical' => \App\Config::get('app_url') . '/faq/flood-barrier-maintenance'
+            ],
+            'installation-timeline' => [
+                'title' => 'Installation Timeline FAQ | Flood Barrier Pros',
+                'description' => 'Frequently asked questions about installation timeline. Expert answers from licensed flood protection contractors in Florida.',
+                'canonical' => \App\Config::get('app_url') . '/faq/installation-timeline'
             ]
         ];
         
