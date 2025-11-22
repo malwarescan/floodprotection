@@ -247,6 +247,8 @@ $staticUrls = [
   ['url' => $BASE_URL . '/testimonials', 'lastmod' => date('Y-m-d'), 'changefreq' => 'monthly', 'priority' => '0.7'],
   ['url' => $BASE_URL . '/blog', 'lastmod' => date('Y-m-d'), 'changefreq' => 'weekly', 'priority' => '0.7'],
   ['url' => $BASE_URL . '/resources', 'lastmod' => date('Y-m-d'), 'changefreq' => 'monthly', 'priority' => '0.6'],
+  ['url' => $BASE_URL . '/contact', 'lastmod' => date('Y-m-d'), 'changefreq' => 'monthly', 'priority' => '0.6'],
+  ['url' => $BASE_URL . '/data/gsc-audit-gateway', 'lastmod' => date('Y-m-d'), 'changefreq' => 'monthly', 'priority' => '0.3'],
 ];
 
 $staticXml = generateSitemapXml($staticUrls, $BASE_URL);
