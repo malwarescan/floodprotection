@@ -515,6 +515,20 @@ class PagesController
         exit;
     }
     
+    public function gscAuditGateway()
+    {
+        $filePath = __DIR__ . '/../../public/data/gsc-audit-gateway.html';
+        
+        if (!file_exists($filePath)) {
+            $this->notFound();
+            return;
+        }
+        
+        header('Content-Type: text/html; charset=utf-8');
+        readfile($filePath);
+        exit;
+    }
+    
     public function returnPolicy()
     {
         $data = [

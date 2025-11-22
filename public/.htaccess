@@ -9,6 +9,11 @@ RewriteCond %{HTTPS} on
 RewriteCond %{HTTP_HOST} ^floodbarrierpros\.com$ [NC]
 RewriteRule ^(.*)$ https://www.floodbarrierpros.com/$1 [R=301,L]
 
+# Allow static files in /data/ directory to be served directly
+RewriteCond %{REQUEST_URI} ^/data/ [NC]
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
 # Route all requests to index.php if file/directory doesn't exist
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

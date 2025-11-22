@@ -69,6 +69,10 @@ class Router
         $this->addRoute('GET', '/regions', 'PagesController@regionsIndex');
         $this->addRoute('GET', '/regions/{slug}', 'PagesController@showRegion');
         
+        // Data gateway routes - must be before service routes to avoid conflicts
+        $this->addRoute('GET', '/data/gsc-audit-gateway', 'PagesController@gscAuditGateway');
+        $this->addRoute('GET', '/data/gsc-audit-gateway.html', 'PagesController@gscAuditGateway');
+        
         // Service pages: /{keyword} (service taxonomy) - must be after FAQ routes
         $this->addServiceRoutes();
         
