@@ -290,6 +290,32 @@ class Router
             return '/resources';
         }
         
+        // Redirect keyword variations to canonical keywords for matrix pages
+        // These redirects handle URLs that may not have entries in matrix.csv
+        // Pattern-based redirects for common keyword variations
+        if (preg_match('#^/flood-panels/(.+)$#', $uri, $matches)) {
+            // Redirect /flood-panels/{city} to /home-flood-barriers/{city}
+            return '/home-flood-barriers/' . $matches[1];
+        }
+        
+        if (preg_match('#^/flood-protection/(.+)$#', $uri, $matches)) {
+            // Redirect /flood-protection/{city} to /home-flood-barriers/{city}
+            return '/home-flood-barriers/' . $matches[1];
+        }
+        
+        // Redirect service pages (single keyword) to canonical versions
+        if ($uri === '/flood-panels') {
+            return '/home-flood-barriers';
+        }
+        
+        if ($uri === '/flood-protection') {
+            return '/home-flood-barriers';
+        }
+        
+        // Note: flood-protection-for-homes and driveway-flood-barriers exist in matrix.csv
+        // but may not have entries for all cities, so they'll fall through to matrix() controller
+        // which will return 404 if no entry exists (which is correct behavior)
+        
         return null;
     }
     

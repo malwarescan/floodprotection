@@ -600,6 +600,7 @@ class Schema
                     'url' => $productUrl,
                     'hasMerchantReturnPolicy' => [
                         '@type' => 'MerchantReturnPolicy',
+                        'applicableCountry' => 'US',
                         'returnPolicyCategory' => 'https://schema.org/MerchantReturnFiniteReturnWindow',
                         'merchantReturnDays' => 30,
                         'returnMethod' => 'https://schema.org/ReturnByMail',
