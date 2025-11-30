@@ -194,6 +194,8 @@
     <script src="https://unpkg.com/preline@2.0.3/dist/preline.min.js" crossorigin="anonymous"></script>
     
     <!-- Casa AI Widget -->
+    <!-- Note: Script temporarily disabled due to 404 error. Re-enable when embed.js is available -->
+    <!--
     <div id="casa-widget"></div>
     <script src="https://ourcasa.ai/embed.js"></script>
     <script>
@@ -204,5 +206,6 @@
         });
       }
     </script>
+    -->
 </body>
 </html>
