@@ -12,6 +12,7 @@ require_once __DIR__ . '/../app/Config.php';
 require_once __DIR__ . '/../app/Util.php';
 require_once __DIR__ . '/../app/Schema.php';
 require_once __DIR__ . '/../app/View.php';
+require_once __DIR__ . '/../app/SEO.php';
 require_once __DIR__ . '/../app/Router.php';
 
 // Load all controllers
