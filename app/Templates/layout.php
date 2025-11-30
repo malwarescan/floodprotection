@@ -32,10 +32,12 @@
     <meta name="twitter:description" content="<?= htmlspecialchars($description) ?>"/>
     
     <!-- Tailwind CSS -->
+    <!-- Note: CDN version is for development. For production, use compiled Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Preline UI CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline@2.0.3/dist/preline.min.css">
+    <!-- Using unpkg CDN instead of jsdelivr to avoid MIME type issues -->
+    <link rel="stylesheet" href="https://unpkg.com/preline@2.0.3/dist/preline.min.css" crossorigin="anonymous">
     
     <!-- Custom Tailwind Config -->
     <script>

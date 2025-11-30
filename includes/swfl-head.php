@@ -13,7 +13,8 @@ function esc($s){return htmlspecialchars($s,ENT_QUOTES,'UTF-8');}
 <script src="https://cdn.tailwindcss.com"></script>
 
 <!-- Preline UI CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline@2.0.3/dist/preline.min.css">
+<!-- Using unpkg CDN instead of jsdelivr to avoid MIME type issues -->
+<link rel="stylesheet" href="https://unpkg.com/preline@2.0.3/dist/preline.min.css" crossorigin="anonymous">
 
 <!-- Custom Tailwind Config -->
 <script>
