@@ -13,14 +13,18 @@ RewriteRule ^ - [L]
 
 # Force HTTPS - redirect HTTP to HTTPS (must be first)
 # Skip redirect for /data/ and /sitemaps/ files
+# Note: Railway Edge terminates HTTPS, so we check X-Forwarded-Proto header instead
 RewriteCond %{REQUEST_URI} !^/(data|sitemaps)/ [NC]
 RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 # Redirect non-www to www (canonical domain) - only for HTTPS
 # Skip redirect for /data/ and /sitemaps/ files
+# Note: Check X-Forwarded-Proto for Railway Edge HTTPS termination
 RewriteCond %{REQUEST_URI} !^/(data|sitemaps)/ [NC]
-RewriteCond %{HTTPS} on
+RewriteCond %{HTTPS} on [OR]
+RewriteCond %{HTTP:X-Forwarded-Proto} https
 RewriteCond %{HTTP_HOST} ^floodbarrierpros\.com$ [NC]
 RewriteRule ^(.*)$ https://www.floodbarrierpros.com/$1 [R=301,L]
 
