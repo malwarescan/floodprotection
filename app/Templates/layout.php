@@ -190,8 +190,8 @@
     <!-- Organization Schema -->
     <script type="application/ld+json"><?= json_encode(\App\Schema::organizationGraph(), JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?></script>
     
-    <!-- Preline JS -->
-    <script src="https://cdn.jsdelivr.net/npm/preline@2.0.3/dist/preline.min.js"></script>
+    <!-- Preline JS - Using unpkg CDN instead of jsdelivr to avoid MIME type issues -->
+    <script src="https://unpkg.com/preline@2.0.3/dist/preline.min.js" crossorigin="anonymous"></script>
     
     <!-- Casa AI Widget -->
     <div id="casa-widget"></div>
