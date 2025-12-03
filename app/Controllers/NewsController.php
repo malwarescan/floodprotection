@@ -49,6 +49,9 @@ class NewsController
         
         $url = Config::get('app_url') . '/news/' . $slug;
         
+        // Get image for schema (use article image or random)
+        $articleImage = $article['image'] ?? null;
+        
         $data = [
             'title' => $article['title'] . ' | ' . Config::get('app_name'),
             'description' => $article['description'],
@@ -60,7 +63,8 @@ class NewsController
                     $article['title'],
                     $article['description'],
                     $article['date'],
-                    $url
+                    $url,
+                    $articleImage
                 ),
                 Schema::breadcrumb([
                     ['Home', Config::get('app_url')],

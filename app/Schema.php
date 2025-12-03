@@ -171,6 +171,36 @@ class Schema
         return $obj + self::publisher($root);
     }
 
+    /**
+     * Get a random news image for Florida flood articles
+     * Returns a random image URL from a curated list
+     */
+    private static function getRandomNewsImage($root, $seed = null)
+    {
+        $images = [
+            '/assets/images/blog/flood-protection-blog.jpg',
+            '/assets/images/homepage/cropped-2026-01-11-17.53.15-scaled-2.jpg',
+            '/assets/images/homepage/cropped-cropped-rubicon_flood_privatehome-1-1536x1104.jpg',
+            '/assets/images/homepage/cropped-IMG_0070-rotated-1.jpg',
+            '/assets/images/homepage/cropped-rubiconfloodbarrier2-scaled-e1755554554647.jpg',
+            '/assets/images/products/modular-aluminum-flood-barriers.jpg',
+            '/assets/images/products/garage-dam-kits.jpg',
+            '/assets/images/products/doorway-flood-panels.jpg',
+        ];
+        
+        if ($seed) {
+            mt_srand(crc32($seed . date('Y-m')));
+        }
+        
+        $randomImage = $images[array_rand($images)];
+        
+        if ($seed) {
+            mt_srand();
+        }
+        
+        return $root . $randomImage;
+    }
+    
     public static function newsArticle($root, $title, $desc, $date, $url, $img = null)
     {
         // Convert date to ISO 8601 format if needed
@@ -179,10 +209,11 @@ class Schema
             $datePublished = $date . 'T00:00:00+00:00';
         }
         
-        $speak = [
-            '@type' => 'SpeakableSpecification',
-            'cssSelector' => ['article h1', 'article .lead']
-        ];
+        // If no image provided, use random news image
+        if (!$img) {
+            // Use URL as seed for consistent image per article
+            $img = self::getRandomNewsImage($root, $url);
+        }
         
         $obj = [
             '@type' => 'NewsArticle',
@@ -208,14 +239,7 @@ class Schema
                     'height' => 60
                 ]
             ],
-            'image' => [
-                $img ?: [
-                    '@type' => 'ImageObject',
-                    'url' => $root . '/assets/images/blog/flood-protection-blog.jpg',
-                    'width' => 1200,
-                    'height' => 630
-                ]
-            ],
+            'image' => is_string($img) ? [$img] : (is_array($img) ? $img : []),
             'articleSection' => 'Flood Protection',
             'url' => $url,
             'mainEntityOfPage' => [
@@ -225,18 +249,6 @@ class Schema
             // Removed speakable - CSS selectors don't match our HTML structure
             'inLanguage' => 'en-US'
         ];
-        
-        // If image is a string, convert to ImageObject array
-        if ($img && is_string($img)) {
-            $obj['image'] = [
-                [
-                    '@type' => 'ImageObject',
-                    'url' => $img,
-                    'width' => 1200,
-                    'height' => 630
-                ]
-            ];
-        }
         
         return $obj;
     }
@@ -272,6 +284,21 @@ class Schema
         }
         
         return $review;
+    }
+    
+    /**
+     * Get merchant return policy schema (required for Google Merchant listings)
+     */
+    private static function getMerchantReturnPolicy()
+    {
+        return [
+            '@type' => 'MerchantReturnPolicy',
+            'applicableCountry' => 'US',
+            'returnPolicyCategory' => 'https://schema.org/MerchantReturnFiniteReturnWindow',
+            'merchantReturnDays' => 30,
+            'returnMethod' => 'https://schema.org/ReturnByMail',
+            'returnFees' => 'https://schema.org/FreeReturn'
+        ];
     }
     
     public static function productWithReviews($name, $sku, $description, $image = null, $brand = 'Flood Barrier Pros', $seller = 'Flood Barrier Pros', $reviews = [], $aggregateRating = null, $lowPrice = null, $highPrice = null, $currency = 'USD')
@@ -313,7 +340,8 @@ class Schema
                     'offerCount' => 3, // Standard tiers: small, medium, large
                     'priceValidUntil' => '2026-01-31',
                     'availability' => 'https://schema.org/InStock',
-                    'url' => Config::get('app_url') . '/products/' . strtolower($sku)
+                    'url' => Config::get('app_url') . '/products/' . strtolower($sku),
+                    'hasMerchantReturnPolicy' => self::getMerchantReturnPolicy()
                 ];
             } else {
                 // Single price point, use simple Offer
@@ -323,7 +351,8 @@ class Schema
                     'priceCurrency' => $currency,
                     'priceValidUntil' => '2026-01-31',
                     'availability' => 'https://schema.org/InStock',
-                    'url' => Config::get('app_url') . '/products/' . strtolower($sku)
+                    'url' => Config::get('app_url') . '/products/' . strtolower($sku),
+                    'hasMerchantReturnPolicy' => self::getMerchantReturnPolicy()
                 ];
             }
         }
@@ -374,7 +403,8 @@ class Schema
                     'offerCount' => 3, // Standard tiers: small, medium, large
                     'priceValidUntil' => '2026-01-31',
                     'availability' => 'https://schema.org/InStock',
-                    'url' => Config::get('app_url') . '/products/' . strtolower($sku)
+                    'url' => Config::get('app_url') . '/products/' . strtolower($sku),
+                    'hasMerchantReturnPolicy' => self::getMerchantReturnPolicy()
                 ];
             } else {
                 // Single price point, use simple Offer
@@ -384,7 +414,8 @@ class Schema
                     'priceCurrency' => $currency,
                     'priceValidUntil' => '2026-01-31',
                     'availability' => 'https://schema.org/InStock',
-                    'url' => Config::get('app_url') . '/products/' . strtolower($sku)
+                    'url' => Config::get('app_url') . '/products/' . strtolower($sku),
+                    'hasMerchantReturnPolicy' => self::getMerchantReturnPolicy()
                 ];
             }
         }
@@ -690,6 +721,10 @@ class Schema
                             'value' => '0.00',
                             'currency' => 'USD'
                         ],
+                        'shippingDestination' => [
+                            '@type' => 'DefinedRegion',
+                            'addressCountry' => 'US'
+                        ],
                         'deliveryTime' => [
                             '@type' => 'ShippingDeliveryTime',
                             'businessDays' => [
@@ -758,7 +793,8 @@ class Schema
                         'offers' => [
                             '@type' => 'Offer',
                             'availability' => 'https://schema.org/InStock',
-                            'priceCurrency' => 'USD'
+                            'priceCurrency' => 'USD',
+                            'hasMerchantReturnPolicy' => self::getMerchantReturnPolicy()
                         ]
                     ]
                 ]

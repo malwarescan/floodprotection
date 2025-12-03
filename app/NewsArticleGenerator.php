@@ -143,7 +143,10 @@ class NewsArticleGenerator
         // Generate content sections
         $content = self::generateContent($cityDisplay, $county, $landmark, $recentStorm, $installers, $insurance, $currentDate);
         
-        // Generate schema
+        // Get random news image for this article (consistent per city)
+        $imageUrl = self::getRandomNewsImage(Config::get('app_url'), $citySlug);
+        
+        // Generate schema (will use the random image)
         $schema = self::generateSchema($cityDisplay, $citySlug, $title, $today);
         
         // Generate internal links
@@ -162,7 +165,8 @@ class NewsArticleGenerator
             'dateline' => "{$cityDisplay}, Florida — {$currentDate}",
             'meta_title' => $title . ' | ' . Config::get('app_name'),
             'meta_description' => $subtitle,
-            'canonical' => Config::get('app_url') . '/news/flood-barriers-' . $citySlug
+            'canonical' => Config::get('app_url') . '/news/flood-barriers-' . $citySlug,
+            'image' => $imageUrl
         ];
     }
     
@@ -450,6 +454,45 @@ class NewsArticleGenerator
         return $sections;
     }
     
+    /**
+     * Get a random news image for Florida flood articles
+     * Returns a random image URL from a curated list of Florida flood-related images
+     */
+    private static function getRandomNewsImage($baseUrl, $citySlug = null)
+    {
+        // Curated list of Florida flood/flooding news images
+        // These should be relevant, high-quality images suitable for news articles
+        $images = [
+            // Blog/News images
+            '/assets/images/blog/flood-protection-blog.jpg',
+            
+            // Homepage images (flood protection related)
+            '/assets/images/homepage/cropped-2026-01-11-17.53.15-scaled-2.jpg',
+            '/assets/images/homepage/cropped-cropped-rubicon_flood_privatehome-1-1536x1104.jpg',
+            '/assets/images/homepage/cropped-IMG_0070-rotated-1.jpg',
+            '/assets/images/homepage/cropped-rubiconfloodbarrier2-scaled-e1755554554647.jpg',
+            
+            // Product images (can be used for news context)
+            '/assets/images/products/modular-aluminum-flood-barriers.jpg',
+            '/assets/images/products/garage-dam-kits.jpg',
+            '/assets/images/products/doorway-flood-panels.jpg',
+        ];
+        
+        // Use city slug as seed for consistent image per city, but still random
+        if ($citySlug) {
+            mt_srand(crc32($citySlug . date('Y-m')));
+        }
+        
+        $randomImage = $images[array_rand($images)];
+        
+        // Reset seed
+        if ($citySlug) {
+            mt_srand();
+        }
+        
+        return $baseUrl . $randomImage;
+    }
+    
     private static function generateSchema($city, $citySlug, $title, $date)
     {
         $baseUrl = Config::get('app_url');
@@ -457,6 +500,9 @@ class NewsArticleGenerator
         
         // Generate description from subtitle
         $description = "A new technical report shows why traditional sandbags underperform during storm surge, wave impact, and flash flooding—prompting emergency managers and insurers across {$city} to push residents toward aluminum flood panel systems.";
+        
+        // Get random news image
+        $imageUrl = self::getRandomNewsImage($baseUrl, $citySlug);
         
         return [
             '@context' => 'https://schema.org',
@@ -483,14 +529,7 @@ class NewsArticleGenerator
                     'height' => 60
                 ]
             ],
-            'image' => [
-                [
-                    '@type' => 'ImageObject',
-                    'url' => $baseUrl . '/assets/images/blog/flood-protection-blog.jpg',
-                    'width' => 1200,
-                    'height' => 630
-                ]
-            ],
+            'image' => [$imageUrl],
             'articleSection' => 'Flood Protection',
             'about' => [
                 [

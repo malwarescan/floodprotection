@@ -117,6 +117,35 @@ class Util
         return $posts;
     }
     
+    /**
+     * Get a random news image for Florida flood articles
+     */
+    private static function getRandomNewsImage($root, $seed = null)
+    {
+        $images = [
+            '/assets/images/blog/flood-protection-blog.jpg',
+            '/assets/images/homepage/cropped-2026-01-11-17.53.15-scaled-2.jpg',
+            '/assets/images/homepage/cropped-cropped-rubicon_flood_privatehome-1-1536x1104.jpg',
+            '/assets/images/homepage/cropped-IMG_0070-rotated-1.jpg',
+            '/assets/images/homepage/cropped-rubiconfloodbarrier2-scaled-e1755554554647.jpg',
+            '/assets/images/products/modular-aluminum-flood-barriers.jpg',
+            '/assets/images/products/garage-dam-kits.jpg',
+            '/assets/images/products/doorway-flood-panels.jpg',
+        ];
+        
+        if ($seed) {
+            mt_srand(crc32($seed . date('Y-m')));
+        }
+        
+        $randomImage = $images[array_rand($images)];
+        
+        if ($seed) {
+            mt_srand();
+        }
+        
+        return $root . $randomImage;
+    }
+    
     public static function getNewsArticles($limit = null)
     {
         $articles = [];
@@ -140,6 +169,12 @@ class Util
             $article = self::parseMarkdownFrontMatter($content);
             $article['slug'] = basename($file, '.md');
             $article['file'] = $file;
+            
+            // Add random image if not already set
+            if (empty($article['image'])) {
+                $article['image'] = self::getRandomNewsImage(Config::get('app_url'), $article['slug']);
+            }
+            
             $articles[] = $article;
         }
         
