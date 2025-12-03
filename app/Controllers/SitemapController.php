@@ -288,6 +288,8 @@ class SitemapController
         }
         
         // Include programmatic news articles (all 20 cities)
+        // These are now markdown files, so they're already included above via Util::getNewsArticles()
+        // But we'll add them explicitly with correct URLs if they exist as markdown files
         $cities = [
             'fort-myers', 'cape-coral', 'naples', 'bonita-springs', 'estero',
             'sanibel', 'pine-island', 'marco-island', 'sarasota', 'tampa',
@@ -297,20 +299,40 @@ class SitemapController
         ];
         
         $today = date('Y-m-d');
+        $newsPath = Config::getDataPath('news');
+        
         foreach ($cities as $city) {
-            $cityName = ucwords(str_replace('-', ' ', $city));
-            $title = "New Data Warns {$cityName} Homeowners: Sandbags Fail in 50% of Flood Events — Engineered Flood Panels Now Recommended Across Southwest Florida";
+            // Check if markdown file exists (format: YYYY-MM-DD-flood-barriers-{city}.md)
+            $slug = $today . '-flood-barriers-' . $city;
+            $markdownFile = $newsPath . '/' . $slug . '.md';
             
-            $urls[] = [
-                'url' => $root . '/news/flood-barriers-' . $city,
-                'lastmod' => $today,
-                'changefreq' => 'weekly',
-                'priority' => '0.9',
-                'news' => [
-                    'date' => $today,
-                    'title' => $title
-                ]
-            ];
+            // Only add if markdown file exists (to avoid duplicates)
+            if (file_exists($markdownFile)) {
+                $cityName = ucwords(str_replace('-', ' ', $city));
+                $title = "New Data Warns {$cityName} Homeowners: Sandbags Fail in 50% of Flood Events — Engineered Flood Panels Now Recommended Across Southwest Florida";
+                
+                // Check if already added via Util::getNewsArticles() above
+                $alreadyAdded = false;
+                foreach ($urls as $existingUrl) {
+                    if (strpos($existingUrl['url'], $slug) !== false) {
+                        $alreadyAdded = true;
+                        break;
+                    }
+                }
+                
+                if (!$alreadyAdded) {
+                    $urls[] = [
+                        'url' => $root . '/news/' . $slug,
+                        'lastmod' => $today,
+                        'changefreq' => 'daily',
+                        'priority' => '0.9',
+                        'news' => [
+                            'date' => $today,
+                            'title' => $title
+                        ]
+                    ];
+                }
+            }
         }
         
         // Render Google News XML sitemap
