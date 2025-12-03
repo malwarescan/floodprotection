@@ -85,31 +85,31 @@
             <!-- Internal Links Section -->
             <?php if (isset($article['internal_links'])): ?>
             <section class="mt-12 pt-8 border-t border-gray-200">
-                <h2 class="text-2xl font-bold text-primary mb-6">Related Flood Protection Resources</h2>
-                <div class="flex flex-wrap gap-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-primary mb-6">Related Flood Protection Resources</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <?php if (isset($article['internal_links']['upward'])): ?>
                         <?php foreach ($article['internal_links']['upward'] as $link): ?>
-                            <a href="<?= htmlspecialchars($link['url']) ?>" class="inline-flex items-center gap-x-2 text-primary hover:text-primary-600 font-semibold underline">
-                                <?= htmlspecialchars($link['anchor']) ?>
-                                <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                            <a href="<?= htmlspecialchars($link['url']) ?>" class="group flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg hover:border-primary hover:shadow-md transition-all">
+                                <span class="text-gray-700 group-hover:text-primary font-semibold"><?= htmlspecialchars($link['anchor']) ?></span>
+                                <svg class="size-5 text-gray-400 group-hover:text-primary transition-colors" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                             </a>
                         <?php endforeach; ?>
                     <?php endif; ?>
                     
                     <?php if (isset($article['internal_links']['sideways'])): ?>
                         <?php foreach ($article['internal_links']['sideways'] as $link): ?>
-                            <a href="<?= htmlspecialchars($link['url']) ?>" class="inline-flex items-center gap-x-2 text-primary hover:text-primary-600 font-semibold underline">
-                                <?= htmlspecialchars($link['anchor']) ?>
-                                <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                            <a href="<?= htmlspecialchars($link['url']) ?>" class="group flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg hover:border-primary hover:shadow-md transition-all">
+                                <span class="text-gray-700 group-hover:text-primary font-semibold"><?= htmlspecialchars($link['anchor']) ?></span>
+                                <svg class="size-5 text-gray-400 group-hover:text-primary transition-colors" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                             </a>
                         <?php endforeach; ?>
                     <?php endif; ?>
                     
                     <?php if (isset($article['internal_links']['downward'])): ?>
                         <?php foreach ($article['internal_links']['downward'] as $link): ?>
-                            <a href="<?= htmlspecialchars($link['url']) ?>" class="inline-flex items-center gap-x-2 text-primary hover:text-primary-600 font-semibold underline">
-                                <?= htmlspecialchars($link['anchor']) ?>
-                                <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                            <a href="<?= htmlspecialchars($link['url']) ?>" class="group flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg hover:border-primary hover:shadow-md transition-all">
+                                <span class="text-gray-700 group-hover:text-primary font-semibold"><?= htmlspecialchars($link['anchor']) ?></span>
+                                <svg class="size-5 text-gray-400 group-hover:text-primary transition-colors" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                             </a>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -147,7 +147,7 @@
                 <!-- End CTA Card -->
 
                 <!-- City Page Link -->
-                <a class="inline-flex items-center justify-center gap-x-2 text-sm font-semibold text-white bg-primary hover:bg-primary-600 transition-colors rounded-lg px-4 py-3 w-full" href="/fl/<?= htmlspecialchars($article['city_slug']) ?>/modular-flood-barrier">
+                <a class="inline-flex items-center justify-center gap-x-2 text-sm font-semibold text-white bg-primary hover:bg-primary-600 transition-colors rounded-lg px-4 py-3 w-full mt-6" href="/fl/<?= htmlspecialchars($article['city_slug']) ?>/modular-flood-barrier">
                     View <?= htmlspecialchars($article['city']) ?> Flood Barriers
                     <svg class="size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                 </a>

@@ -173,6 +173,12 @@ class Schema
 
     public static function newsArticle($root, $title, $desc, $date, $url, $img = null)
     {
+        // Convert date to ISO 8601 format if needed
+        $datePublished = $date;
+        if (strlen($date) === 10) {
+            $datePublished = $date . 'T00:00:00+00:00';
+        }
+        
         $speak = [
             '@type' => 'SpeakableSpecification',
             'cssSelector' => ['article h1', 'article .lead']
@@ -181,18 +187,52 @@ class Schema
         $obj = [
             '@type' => 'NewsArticle',
             'headline' => $title,
-            'datePublished' => $date,
-            'dateModified' => $date,
             'description' => $desc,
-            'mainEntityOfPage' => $url,
-            'speakable' => $speak
+            'datePublished' => $datePublished,
+            'dateModified' => $datePublished,
+            'author' => [
+                '@type' => 'Organization',
+                'name' => 'Flood Barrier Pros',
+                'url' => $root
+            ],
+            'publisher' => [
+                '@type' => 'Organization',
+                'name' => 'Flood Barrier Pros',
+                'url' => $root,
+                'logo' => [
+                    '@type' => 'ImageObject',
+                    'url' => $root . '/assets/images/logo/flood-barrier-pros-logo.png',
+                    'width' => 600,
+                    'height' => 60
+                ]
+            ],
+            'image' => $img ?: [
+                '@type' => 'ImageObject',
+                'url' => $root . '/assets/images/blog/flood-protection-blog.jpg',
+                'width' => 1200,
+                'height' => 630
+            ],
+            'articleSection' => 'Flood Protection',
+            'url' => $url,
+            'mainEntityOfPage' => [
+                '@type' => 'WebPage',
+                '@id' => $url
+            ],
+            'speakable' => $speak,
+            'inLanguage' => 'en-US'
         ];
         
-        if ($img) {
-            $obj['image'] = $img;
+        // If image is a string, convert to ImageObject
+        if ($img && is_string($img)) {
+            $obj['image'] = [
+                '@type' => 'ImageObject',
+                'url' => $img,
+                'width' => 1200,
+                'height' => 630
+            ];
         }
         
-        return $obj + self::publisher($root);
+        return $obj;
     }
 
     public static function publisher($root)
