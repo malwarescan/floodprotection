@@ -149,7 +149,7 @@ class Schema
         ];
     }
 
-    public static function blogPosting($root, $title, $desc, $date, $url, $img = null, $author = 'Rubicon Flood Protection')
+    public static function blogPosting($root, $title, $desc, $date, $url, $img = null, $author = 'Flood Barrier Pros')
     {
         $obj = [
             '@type' => 'BlogPosting',
@@ -200,7 +200,7 @@ class Schema
         return [
             'publisher' => [
                 '@type' => 'Organization',
-                'name' => 'Rubicon Flood Protection',
+                'name' => 'Flood Barrier Pros',
                 'url' => $root
             ]
         ];
@@ -228,7 +228,7 @@ class Schema
         return $review;
     }
     
-    public static function productWithReviews($name, $sku, $description, $image = null, $brand = 'Rubicon Flood Protection', $seller = 'Flood Barrier Pros', $reviews = [], $aggregateRating = null, $lowPrice = null, $highPrice = null, $currency = 'USD')
+    public static function productWithReviews($name, $sku, $description, $image = null, $brand = 'Flood Barrier Pros', $seller = 'Flood Barrier Pros', $reviews = [], $aggregateRating = null, $lowPrice = null, $highPrice = null, $currency = 'USD')
     {
         $product = [
             '@type' => 'Product',
@@ -236,8 +236,8 @@ class Schema
             'name' => $name,
             'sku' => $sku,
             'description' => $description,
-            'brand' => ['@id' => Config::get('app_url') . '/#rubicon-flood-control'],
-            'manufacturer' => ['@id' => Config::get('app_url') . '/#rubicon-flood-control'],
+            'brand' => ['@type' => 'Brand', 'name' => $brand],
+            'manufacturer' => ['@type' => 'Organization', 'name' => $brand],
             'seller' => ['@type' => 'Organization', 'name' => $seller]
         ];
         
@@ -293,8 +293,8 @@ class Schema
             'name' => $name,
             'sku' => $sku,
             'description' => $description,
-            'brand' => ['@id' => Config::get('app_url') . '/#rubicon-flood-control'],
-            'manufacturer' => ['@id' => Config::get('app_url') . '/#rubicon-flood-control'],
+            'brand' => ['@type' => 'Brand', 'name' => 'Flood Barrier Pros'],
+            'manufacturer' => ['@type' => 'Organization', 'name' => 'Flood Barrier Pros'],
             'seller' => ['@type' => 'Organization', 'name' => 'Flood Barrier Pros']
         ];
         
@@ -379,7 +379,7 @@ class Schema
         if ($productId && $lowPrice) {
             $business['hasOfferCatalog'] = [
                 '@type' => 'OfferCatalog',
-                'name' => 'Rubicon Flood Protection Systems',
+                'name' => 'Flood Barrier Pros',
                 'itemListElement' => [[
                     '@type' => 'Offer',
                     'itemOffered' => ['@id' => $productId],
@@ -404,12 +404,12 @@ class Schema
             '@graph' => [
                 [
                     '@type' => 'Organization',
-                    '@id' => Config::get('app_url') . '/#rubicon-flood-control',
+                    '@id' => Config::get('app_url') . '/#flood-barrier-pros',
                     'name' => Config::get('brand'),
                     'brand' => [
                         '@type' => 'Brand',
                         'name' => Config::get('brand'),
-                        '@id' => Config::get('app_url') . '/#rubicon-brand'
+                        '@id' => Config::get('app_url') . '/#flood-barrier-pros-brand'
                     ],
                     'email' => 'mailto:' . Config::get('email'),
                     'telephone' => Config::get('phone'),
@@ -432,7 +432,7 @@ class Schema
                     'jobTitle' => Config::get('contact_title'),
                     'email' => 'mailto:' . Config::get('email'),
                     'telephone' => Config::get('phone'),
-                    'worksFor' => ['@id' => Config::get('app_url') . '/#rubicon-flood-control']
+                    'worksFor' => ['@id' => Config::get('app_url') . '/#flood-barrier-pros']
                 ],
                 [
                     '@type' => 'Place',
@@ -535,23 +535,52 @@ class Schema
             'RFP-BASEMENT' => 'doorway-flood-panel'
         ];
         
-        // Map SKU prefixes to product names
-        $productNames = [
-            'RFP-MOD-BARRIER' => 'Modular Flood Barrier System',
-            'RFP-HOMEFLO' => 'Modular Flood Barrier System',
-            'RFP-GARAGE' => 'Garage Door Flood Dam Kit',
-            'RFP-DOORDAM' => 'Garage Door Flood Dam Kit',
-            'RFP-PANEL' => 'Doorway Flood Panel',
-            'RFP-DOOR-PANEL' => 'Doorway Flood Panel',
-            'RFP-BASEMENT' => 'Doorway Flood Panel'
-        ];
+        // SEO-optimized product name variations for review snippets
+        // Creates variety in product names for better SEO and search appearance
+        $getSeoProductName = function($productSlug, $index = 0) {
+            $variations = [
+                'modular-flood-barrier' => [
+                    'Modular Flood Barrier System | Flood Barrier Pros',
+                    'Aluminum Modular Flood Barriers | Flood Barrier Pros',
+                    'Reusable Flood Barrier System | Flood Barrier Pros',
+                    'Modular Flood Protection Barriers | Flood Barrier Pros',
+                    'Aluminum Flood Barrier Panels | Flood Barrier Pros',
+                    'Rapid-Deploy Flood Barriers | Flood Barrier Pros',
+                    'Modular Flood Defense System | Flood Barrier Pros',
+                    'Professional Flood Barrier System | Flood Barrier Pros'
+                ],
+                'garage-dam-kit' => [
+                    'Garage Door Flood Dam Kit | Flood Barrier Pros',
+                    'Garage Flood Protection Kit | Flood Barrier Pros',
+                    'Garage Door Flood Barrier | Flood Barrier Pros',
+                    'Residential Garage Flood Dam | Flood Barrier Pros',
+                    'Garage Entry Flood Protection | Flood Barrier Pros',
+                    'Garage Flood Barrier System | Flood Barrier Pros',
+                    'Commercial Garage Flood Dam | Flood Barrier Pros',
+                    'Garage Door Water Barrier Kit | Flood Barrier Pros'
+                ],
+                'doorway-flood-panel' => [
+                    'Doorway Flood Panel | Flood Barrier Pros',
+                    'Entry Door Flood Protection | Flood Barrier Pros',
+                    'Basement Door Flood Panel | Flood Barrier Pros',
+                    'Doorway Flood Barrier Panel | Flood Barrier Pros',
+                    'Residential Door Flood Panel | Flood Barrier Pros',
+                    'Entryway Flood Protection Panel | Flood Barrier Pros',
+                    'Door Flood Barrier System | Flood Barrier Pros',
+                    'Basement Entry Flood Panel | Flood Barrier Pros'
+                ]
+            ];
+            
+            $names = $variations[$productSlug] ?? ['Flood Barrier System | Flood Barrier Pros'];
+            return $names[$index % count($names)];
+        };
         
         // Create canonical products (one per product type)
         $canonicalProducts = [];
+        $productIndex = 0;
         foreach ($aggregates as $productSlug => $agg) {
-            $productName = 'Modular Flood Barrier System';
-            if ($productSlug === 'garage-dam-kit') $productName = 'Garage Door Flood Dam Kit';
-            elseif ($productSlug === 'doorway-flood-panel') $productName = 'Doorway Flood Panel';
+            $productName = $getSeoProductName($productSlug, $productIndex);
+            $productIndex++;
             
             $productId = $baseUrl . '/products/' . $productSlug . '#product';
             $productUrl = $baseUrl . '/products/' . $productSlug;
@@ -566,10 +595,12 @@ class Schema
             }
             
             $avg = round($agg['sum'] / $agg['count'], 1);
+            // Use primary SEO name for canonical product
+            $primaryName = $getSeoProductName($productSlug, 0);
             $canonicalProducts[$productSlug] = [
                 '@type' => 'Product',
                 '@id' => $productId,
-                'name' => $productName,
+                'name' => $primaryName,
                 'description' => $productSlug === 'modular-flood-barrier' 
                     ? 'Rapid-deploy modular flood barriers made from 6063 T-6 aluminum with EPDM sealing for residential and commercial openings.'
                     : ($productSlug === 'garage-dam-kit' 
@@ -652,7 +683,11 @@ class Schema
             }
             
             $productId = $baseUrl . '/products/' . $productSlug . '#product';
+            $productUrl = $baseUrl . '/products/' . $productSlug;
             $reviewId = $baseUrl . '/testimonials#' . ($r['review_id'] ?? 'rev-' . $position);
+            
+            // Use varied SEO product name for this review (rotate through variations)
+            $variedProductName = $getSeoProductName($productSlug, $position - 1);
             
             $itemListElement[] = [
                 '@type' => 'ListItem',
@@ -669,7 +704,17 @@ class Schema
                         'bestRating' => '5'
                     ],
                     'reviewBody' => $r['body'] ?? '',
-                    'itemReviewed' => ['@id' => $productId] // Reference canonical product
+                    'itemReviewed' => [
+                        '@type' => 'Product',
+                        '@id' => $productId,
+                        'name' => $variedProductName,
+                        'url' => $productUrl,
+                        'offers' => [
+                            '@type' => 'Offer',
+                            'availability' => 'https://schema.org/InStock',
+                            'priceCurrency' => 'USD'
+                        ]
+                    ]
                 ]
             ];
             

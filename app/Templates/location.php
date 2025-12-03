@@ -30,7 +30,7 @@
             
             <div class="product-reference">
                 <div class="product-card">
-                    <img src="<?= htmlspecialchars($productData['image']) ?>" alt="<?= htmlspecialchars($productData['name']) ?>" />
+                    <img src="<?= htmlspecialchars($productData['image']) ?>" alt="<?= htmlspecialchars($altTag ?? $productData['name']) ?>" />
                     <h3><?= htmlspecialchars($productData['name']) ?></h3>
                     <p><?= htmlspecialchars($productData['description']) ?></p>
                     <div class="product-specs">

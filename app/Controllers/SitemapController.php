@@ -270,27 +270,50 @@ class SitemapController
     public function news()
     {
         $root = Config::get('app_url');
-        $articles = Util::getNewsArticles();
         $urls = [];
         
-        // Only include articles from last 48 hours for Google News
-        $cutoff = date('Y-m-d H:i:s', strtotime('-48 hours'));
-        
+        // Include markdown-based news articles
+        $articles = Util::getNewsArticles();
         foreach ($articles as $article) {
-            if (strtotime($article['date']) >= strtotime($cutoff)) {
-                $urls[] = [
-                    'url' => $root . '/news/' . $article['slug'],
-                    'lastmod' => $article['date'],
-                    'changefreq' => 'daily',
-                    'priority' => '0.9',
-                    'news' => [
-                        'date' => $article['date'],
-                        'title' => $article['title']
-                    ]
-                ];
-            }
+            $urls[] = [
+                'url' => $root . '/news/' . $article['slug'],
+                'lastmod' => $article['date'],
+                'changefreq' => 'daily',
+                'priority' => '0.9',
+                'news' => [
+                    'date' => $article['date'],
+                    'title' => $article['title']
+                ]
+            ];
         }
         
+        // Include programmatic news articles (all 20 cities)
+        $cities = [
+            'fort-myers', 'cape-coral', 'naples', 'bonita-springs', 'estero',
+            'sanibel', 'pine-island', 'marco-island', 'sarasota', 'tampa',
+            'st-petersburg', 'clearwater', 'bradenton', 'venice',
+            'port-charlotte', 'punta-gorda', 'miami', 'miami-beach',
+            'key-west', 'key-largo'
+        ];
+        
+        $today = date('Y-m-d');
+        foreach ($cities as $city) {
+            $cityName = ucwords(str_replace('-', ' ', $city));
+            $title = "New Data Warns {$cityName} Homeowners: Sandbags Fail in 50% of Flood Events — Engineered Flood Panels Now Recommended Across Southwest Florida";
+            
+            $urls[] = [
+                'url' => $root . '/news/flood-barriers-' . $city,
+                'lastmod' => $today,
+                'changefreq' => 'weekly',
+                'priority' => '0.9',
+                'news' => [
+                    'date' => $today,
+                    'title' => $title
+                ]
+            ];
+        }
+        
+        // Render Google News XML sitemap
         View::renderXml(View::renderSitemap($urls));
     }
     

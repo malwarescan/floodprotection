@@ -23,6 +23,7 @@
     <meta property="og:title" content="<?= htmlspecialchars($title) ?>"/>
     <meta property="og:description" content="<?= htmlspecialchars($description) ?>"/>
     <meta property="og:url" content="<?= htmlspecialchars($canonical) ?>"/>
+    <meta property="og:canonical" content="<?= htmlspecialchars($canonical) ?>"/>
     <meta property="og:type" content="website"/>
     <meta property="og:site_name" content="<?= htmlspecialchars(\App\Config::get('app_name')) ?>"/>
     

@@ -6,6 +6,8 @@ use App\Config;
 use App\Util;
 use App\View;
 use App\Schema;
+use App\SWFLContent;
+use App\QueryDrivenContent;
 
 class PagesController
 {
@@ -47,47 +49,114 @@ class PagesController
             return;
         }
         
+        $citySlug = Util::slugify($row['city']);
+        $isSWFL = SWFLContent::isSWFLCity($citySlug);
+        $canonical = Config::get('app_url') . $row['url_path'];
+        
         // Load FAQs for this URL
         require_once __DIR__ . '/../../lib/Faqs.php';
-        $canonical = Config::get('app_url') . $row['url_path'];
         $faqs = \Faqs::locate($canonical);
         
-        // Always generate fresh schema with fixed offers/offerCount
-        $schemaItems = [];
-        $schemaItems[] = Schema::website(Config::get('app_url'));
-        $jsonld = Schema::generateMatrixSchema($row);
-        
-        // Add FAQ schema if we have FAQs
-        if (!empty($faqs)) {
-            $schemaItems[] = Schema::faq($faqs);
-        }
-        
-        // Merge the matrix schema with FAQ schema
-        if (isset($jsonld['@graph']) && is_array($jsonld['@graph'])) {
-            $schemaItems = array_merge($schemaItems, $jsonld['@graph']);
+        // Use SWFL content generator for SWFL cities
+        if ($isSWFL) {
+            // Use query-driven content for headings and meta
+            $keywordSlug = Util::slugify($row['keyword']);
+            $pageTitle = QueryDrivenContent::getMetaTitle($citySlug, $keywordSlug);
+            $metaDescription = QueryDrivenContent::getMetaDescription($citySlug, $keywordSlug);
+            $h1 = QueryDrivenContent::getH1($citySlug, $keywordSlug);
+            $h2s = QueryDrivenContent::getH2s($citySlug, $keywordSlug);
+            
+            // Generate SWFL-optimized content
+            $swflContent = [
+                'page_title' => $pageTitle,
+                'h1' => $h1,
+                'h2s' => $h2s,
+                'intro' => SWFLContent::getIntro($citySlug),
+                'why_critical' => SWFLContent::getWhyCritical($citySlug),
+                'products' => SWFLContent::getProductBreakdown(),
+                'installation' => SWFLContent::getInstallationPermitting($citySlug),
+                'pricing' => SWFLContent::getPricingGuide($citySlug),
+                'case_studies' => SWFLContent::getCaseStudies($citySlug),
+                'maintenance_checklist' => SWFLContent::getMaintenanceChecklist(),
+                'faqs' => SWFLContent::getFAQs($citySlug),
+                'internal_links' => QueryDrivenContent::getInternalLinkTargets($citySlug, $keywordSlug)
+            ];
+            
+            // Generate comprehensive SWFL schema with expanded types
+            $swflSchema = SWFLContent::generateSchema($citySlug, $canonical, $metaDescription, $keywordSlug);
+            
+            // Merge with existing schema
+            $schemaItems = [];
+            $schemaItems[] = Schema::website(Config::get('app_url'));
+            
+            if (isset($swflSchema['@graph'])) {
+                $schemaItems = array_merge($schemaItems, $swflSchema['@graph']);
+            }
+            
             $jsonld = Schema::graph($schemaItems);
+            
+            $data = [
+                'title' => $swflContent['page_title'],
+                'description' => $metaDescription,
+                'h1' => $swflContent['h1'],
+                'h2s' => $swflContent['h2s'],
+                'product_name' => $row['product_name'],
+                'product_brand' => $row['product_brand'],
+                'product_sku' => $row['product_sku'],
+                'product_price_min' => $row['product_price_min'],
+                'product_price_max' => $row['product_price_max'],
+                'product_currency' => $row['product_currency'],
+                'telephone' => Config::get('phone'),
+                'address' => Config::get('address'),
+                'zip' => Config::get('zip'),
+                'city' => $row['city'],
+                'county' => $row['county'],
+                'keyword' => $row['keyword'],
+                'resources' => $row['resources'],
+                'faqs' => $swflContent['faqs'],
+                'jsonld' => $jsonld,
+                'swfl_content' => $swflContent,
+                'is_swfl' => true
+            ];
+        } else {
+            // Standard matrix page for non-SWFL cities
+            $schemaItems = [];
+            $schemaItems[] = Schema::website(Config::get('app_url'));
+            $jsonld = Schema::generateMatrixSchema($row);
+            
+            // Add FAQ schema if we have FAQs
+            if (!empty($faqs)) {
+                $schemaItems[] = Schema::faq($faqs);
+            }
+            
+            // Merge the matrix schema with FAQ schema
+            if (isset($jsonld['@graph']) && is_array($jsonld['@graph'])) {
+                $schemaItems = array_merge($schemaItems, $jsonld['@graph']);
+                $jsonld = Schema::graph($schemaItems);
+            }
+            
+            $data = [
+                'title' => $row['title'],
+                'description' => $row['meta_description'],
+                'h1' => $row['h1'],
+                'product_name' => $row['product_name'],
+                'product_brand' => $row['product_brand'],
+                'product_sku' => $row['product_sku'],
+                'product_price_min' => $row['product_price_min'],
+                'product_price_max' => $row['product_price_max'],
+                'product_currency' => $row['product_currency'],
+                'telephone' => Config::get('phone'),
+                'address' => Config::get('address'),
+                'zip' => Config::get('zip'),
+                'city' => $row['city'],
+                'county' => $row['county'],
+                'keyword' => $row['keyword'],
+                'resources' => $row['resources'],
+                'faqs' => $faqs,
+                'jsonld' => $jsonld,
+                'is_swfl' => false
+            ];
         }
-        
-        $data = [
-            'title' => $row['title'],
-            'description' => $row['meta_description'],
-            'h1' => $row['h1'],
-            'product_name' => $row['product_name'],
-            'product_brand' => $row['product_brand'],
-            'product_sku' => $row['product_sku'],
-            'product_price_min' => $row['product_price_min'],
-            'product_price_max' => $row['product_price_max'],
-            'product_currency' => $row['product_currency'],
-            'telephone' => Config::get('phone'),
-            'address' => Config::get('address'),
-            'zip' => Config::get('zip'),
-            'city' => $row['city'],
-            'county' => $row['county'],
-            'keyword' => $row['keyword'],
-            'resources' => $row['resources'],
-            'faqs' => $faqs,
-            'jsonld' => $jsonld
-        ];
         
         return View::renderPage('matrix-page', $data);
     }

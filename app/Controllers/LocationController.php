@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Config;
 use App\Schema;
 use App\View;
+use App\QueryDrivenContent;
 
 class LocationController
 {
@@ -49,7 +50,7 @@ class LocationController
             ],
             'hasOfferCatalog' => [
                 '@type' => 'OfferCatalog',
-                'name' => 'Rubicon Flood Protection Systems',
+                'name' => 'Flood Barrier Pros Systems',
                 'itemListElement' => [[
                     '@type' => 'Offer',
                     'itemOffered' => ['@id' => $productData['product_id']],
@@ -76,6 +77,9 @@ class LocationController
             ])
         ]);
         
+        // Generate query-driven alt tag
+        $altTag = QueryDrivenContent::getAltTag($product, $city, str_replace('-', ' ', $product));
+        
         $data = [
             'title' => $title,
             'description' => $description,
@@ -84,6 +88,7 @@ class LocationController
             'cityName' => $cityName,
             'product' => $product,
             'productData' => $productData,
+            'altTag' => $altTag,
             'jsonld' => $jsonld
         ];
         

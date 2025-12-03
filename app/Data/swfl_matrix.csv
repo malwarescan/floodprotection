@@ -1,0 +1,21 @@
+City,Barrier Type,Search Intent,Primary Schema,Secondary Schema,Internal Link Targets,Content Requirement
+Fort Myers,Aluminum Panels,Local Commercial,Product,FAQPage,Install/Case Studies,Full rewrite required
+Fort Myers,Garage Shield,Residential,Product,Service,Install/Prep,Price table + surge data
+Fort Myers,Hydro Tubes,Emergency Intent,HowTo,Product,Prep Checklist,Deployment timing emphasis
+Cape Coral,Aluminum Panels,Local Commercial,Product,FAQPage,Install/Case Studies,Localized surge zones
+Cape Coral,Garage Shield,Residential,Product,Service,Prep Checklist,AE/VE flood zone references
+Cape Coral,Hydro Tubes,Emergency,HowTo,FAQPage,Prep Checklist,Short-term deployment focus
+Naples,Modular Barricades,Commercial,Product,Service,Coastal Risk,Insurance + FEMA details
+Naples,Aluminum Panels,High-Risk,Product,FAQPage,Case Studies,Storm impact history
+Naples,Hydro Tubes,Emergency,HowTo,FAQPage,Prep Checklist,Short-term deployment focus
+Bonita Springs,Aluminum Panels,Residential,Product,Service,Install Page,Canals + waterways context
+Bonita Springs,Garage Shield,Residential,Product,BreadcrumbList,Install Page,High-wind coastal wording
+Estero,Garage Shield,Residential,Product,Service,Install Page,Coastal moderate risk
+Estero,Aluminum Panels,Residential,Product,FAQPage,Case Studies,Bay surge references
+Sanibel,Aluminum Panels,High-Risk,Product,FAQPage,Case Studies,Storm impact history
+Sanibel,Modular Barricades,Commercial,Product,Service,Coastal Risk,Barrier island extreme
+Pine Island,Hydro Tubes,Emergency,HowTo,Service,Prep Checklist,Low elevation factor
+Pine Island,Aluminum Panels,High-Risk,Product,FAQPage,Case Studies,Complete island flooding
+Marco Island,Modular Barricades,Commercial,Product,Service,Case Studies,Coastal surge premium
+Marco Island,Aluminum Panels,High-Risk,Product,FAQPage,Case Studies,Extreme coastal risk
+

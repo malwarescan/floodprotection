@@ -6,6 +6,7 @@ use App\Config;
 use App\Util;
 use App\View;
 use App\Schema;
+use App\NewsArticleGenerator;
 
 class NewsController
 {
@@ -71,6 +72,50 @@ class NewsController
         ];
         
         return View::renderPage('news-article', $data);
+    }
+    
+    public function programmatic($city)
+    {
+        // Validate city slug format
+        if (empty($city) || !preg_match('/^[a-z0-9-]+$/', $city)) {
+            $this->notFound();
+            return;
+        }
+        
+        $article = NewsArticleGenerator::generateArticle($city);
+        
+        if (!$article || empty($article['title'])) {
+            $this->notFound();
+            return;
+        }
+        
+        $url = $article['canonical'];
+        
+        // Generate breadcrumb
+        $breadcrumb = Schema::breadcrumb([
+            ['Home', Config::get('app_url')],
+            ['News', Config::get('app_url') . '/news'],
+            [$article['city'] . ' Flood Protection News', $url]
+        ]);
+        
+        // Combine article schema with breadcrumb
+        // The article schema is already a complete NewsArticle object, so we just add it to the graph
+        $jsonld = Schema::graph([
+            Schema::website(Config::get('app_url')),
+            $article['schema'],
+            $breadcrumb
+        ]);
+        
+        $data = [
+            'title' => $article['meta_title'],
+            'description' => $article['meta_description'],
+            'canonical' => $article['canonical'],
+            'article' => $article,
+            'jsonld' => $jsonld,
+            'is_programmatic' => true
+        ];
+        
+        return View::renderPage('news-article-programmatic', $data);
     }
     
     private function notFound()

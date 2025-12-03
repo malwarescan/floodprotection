@@ -22,6 +22,10 @@ require_once __DIR__ . '/../app/Schema.php';
 require_once __DIR__ . '/../app/View.php';
 require_once __DIR__ . '/../app/SEO.php';
 require_once __DIR__ . '/../app/Router.php';
+require_once __DIR__ . '/../app/SEOKernel.php';
+require_once __DIR__ . '/../app/NewsArticleGenerator.php';
+require_once __DIR__ . '/../app/QueryDrivenContent.php';
+require_once __DIR__ . '/../app/SWFLContent.php';
 
 // Load all controllers
 $controllerPath = __DIR__ . '/../app/Controllers/';

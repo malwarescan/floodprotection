@@ -1,0 +1,35 @@
+[02-Dec-2025 21:09:45 America/New_York] PHP Fatal error:  Uncaught Error: Class "App\NewsArticleGenerator" not found in /Users/malware/Desktop/rubicon/app/Controllers/NewsController.php:85
+Stack trace:
+#0 /Users/malware/Desktop/rubicon/app/Router.php(188): App\Controllers\NewsController->programmatic('fort-myers', NULL)
+#1 /Users/malware/Desktop/rubicon/public/index.php(36): App\Router->dispatch()
+#2 /Users/malware/Desktop/rubicon/public/router.php(18): require('/Users/malware/...')
+#3 {main}
+  thrown in /Users/malware/Desktop/rubicon/app/Controllers/NewsController.php on line 85
+[02-Dec-2025 21:12:08 America/New_York] PHP Fatal error:  Uncaught Error: Class "App\NewsArticleGenerator" not found in /Users/malware/Desktop/rubicon/app/Controllers/NewsController.php:85
+Stack trace:
+#0 /Users/malware/Desktop/rubicon/app/Router.php(188): App\Controllers\NewsController->programmatic('fort-myers', NULL)
+#1 /Users/malware/Desktop/rubicon/public/index.php(36): App\Router->dispatch()
+#2 /Users/malware/Desktop/rubicon/public/router.php(18): require('/Users/malware/...')
+#3 {main}
+  thrown in /Users/malware/Desktop/rubicon/app/Controllers/NewsController.php on line 85
+[02-Dec-2025 21:12:09 America/New_York] PHP Fatal error:  Uncaught Error: Class "App\NewsArticleGenerator" not found in /Users/malware/Desktop/rubicon/app/Controllers/NewsController.php:85
+Stack trace:
+#0 /Users/malware/Desktop/rubicon/app/Router.php(188): App\Controllers\NewsController->programmatic('naples', NULL)
+#1 /Users/malware/Desktop/rubicon/public/index.php(36): App\Router->dispatch()
+#2 /Users/malware/Desktop/rubicon/public/router.php(18): require('/Users/malware/...')
+#3 {main}
+  thrown in /Users/malware/Desktop/rubicon/app/Controllers/NewsController.php on line 85
+[02-Dec-2025 21:12:10 America/New_York] PHP Fatal error:  Uncaught Error: Class "App\NewsArticleGenerator" not found in /Users/malware/Desktop/rubicon/app/Controllers/NewsController.php:85
+Stack trace:
+#0 /Users/malware/Desktop/rubicon/app/Router.php(188): App\Controllers\NewsController->programmatic('sarasota', NULL)
+#1 /Users/malware/Desktop/rubicon/public/index.php(36): App\Router->dispatch()
+#2 /Users/malware/Desktop/rubicon/public/router.php(18): require('/Users/malware/...')
+#3 {main}
+  thrown in /Users/malware/Desktop/rubicon/app/Controllers/NewsController.php on line 85
+[02-Dec-2025 21:12:40 America/New_York] PHP Fatal error:  Uncaught Error: Class "App\NewsArticleGenerator" not found in /Users/malware/Desktop/rubicon/app/Controllers/NewsController.php:85
+Stack trace:
+#0 /Users/malware/Desktop/rubicon/app/Router.php(188): App\Controllers\NewsController->programmatic('fort-myers', NULL)
+#1 /Users/malware/Desktop/rubicon/public/index.php(36): App\Router->dispatch()
+#2 /Users/malware/Desktop/rubicon/public/router.php(18): require('/Users/malware/...')
+#3 {main}
+  thrown in /Users/malware/Desktop/rubicon/app/Controllers/NewsController.php on line 85

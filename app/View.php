@@ -24,25 +24,98 @@ class View
         
         // Normalize canonical URL to always use www version
         $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
-        $canonical = Util::normalizeCanonicalUrl($requestUri);
+        $requestPath = parse_url($requestUri, PHP_URL_PATH);
+        $canonical = Util::normalizeCanonicalUrl(Config::get('app_url') . $requestPath);
         
         $defaultData = [
             'title' => Config::get('app_name'),
             'description' => 'Professional flood protection services in Florida',
             'canonical' => $canonical,
-            'jsonld' => []
+            'jsonld' => [],
+            'url' => $canonical
         ];
         
         $data = array_merge($defaultData, $data);
         
-        // Ensure canonical in data is also normalized
+        // I. Canonical Integrity: Ensure canonical is self-referencing
         if (isset($data['canonical'])) {
             $data['canonical'] = Util::normalizeCanonicalUrl($data['canonical']);
+        } else {
+            $data['canonical'] = $canonical;
+        }
+        
+        // Ensure canonical matches current URL (self-referencing)
+        $currentUrl = Config::get('app_url') . $requestPath;
+        $data['canonical'] = Util::normalizeCanonicalUrl($currentUrl);
+        $data['url'] = $data['canonical'];
+        
+        // IV. Structured Data: Ensure all schema URLs match canonical
+        if (!empty($data['jsonld'])) {
+            $data['jsonld'] = self::normalizeSchemaUrls($data['jsonld'], $data['canonical']);
+        }
+        
+        // Ensure product schema URLs match canonical
+        if (!empty($data['product']) && is_array($data['product'])) {
+            if (isset($data['product']['url'])) {
+                $data['product']['url'] = $data['canonical'];
+            }
+            if (isset($data['product']['@id'])) {
+                $data['product']['@id'] = $data['canonical'] . '#product';
+            }
         }
         
         $data['content'] = $content;
         
+        // SEO Kernel Validation (only in development/staging)
+        if (Config::get('app_env') !== 'production' || getenv('ENABLE_SEO_KERNEL') === 'true') {
+            $html = self::render('layout', $data);
+            $schema = is_array($data['jsonld']) ? $data['jsonld'] : [];
+            if (is_array($data['jsonld']) && isset($data['jsonld']['@graph'])) {
+                $schema = $data['jsonld']['@graph'];
+            }
+            
+            $validation = SEOKernel::validatePage($data, $html, $schema);
+            
+            if (!$validation['valid'] && getenv('ENFORCE_SEO_KERNEL') === 'true') {
+                SEOKernel::enforceDeploymentBlock($data, $html, $schema);
+            }
+            
+            return $html;
+        }
+        
         return self::render('layout', $data);
+    }
+    
+    /**
+     * Normalize all URLs in schema to match canonical
+     */
+    private static function normalizeSchemaUrls($schema, $canonical)
+    {
+        if (is_array($schema)) {
+            if (isset($schema['@graph']) && is_array($schema['@graph'])) {
+                foreach ($schema['@graph'] as &$item) {
+                    if (isset($item['url'])) {
+                        $item['url'] = $canonical;
+                    }
+                    if (isset($item['@id']) && strpos($item['@id'], '#') === false) {
+                        $item['@id'] = $canonical . (isset($item['@type']) ? '#' . strtolower($item['@type']) : '');
+                    }
+                }
+            } else {
+                foreach ($schema as &$item) {
+                    if (is_array($item)) {
+                        if (isset($item['url'])) {
+                            $item['url'] = $canonical;
+                        }
+                        if (isset($item['@id']) && strpos($item['@id'], '#') === false) {
+                            $item['@id'] = $canonical . (isset($item['@type']) ? '#' . strtolower($item['@type']) : '');
+                        }
+                    }
+                }
+            }
+        }
+        
+        return $schema;
     }
     
     public static function renderXml($content, $contentType = 'application/xml')
@@ -116,10 +189,15 @@ class View
                 if (isset($url['news'])) {
                     $xml .= "<news:news>\n";
                     $xml .= "<news:publication>\n";
-                    $xml .= "<news:name>Rubicon Flood Protection</news:name>\n";
+                    $xml .= "<news:name>Flood Barrier Pros</news:name>\n";
                     $xml .= "<news:language>en</news:language>\n";
                     $xml .= "</news:publication>\n";
-                    $xml .= "<news:publication_date>" . htmlspecialchars($url['news']['date']) . "</news:publication_date>\n";
+                    // Convert date to W3C format for Google News
+                    $pubDate = $url['news']['date'];
+                    if (strlen($pubDate) === 10) {
+                        $pubDate .= 'T00:00:00+00:00';
+                    }
+                    $xml .= "<news:publication_date>" . htmlspecialchars($pubDate) . "</news:publication_date>\n";
                     $xml .= "<news:title>" . htmlspecialchars($url['news']['title']) . "</news:title>\n";
                     $xml .= "</news:news>\n";
                 }

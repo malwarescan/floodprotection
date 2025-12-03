@@ -57,6 +57,7 @@ class Router
         
         // News routes (must be before matrix routes to avoid conflicts)
         $this->addRoute('GET', '/news', 'NewsController@index');
+        $this->addRoute('GET', '/news/flood-barriers-{city}', 'NewsController@programmatic');
         $this->addRoute('GET', '/news/{slug}', 'NewsController@show');
         
         // FAQ routes (must be before service routes to avoid conflicts)
@@ -146,6 +147,14 @@ class Router
         // Handle redirects before normal routing
         $redirect = $this->handleRedirects($uri);
         if ($redirect) {
+            // Ensure redirect URL is absolute with www domain for consistency
+            if (strpos($redirect, 'http') !== 0) {
+                // Relative URL - prepend base URL
+                $baseUrl = rtrim(Config::get('app_url'), '/');
+                $redirect = $baseUrl . $redirect;
+            }
+            // Normalize to www version if needed
+            $redirect = Util::normalizeCanonicalUrl($redirect);
             header('Location: ' . $redirect, true, 301);
             exit;
         }
@@ -246,7 +255,11 @@ class Router
                 'cross' => 'cross-city', 'bunnel' => 'bunnell', 'mount' => 'mount-dora',
                 'madiso' => 'madison', 'crysta' => 'crystal-river', 'tamara' => 'tamarac',
                 'blount' => 'blountstown', 'west-p' => 'west-palm-beach', 'deland' => 'deland',
-                'the-vi' => 'the-villages', 'largo' => 'largo'
+                'the-vi' => 'the-villages', 'largo' => 'largo',
+                // Additional city mappings for GSC redirect errors
+                'winter' => 'winter-park', 'st-pet' => 'st-petersburg', 'rockle' => 'rockledge',
+                'homest' => 'homestead', 'hobe-s' => 'hobe-sound', 'maitla' => 'maitland',
+                'temple' => 'temple-terrace', 'greena' => 'greenacres'
             ];
             
             // Determine product type
