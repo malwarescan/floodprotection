@@ -105,7 +105,7 @@ class LocationController
                 'starting_price' => '1499',
                 'product_id' => Config::get('app_url') . '/products/modular-flood-barrier#product',
                 'product_url' => Config::get('app_url') . '/products/modular-flood-barrier',
-                'image' => Config::get('app_url') . '/images/MODULAR_BARRIER_MAIN_IMG.jpg'
+                'image' => Config::get('app_url') . '/assets/images/products/modular-aluminum-flood-barriers.jpg'
             ],
             'garage-dam-kit' => [
                 'name' => 'Garage Door Flood Dam Kit',
@@ -114,7 +114,7 @@ class LocationController
                 'starting_price' => '1299',
                 'product_id' => Config::get('app_url') . '/products/garage-dam-kit#product',
                 'product_url' => Config::get('app_url') . '/products/garage-dam-kit',
-                'image' => Config::get('app_url') . '/images/GARAGE_DAM_MAIN_IMG.jpg'
+                'image' => Config::get('app_url') . '/assets/images/products/garage-dam-kits.jpg'
             ],
             'doorway-flood-panel' => [
                 'name' => 'Doorway Flood Panel',
@@ -123,7 +123,7 @@ class LocationController
                 'starting_price' => '899',
                 'product_id' => Config::get('app_url') . '/products/doorway-flood-panel#product',
                 'product_url' => Config::get('app_url') . '/products/doorway-flood-panel',
-                'image' => Config::get('app_url') . '/images/DOOR_PANEL_MAIN_IMG.jpg'
+                'image' => Config::get('app_url') . '/assets/images/products/doorway-flood-panels.jpg'
             ]
         ];
         
