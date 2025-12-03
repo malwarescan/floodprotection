@@ -174,6 +174,12 @@ class Util
                 $key = trim($key);
                 $value = trim($value);
                 
+                // Remove surrounding quotes from values
+                if ((strpos($value, '"') === 0 && substr($value, -1) === '"') || 
+                    (strpos($value, "'") === 0 && substr($value, -1) === "'")) {
+                    $value = substr($value, 1, -1);
+                }
+                
                 if ($key === 'tags' && strpos($value, '[') === 0) {
                     $value = json_decode($value, true) ?: [];
                 }

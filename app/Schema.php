@@ -191,9 +191,11 @@ class Schema
             'datePublished' => $datePublished,
             'dateModified' => $datePublished,
             'author' => [
-                '@type' => 'Organization',
-                'name' => 'Flood Barrier Pros',
-                'url' => $root
+                [
+                    '@type' => 'Organization',
+                    'name' => 'Flood Barrier Pros',
+                    'url' => $root
+                ]
             ],
             'publisher' => [
                 '@type' => 'Organization',
@@ -206,11 +208,13 @@ class Schema
                     'height' => 60
                 ]
             ],
-            'image' => $img ?: [
-                '@type' => 'ImageObject',
-                'url' => $root . '/assets/images/blog/flood-protection-blog.jpg',
-                'width' => 1200,
-                'height' => 630
+            'image' => [
+                $img ?: [
+                    '@type' => 'ImageObject',
+                    'url' => $root . '/assets/images/blog/flood-protection-blog.jpg',
+                    'width' => 1200,
+                    'height' => 630
+                ]
             ],
             'articleSection' => 'Flood Protection',
             'url' => $url,
@@ -218,17 +222,19 @@ class Schema
                 '@type' => 'WebPage',
                 '@id' => $url
             ],
-            'speakable' => $speak,
+            // Removed speakable - CSS selectors don't match our HTML structure
             'inLanguage' => 'en-US'
         ];
         
-        // If image is a string, convert to ImageObject
+        // If image is a string, convert to ImageObject array
         if ($img && is_string($img)) {
             $obj['image'] = [
-                '@type' => 'ImageObject',
-                'url' => $img,
-                'width' => 1200,
-                'height' => 630
+                [
+                    '@type' => 'ImageObject',
+                    'url' => $img,
+                    'width' => 1200,
+                    'height' => 630
+                ]
             ];
         }
         

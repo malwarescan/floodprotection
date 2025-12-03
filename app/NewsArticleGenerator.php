@@ -466,9 +466,11 @@ class NewsArticleGenerator
             'datePublished' => $date . 'T00:00:00+00:00', // ISO 8601 format
             'dateModified' => $date . 'T00:00:00+00:00',
             'author' => [
-                '@type' => 'Organization',
-                'name' => 'Flood Barrier Pros',
-                'url' => $baseUrl
+                [
+                    '@type' => 'Organization',
+                    'name' => 'Flood Barrier Pros',
+                    'url' => $baseUrl
+                ]
             ],
             'publisher' => [
                 '@type' => 'Organization',
@@ -482,10 +484,12 @@ class NewsArticleGenerator
                 ]
             ],
             'image' => [
-                '@type' => 'ImageObject',
-                'url' => $baseUrl . '/assets/images/blog/flood-protection-blog.jpg',
-                'width' => 1200,
-                'height' => 630
+                [
+                    '@type' => 'ImageObject',
+                    'url' => $baseUrl . '/assets/images/blog/flood-protection-blog.jpg',
+                    'width' => 1200,
+                    'height' => 630
+                ]
             ],
             'articleSection' => 'Flood Protection',
             'about' => [
