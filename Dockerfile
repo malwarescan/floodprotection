@@ -23,7 +23,8 @@ COPY . /var/www/html/
 # Fix permissions for Apache
 RUN chown -R www-data:www-data /var/www/html && \
     chmod -R 755 /var/www/html && \
-    chmod -R 644 /var/www/html/public/.htaccess
+    chmod -R 644 /var/www/html/public/.htaccess && \
+    chmod 644 /var/www/html/public/healthz
 
 # Default port Railway uses
 EXPOSE 8080
