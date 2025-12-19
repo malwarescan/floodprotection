@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e
+# Don't use set -e - we want to see all errors, not exit immediately
 
 # Make Apache listen on Railway's $PORT (fallback 8080 for local runs)
 PORT="${PORT:-8080}"
