@@ -1,10 +1,11 @@
 RewriteEngine On
 
-# CRITICAL: Health check must be served first, before any redirects
-# Railway healthcheck uses /healthz - must respond immediately
+# CRITICAL: Health check MUST be served first, before ANY other rules
+# Railway healthcheck uses /healthz - must respond immediately without any processing
+# This rule must come before all other rewrite rules
 RewriteCond %{REQUEST_URI} ^/healthz$ [NC]
 RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule ^ - [L]
+RewriteRule ^healthz$ - [L]
 
 # Allow static files in /data/, /sitemaps/, and health check files to be served directly (before redirects)
 # This prevents redirect loops for data, sitemap, and health check files
