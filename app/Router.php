@@ -248,9 +248,11 @@ class Router
             $cityMap = [
                 'miami' => 'miami', 'tampa' => 'tampa', 'orlando' => 'orlando',
                 'jax' => 'jacksonville', 'naples' => 'naples', 'fortmyers' => 'fort-myers',
-                'pensacola' => 'pensacola', 'keywest' => 'key-west', 'key-we' => 'key-west',
+                'pensacola' => 'pensacola', 'pensac' => 'pensacola', 'keywest' => 'key-west', 
+                'key-we' => 'key-west', 'key-bi' => 'key-biscayne',
                 'starke' => 'starke', 'jensen' => 'jensen-beach', 'fort-p' => 'fort-pierce',
-                'fernandina' => 'fernandina-beach', 'mirama' => 'miramar', 'flagle' => 'flagler-beach',
+                'fernandina' => 'fernandina-beach', 'fernan' => 'fernandina-beach',
+                'mirama' => 'miramar', 'flagle' => 'flagler-beach',
                 'wesley' => 'wesley-chapel', 'maccle' => 'macclenny', 'auburn' => 'auburn',
                 'cross' => 'cross-city', 'bunnel' => 'bunnell', 'mount' => 'mount-dora',
                 'madiso' => 'madison', 'crysta' => 'crystal-river', 'tamara' => 'tamarac',
@@ -259,7 +261,10 @@ class Router
                 // Additional city mappings for GSC redirect errors
                 'winter' => 'winter-park', 'st-pet' => 'st-petersburg', 'rockle' => 'rockledge',
                 'homest' => 'homestead', 'hobe-s' => 'hobe-sound', 'maitla' => 'maitland',
-                'temple' => 'temple-terrace', 'greena' => 'greenacres'
+                'temple' => 'temple-terrace', 'greena' => 'greenacres',
+                // Additional city mappings for 404 errors
+                'avon-p' => 'avon-park', 'lake-w' => 'lake-worth-beach', 'doral' => 'doral',
+                'cocoa' => 'cocoa', 'jasper' => 'jasper', 'mcgregor' => 'mcgregor'
             ];
             
             // Determine product type
@@ -323,6 +328,16 @@ class Router
         
         if ($uri === '/flood-protection') {
             return '/home-flood-barriers';
+        }
+        
+        // Redirect /search URLs to home (search functionality not implemented)
+        if (preg_match('#^/search#', $uri)) {
+            return '/';
+        }
+        
+        // Redirect /contact/ (with trailing slash) to /contact
+        if ($uri === '/contact/') {
+            return '/contact';
         }
         
         // Note: flood-protection-for-homes and driveway-flood-barriers exist in matrix.csv

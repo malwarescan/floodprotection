@@ -462,6 +462,9 @@ class Util
     /**
      * Normalize URL to use www version for canonical URLs
      * Ensures all canonical URLs consistently use www.floodbarrierpros.com
+     * 
+     * CRITICAL: This function ensures canonical tags always use www version,
+     * preventing "Duplicate, Google chose different canonical than user" errors
      */
     public static function normalizeCanonicalUrl($url)
     {
@@ -470,8 +473,12 @@ class Util
             $url = Config::get('app_url') . $url;
         }
         
-        // Normalize to www version
+        // Normalize to www version - handle both http and https
+        // This ensures non-www URLs are always converted to www in canonical tags
         $url = preg_replace('/^https?:\/\/(?!www\.)(floodbarrierpros\.com)/', 'https://www.$1', $url);
+        
+        // Ensure HTTPS (canonical URLs should always be HTTPS)
+        $url = preg_replace('/^http:\/\/(www\.)?floodbarrierpros\.com/', 'https://www.floodbarrierpros.com', $url);
         
         return $url;
     }

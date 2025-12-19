@@ -15,6 +15,18 @@ if ($isProduction) {
 // Set timezone
 date_default_timezone_set('America/New_York');
 
+// Force www redirect at PHP level (backup for .htaccess)
+// This ensures non-www URLs redirect before any content is served
+$host = $_SERVER['HTTP_HOST'] ?? '';
+
+// Redirect non-www to www (canonical domain)
+if ($host === 'floodbarrierpros.com') {
+    $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
+    $redirectUrl = 'https://www.floodbarrierpros.com' . $requestUri;
+    header('Location: ' . $redirectUrl, true, 301);
+    exit;
+}
+
 // Load configuration and autoloader
 require_once __DIR__ . '/../app/Config.php';
 require_once __DIR__ . '/../app/Util.php';

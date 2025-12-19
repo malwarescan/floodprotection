@@ -62,6 +62,8 @@ class TestimonialsController
         // Meta - Google best practices: unique, keyword-rich, under 60 chars
         $title = 'Customer Reviews & Testimonials | ' . Config::get('app_name');
         $desc = 'Real customer reviews and testimonials for flood barriers, door panels, and garage dam kits. Verified purchases from Florida homeowners.';
+        // Canonical should always be base URL without query parameters (pagination, filters)
+        // This ensures all paginated/filtered versions point to the main testimonials page
         $canonical = Config::get('app_url') . '/testimonials';
 
         // Compute per-product aggregates across ALL testimonials (not just current page)

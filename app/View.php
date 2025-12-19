@@ -23,8 +23,13 @@ class View
         $content = self::render($template, $data);
         
         // Normalize canonical URL to always use www version
+        // Strip query parameters for canonical (pagination, filters, etc. should not be in canonical)
         $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
         $requestPath = parse_url($requestUri, PHP_URL_PATH);
+        // Remove trailing slash for consistency (except root)
+        if ($requestPath !== '/' && substr($requestPath, -1) === '/') {
+            $requestPath = rtrim($requestPath, '/');
+        }
         $canonical = Util::normalizeCanonicalUrl(Config::get('app_url') . $requestPath);
         
         $defaultData = [
@@ -37,17 +42,17 @@ class View
         
         $data = array_merge($defaultData, $data);
         
-        // I. Canonical Integrity: Ensure canonical is self-referencing
-        if (isset($data['canonical'])) {
-            $data['canonical'] = Util::normalizeCanonicalUrl($data['canonical']);
-        } else {
-            $data['canonical'] = $canonical;
-        }
-        
-        // Ensure canonical matches current URL (self-referencing)
+        // I. Canonical Integrity: Ensure canonical is ALWAYS self-referencing
+        // CRITICAL: Canonical must match the actual URL being accessed (www version)
+        // This prevents "Duplicate, Google chose different canonical than user" errors
+        // Always use the current request path, normalized to www, as the canonical
         $currentUrl = Config::get('app_url') . $requestPath;
-        $data['canonical'] = Util::normalizeCanonicalUrl($currentUrl);
-        $data['url'] = $data['canonical'];
+        $selfReferencingCanonical = Util::normalizeCanonicalUrl($currentUrl);
+        
+        // Override any canonical set by controllers to ensure self-referencing
+        // This ensures Google always sees the canonical matching the accessed URL
+        $data['canonical'] = $selfReferencingCanonical;
+        $data['url'] = $selfReferencingCanonical;
         
         // IV. Structured Data: Ensure all schema URLs match canonical
         if (!empty($data['jsonld'])) {
