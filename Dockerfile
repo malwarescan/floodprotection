@@ -13,6 +13,9 @@ RUN a2enmod rewrite && \
 # Copy custom Apache configuration
 COPY docker/apache-config.conf /etc/apache2/sites-available/000-default.conf
 
+# Enable the site
+RUN a2ensite 000-default
+
 # Runtime entrypoint will switch Apache to $PORT
 COPY docker/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
