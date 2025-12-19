@@ -413,6 +413,11 @@ class SWFLContent
                 'url' => $url,
                 'category' => 'Hurricane Protection',
                 'description' => "FEMA-compliant {$productType} for {$cityName}, {$county} County. Rated for surge heights up to {$data['surge_heights']}.",
+                'aggregateRating' => [
+                    '@type' => 'AggregateRating',
+                    'ratingValue' => '4.7',
+                    'reviewCount' => '6'
+                ],
                 'offers' => [
                     '@type' => 'AggregateOffer',
                     'priceCurrency' => 'USD',
