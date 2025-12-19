@@ -5,10 +5,12 @@ FROM php:8.2-apache
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
 # Enable mod_rewrite and point vhost to /public
+# DO NOT enable any MPM modules - php:8.2-apache already has the correct MPM
 RUN a2enmod rewrite && \
     a2enmod headers && \
     sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf && \
-    sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
+    sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf && \
+    a2dismod mpm_prefork mpm_worker mpm_event 2>/dev/null || true
 
 # Copy custom Apache configuration
 COPY docker/apache-config.conf /etc/apache2/sites-available/000-default.conf
