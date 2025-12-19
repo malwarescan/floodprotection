@@ -18,10 +18,12 @@ fi
 
 # Test Apache configuration
 echo "Testing Apache configuration..."
-apache2ctl configtest || {
+if ! apache2ctl configtest; then
     echo "ERROR: Apache configuration test failed!"
+    apache2ctl configtest 2>&1
     exit 1
-}
+fi
+echo "Apache configuration test passed!"
 
 # Debug: List directory contents and permissions
 echo "=== Directory listing ==="
