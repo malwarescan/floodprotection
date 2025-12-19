@@ -641,7 +641,10 @@ class PagesController
     
     public function health()
     {
+        // Health check endpoint - must be fast and simple
+        // Don't load any heavy dependencies
         http_response_code(200);
+        header('Content-Type: text/plain');
         echo 'OK';
         exit;
     }

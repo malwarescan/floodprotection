@@ -17,14 +17,19 @@ date_default_timezone_set('America/New_York');
 
 // Force www redirect at PHP level (backup for .htaccess)
 // This ensures non-www URLs redirect before any content is served
-$host = $_SERVER['HTTP_HOST'] ?? '';
+// Skip redirect for health check endpoints
+$requestUri = $_SERVER['REQUEST_URI'] ?? '/';
+$isHealthCheck = in_array($requestUri, ['/healthz', '/health', '/health.php']);
 
-// Redirect non-www to www (canonical domain)
-if ($host === 'floodbarrierpros.com') {
-    $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
-    $redirectUrl = 'https://www.floodbarrierpros.com' . $requestUri;
-    header('Location: ' . $redirectUrl, true, 301);
-    exit;
+if (!$isHealthCheck) {
+    $host = $_SERVER['HTTP_HOST'] ?? '';
+    
+    // Redirect non-www to www (canonical domain)
+    if ($host === 'floodbarrierpros.com') {
+        $redirectUrl = 'https://www.floodbarrierpros.com' . $requestUri;
+        header('Location: ' . $redirectUrl, true, 301);
+        exit;
+    }
 }
 
 // Load configuration and autoloader

@@ -1,13 +1,14 @@
 RewriteEngine On
 
-# Allow static files in /data/, /sitemaps/, and health check files to be served directly (before redirects)
-# This prevents redirect loops for data, sitemap, and health check files
-RewriteCond %{REQUEST_URI} ^/(data|sitemaps|healthz)/ [NC]
+# CRITICAL: Health check must be served first, before any redirects
+# Railway healthcheck uses /healthz - must respond immediately
+RewriteCond %{REQUEST_URI} ^/healthz$ [NC]
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
-# Also allow /healthz file to be served directly (Railway health check)
-RewriteCond %{REQUEST_URI} ^/healthz$ [NC]
+# Allow static files in /data/, /sitemaps/, and health check files to be served directly (before redirects)
+# This prevents redirect loops for data, sitemap, and health check files
+RewriteCond %{REQUEST_URI} ^/(data|sitemaps|healthz)/ [NC]
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
