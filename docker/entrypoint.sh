@@ -16,11 +16,6 @@ if [ ! -f /var/www/html/public/healthz ]; then
     exit 1
 fi
 
-# Check which MPMs are enabled and fix if needed
-echo "Checking MPM modules..."
-ls -la /etc/apache2/mods-enabled/ | grep mpm || echo "No MPM modules found in mods-enabled"
-a2dismod mpm_worker mpm_event 2>/dev/null || true
-
 # Test Apache configuration
 echo "Testing Apache configuration..."
 if ! apache2ctl configtest; then
