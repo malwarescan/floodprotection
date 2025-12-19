@@ -502,6 +502,46 @@ function getAIResponse(message) {
             </div>
         </div>
 
+<!-- FAQ Section -->
+<?php if (!empty($faqs)): ?>
+<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto bg-gray-50">
+    <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-10 lg:mb-14">
+            <h2 class="text-2xl font-bold md:text-4xl md:leading-tight text-gray-800">
+                If Your House Is in a Flood Zone: What Homeowners Need to Know
+            </h2>
+        </div>
+        
+        <div class="space-y-6">
+            <?php foreach ($faqs as $faq): ?>
+            <div class="bg-white rounded-lg border border-gray-200 p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                    <?= htmlspecialchars($faq['question']) ?>
+                </h3>
+                <p class="text-gray-600 leading-relaxed">
+                    <?= htmlspecialchars($faq['answer']) ?>
+                </p>
+            </div>
+            <?php endforeach; ?>
+        </div>
+        
+        <div class="mt-8 text-center">
+            <p class="text-sm text-gray-600 mb-4">
+                Need more information about flood protection for your home?
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="/products" class="py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 hover:bg-gray-50">
+                    View Our Products
+                </a>
+                <a href="/resources/door-dams/miami" class="py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 hover:bg-gray-50">
+                    Learn More About Mitigation
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+
 <!-- Coverage Section -->
 <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
     <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">

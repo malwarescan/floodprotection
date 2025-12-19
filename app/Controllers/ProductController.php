@@ -130,7 +130,16 @@ class ProductController
                 'offerCount' => 3,
                 'priceValidUntil' => '2026-01-31',
                 'availability' => 'https://schema.org/InStock',
-                'url' => $canonical
+                'url' => $canonical,
+                'hasMerchantReturnPolicy' => [
+                    '@type' => 'MerchantReturnPolicy',
+                    'applicableCountry' => 'US',
+                    'returnPolicyCategory' => 'https://schema.org/MerchantReturnFiniteReturnWindow',
+                    'merchantReturnDays' => 30,
+                    'returnMethod' => 'https://schema.org/ReturnByMail',
+                    'returnFees' => 'https://schema.org/FreeReturn'
+                ]
+                // Note: AggregateOffer doesn't support shippingDetails per Schema.org
             ]
         ];
         

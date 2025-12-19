@@ -360,9 +360,10 @@
 
 <?php if (!empty($faqs) && count($faqs) > 0): ?>
 <!-- FAQ Section -->
+<!-- Note: FAQPage schema is provided via JSON-LD in the page head, not microdata -->
 <section class="bg-white rounded-lg shadow-md p-6 max-w-7xl mx-auto my-8">
     <h2 class="text-3xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
-    <div class="space-y-4" itemscope itemtype="https://schema.org/FAQPage">
+    <div class="space-y-4">
         <?php 
         // Handle both SWFL FAQ format and standard FAQ format
         $faqList = $faqs;
@@ -373,10 +374,10 @@
             $question = is_array($faq) ? ($faq['question'] ?? $faq['q'] ?? '') : ($faq['q'] ?? '');
             $answer = is_array($faq) ? ($faq['answer'] ?? $faq['a'] ?? '') : ($faq['a'] ?? '');
         ?>
-        <div class="border-b border-gray-200 pb-4 last:border-b-0" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2" itemprop="name"><?= htmlspecialchars($question) ?></h3>
-            <div class="text-gray-700" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                <div itemprop="text"><?= nl2br(htmlspecialchars($answer)) ?></div>
+        <div class="border-b border-gray-200 pb-4 last:border-b-0">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2"><?= htmlspecialchars($question) ?></h3>
+            <div class="text-gray-700">
+                <div><?= nl2br(htmlspecialchars($answer)) ?></div>
             </div>
         </div>
         <?php endforeach; ?>

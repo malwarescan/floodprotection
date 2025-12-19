@@ -13,9 +13,67 @@ class PagesController
 {
     public function home()
     {
+        // FAQ data for homepage FAQ section
+        $faqData = [
+            [
+                'question' => 'What does it mean if a house is in a flood zone?',
+                'answer' => 'A flood zone means the property is located in an area that has a measurable risk of flooding based on historical data, elevation, and proximity to water sources. Flood zones are primarily used to assess insurance requirements and risk, not to predict that flooding will happen every year.'
+            ],
+            [
+                'question' => 'Can a house be in a flood zone and never flood?',
+                'answer' => 'Yes. Many homes are designated in flood zones due to regional mapping but may never experience flooding. Flood zones indicate probability over long time horizons, not certainty. Local drainage, elevation, and mitigation measures can significantly affect actual risk.'
+            ],
+            [
+                'question' => 'How accurate are FEMA flood maps?',
+                'answer' => 'FEMA flood maps are a starting point, not a perfect prediction. Some maps are outdated and may not reflect recent development, drainage changes, or climate patterns. Homes can be added to or removed from flood zones when maps are updated.'
+            ],
+            [
+                'question' => 'Do homeowners in flood zones have to buy flood insurance?',
+                'answer' => 'Flood insurance is typically required by lenders when a mortgage is federally backed and the home is in a high-risk flood zone. Homeowners without a mortgage may not be required to carry flood insurance but often choose to based on risk tolerance.'
+            ],
+            [
+                'question' => 'Does flood insurance fully cover flood damage?',
+                'answer' => 'Flood insurance has coverage limits and exclusions. It generally covers structural damage and some contents, but not all property types or losses. It also does not prevent damage, it only helps offset financial loss after flooding occurs.'
+            ],
+            [
+                'question' => 'What can be done to protect a house in a flood zone?',
+                'answer' => 'Flood risk can be reduced through physical mitigation such as flood barriers, drainage improvements, sealing entry points, and managing water flow around the structure. The appropriate solution depends on the type of flooding risk and the property layout.'
+            ],
+            [
+                'question' => 'Are flood barriers effective for residential homes?',
+                'answer' => 'When properly designed and installed, residential flood barriers can significantly reduce or prevent floodwater from entering a home. Effectiveness depends on correct placement, maintenance, and matching the solution to the flood type.'
+            ],
+            [
+                'question' => 'Is flood mitigation worth the cost?',
+                'answer' => 'For many homeowners, mitigation reduces long-term financial risk, stress, and insurance exposure. The value depends on flood frequency, severity, and whether the mitigation protects critical areas of the home.'
+            ],
+            [
+                'question' => 'What should I do if I already own a house in a flood zone?',
+                'answer' => 'Homeowners should assess their specific flood risk, understand insurance coverage, identify vulnerable entry points, and evaluate mitigation options. Taking action before flooding occurs is generally more effective and less costly.'
+            ],
+            [
+                'question' => 'Is it a bad idea to buy a house in a flood zone?',
+                'answer' => 'Buying a house in a flood zone is a risk decision, not automatically a mistake. Many buyers weigh location, price, insurance cost, mitigation options, and long-term plans when deciding if the risk is acceptable.'
+            ]
+        ];
+        
+        // Convert FAQ data to schema format
+        $faqSchema = [];
+        foreach ($faqData as $faq) {
+            $faqSchema[] = [
+                '@type' => 'Question',
+                'name' => $faq['question'],
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => $faq['answer']
+                ]
+            ];
+        }
+        
         $data = [
             'title' => 'Flood Barriers & Protection Systems | ' . Config::get('app_name'),
             'description' => 'FEMA-aligned flood barriers for Florida homes & businesses. Quick installation, reusable panels, free assessment. Serving Miami, Tampa, Orlando.',
+            'faqs' => $faqData,
             'jsonld' => Schema::graph([
                 Schema::website(Config::get('app_url')),
                 Schema::organization(
@@ -28,7 +86,11 @@ class PagesController
                     [
                         'https://www.facebook.com/61574735757374/'
                     ]
-                )
+                ),
+                [
+                    '@type' => 'FAQPage',
+                    'mainEntity' => $faqSchema
+                ]
             ])
         ];
         

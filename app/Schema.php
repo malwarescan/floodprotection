@@ -105,7 +105,9 @@ class Schema
                 'priceCurrency' => $currency,
                 'priceValidUntil' => '2026-01-31',
                 'availability' => 'https://schema.org/InStock',
-                'url' => Config::get('app_url') . '/products/' . strtolower($sku)
+                'url' => Config::get('app_url') . '/products/' . strtolower($sku),
+                'shippingDetails' => self::getShippingDetails(),
+                'hasMerchantReturnPolicy' => self::getMerchantReturnPolicy()
             ];
         } else {
             // Multiple price points, use AggregateOffer with required offerCount
@@ -118,6 +120,8 @@ class Schema
                 'priceValidUntil' => '2026-01-31',
                 'availability' => 'https://schema.org/InStock',
                 'url' => Config::get('app_url') . '/products/' . strtolower($sku)
+                // Note: AggregateOffer doesn't support shippingDetails directly
+                // Individual offers within AggregateOffer would need shippingDetails
             ];
         }
         
@@ -289,7 +293,7 @@ class Schema
     /**
      * Get merchant return policy schema (required for Google Merchant listings)
      */
-    private static function getMerchantReturnPolicy()
+    public static function getMerchantReturnPolicy()
     {
         return [
             '@type' => 'MerchantReturnPolicy',
@@ -298,6 +302,45 @@ class Schema
             'merchantReturnDays' => 30,
             'returnMethod' => 'https://schema.org/ReturnByMail',
             'returnFees' => 'https://schema.org/FreeReturn'
+        ];
+    }
+    
+    /**
+     * Get shipping details schema (required for Google Merchant listings)
+     */
+    private static function getShippingDetails()
+    {
+        return [
+            '@type' => 'OfferShippingDetails',
+            'shippingRate' => [
+                '@type' => 'MonetaryAmount',
+                'value' => '0.00',
+                'currency' => 'USD'
+            ],
+            'shippingDestination' => [
+                '@type' => 'DefinedRegion',
+                'addressCountry' => 'US'
+            ],
+            'deliveryTime' => [
+                '@type' => 'ShippingDeliveryTime',
+                'businessDays' => [
+                    '@type' => 'OpeningHoursSpecification',
+                    'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+                ],
+                'cutoffTime' => '14:00',
+                'handlingTime' => [
+                    '@type' => 'QuantitativeValue',
+                    'minValue' => 1,
+                    'maxValue' => 2,
+                    'unitCode' => 'DAY'
+                ],
+                'transitTime' => [
+                    '@type' => 'QuantitativeValue',
+                    'minValue' => 3,
+                    'maxValue' => 7,
+                    'unitCode' => 'DAY'
+                ]
+            ]
         ];
     }
     
@@ -352,6 +395,7 @@ class Schema
                     'priceValidUntil' => '2026-01-31',
                     'availability' => 'https://schema.org/InStock',
                     'url' => Config::get('app_url') . '/products/' . strtolower($sku),
+                    'shippingDetails' => self::getShippingDetails(),
                     'hasMerchantReturnPolicy' => self::getMerchantReturnPolicy()
                 ];
             }
@@ -415,6 +459,7 @@ class Schema
                     'priceValidUntil' => '2026-01-31',
                     'availability' => 'https://schema.org/InStock',
                     'url' => Config::get('app_url') . '/products/' . strtolower($sku),
+                    'shippingDetails' => self::getShippingDetails(),
                     'hasMerchantReturnPolicy' => self::getMerchantReturnPolicy()
                 ];
             }
@@ -793,7 +838,11 @@ class Schema
                         'offers' => [
                             '@type' => 'Offer',
                             'availability' => 'https://schema.org/InStock',
+                            'price' => '599.00', // Required: either price or priceSpecification.price
                             'priceCurrency' => 'USD',
+                            'priceValidUntil' => '2026-01-31',
+                            'url' => $productUrl,
+                            'shippingDetails' => self::getShippingDetails(),
                             'hasMerchantReturnPolicy' => self::getMerchantReturnPolicy()
                         ]
                     ]

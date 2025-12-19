@@ -418,9 +418,12 @@ class SWFLContent
                     'priceCurrency' => 'USD',
                     'lowPrice' => '17',
                     'highPrice' => '42',
+                    'offerCount' => 3, // Required by Google: small, medium, large tiers
                     'priceUnit' => 'per square foot',
                     'availability' => 'https://schema.org/InStock',
                     'url' => $url
+                    // Note: AggregateOffer doesn't support shippingDetails directly per Schema.org
+                    // For merchant listings, consider using individual Offer objects instead
                 ]
             ];
         }
