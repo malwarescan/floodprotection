@@ -104,6 +104,13 @@ class PagesController
             return $this->city($city);
         }
         
+        // Special handling for Cape Coral Residential Flood Panels page
+        $citySlug = Util::slugify($city);
+        $keywordSlug = Util::slugify($keyword);
+        if ($citySlug === 'cape-coral' && $keywordSlug === 'residential-flood-panels') {
+            return $this->capeCoralResidentialFloodPanels();
+        }
+        
         $row = Util::findMatrixRow($keyword, $city);
         
         if (!$row) {
@@ -806,6 +813,100 @@ class PagesController
         ];
         
         return View::renderPage('regions', $data);
+    }
+    
+    public function capeCoralResidentialFloodPanels()
+    {
+        $canonical = Config::get('app_url') . '/residential-flood-panels/cape-coral';
+        
+        // FAQ data for FAQPage schema
+        $faqData = [
+            [
+                'question' => 'How much do flood panels cost in Cape Coral?',
+                'answer' => 'Residential flood panels in Cape Coral typically cost $899-$1,499 per opening, depending on size and configuration. Entry door panels start around $899, while larger garage opening systems range from $1,299-$1,999. Whole-home protection for a standard Cape Coral home ranges from $18,000-$42,000. All panels are reusable and may qualify for up to $10,000 in FEMA flood mitigation grants.'
+            ],
+            [
+                'question' => 'Are flood panels FEMA compliant?',
+                'answer' => 'Yes, our residential flood panels exceed FEMA Technical Bulletin 3 (TB-3) standards with third-party certification. They withstand hydrostatic pressure testing per ASTM E330 and provide watertight seals rated for flood heights up to 8 feet. FEMA-certified installations may qualify for insurance premium reductions of 5-45%.'
+            ],
+            [
+                'question' => 'Do flood panels lower insurance?',
+                'answer' => 'Yes, FEMA-compliant flood panels can reduce NFIP (National Flood Insurance Program) premiums by 5-35% at the property level, and up to 50% when combined with elevation improvements. Given Cape Coral\'s average flood insurance cost of $1,150 annually, homeowners can save $240-$320 per year, or $4,800-$12,800 over 20-40 years.'
+            ],
+            [
+                'question' => 'How fast can panels be installed before a storm?',
+                'answer' => 'Once tracks are pre-installed, flood panels deploy in 3-6 minutes per opening. For emergency situations, our Cape Coral installation team offers rapid deployment services with 24-48 hour notice before expected storm landfall. We recommend deploying barriers 24-48 hours before expected storm landfall to ensure adequate preparation time for Cape Coral homeowners.'
+            ],
+            [
+                'question' => 'Do I need HOA approval for flood panels in Cape Coral?',
+                'answer' => 'Yes, HOA approval is mandatory for visible exterior installations in Cape Coral. Our team coordinates with HOA boards to ensure compliance with architectural guidelines and obtains necessary approvals. Systems can be designed to be minimally visible when not in use, meeting most HOA aesthetic requirements.'
+            ],
+            [
+                'question' => 'What flood zones require flood panels in Cape Coral?',
+                'answer' => 'Cape Coral is primarily in Flood Zones AE and VE. Zone AE (base flood) requires protection from stillwater flooding, while Zone VE (coastal high hazard) requires structures to withstand wave action and surge. Both zones require FEMA-compliant barriers, but VE zones may need higher surge ratings and additional structural considerations.'
+            ]
+        ];
+        
+        // Convert FAQ data to schema format
+        $faqSchema = [];
+        foreach ($faqData as $faq) {
+            $faqSchema[] = [
+                '@type' => 'Question',
+                'name' => $faq['question'],
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => $faq['answer']
+                ]
+            ];
+        }
+        
+        // Build structured data: LocalBusiness with Service, FAQPage
+        $schemaBlocks = [
+            Schema::website(Config::get('app_url')),
+            // LocalBusiness with Service (as specified in QA)
+            [
+                '@type' => 'LocalBusiness',
+                'name' => 'Flood Barrier Pros',
+                'url' => $canonical,
+                'areaServed' => [
+                    'Cape Coral FL',
+                    'Lee County FL'
+                ],
+                'serviceOffered' => [
+                    '@type' => 'Service',
+                    'name' => 'Residential Flood Panel Installation'
+                ],
+                'telephone' => Config::get('phone'),
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'streetAddress' => Config::get('address'),
+                    'addressLocality' => 'Cape Coral',
+                    'addressRegion' => 'FL',
+                    'postalCode' => Config::get('zip'),
+                    'addressCountry' => 'US'
+                ]
+            ],
+            // FAQPage
+            [
+                '@type' => 'FAQPage',
+                'mainEntity' => $faqSchema
+            ],
+            // Breadcrumb
+            Schema::breadcrumb([
+                ['Home', Config::get('app_url')],
+                ['Residential Flood Panels', Config::get('app_url') . '/residential-flood-panels'],
+                ['Cape Coral', $canonical]
+            ])
+        ];
+        
+        $data = [
+            'title' => 'Residential Flood Panels in Cape Coral | FEMA Compliant Protection',
+            'description' => 'FEMA-compliant residential flood panels designed for Cape Coral homes in AE and VE flood zones. Request a free assessment and protect your property before storm season.',
+            'canonical' => $canonical,
+            'jsonld' => Schema::graph($schemaBlocks)
+        ];
+        
+        return View::renderPage('cape-coral-residential-flood-panels', $data);
     }
     
     public function resourcesIndex()

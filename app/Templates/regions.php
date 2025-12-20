@@ -58,12 +58,8 @@
     </section>
 
     <?php
-    // JSON-LD Schema
-    if (function_exists('jsonld_service') && function_exists('print_jsonld')) {
-        print_jsonld(jsonld_service($regionData));
-        print_jsonld(jsonld_breadcrumb($regionData));
-        print_jsonld(jsonld_faq());
-    }
+    // Note: JSON-LD Schema is handled by the controller via $data['jsonld']
+    // and output in the layout template to avoid duplication
     ?>
 </div>
 <?php else: ?>
