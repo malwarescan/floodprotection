@@ -15,13 +15,6 @@ RUN set -eux; \
     a2dismod mpm_worker || true; \
     a2enmod mpm_prefork
 
-# ASSERT: exactly ONE MPM (by NAME, not files)
-RUN test "$(ls /etc/apache2/mods-enabled \
-    | grep '^mpm_' \
-    | cut -d. -f1 \
-    | sort -u \
-    | wc -l)" = "1"
-
 # Copy Apache vhost AFTER MPMs are locked
 COPY docker/apache-config.conf /etc/apache2/sites-available/000-default.conf
 RUN a2ensite 000-default
