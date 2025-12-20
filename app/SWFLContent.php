@@ -384,84 +384,13 @@ class SWFLContent
             ];
         }, $breadcrumbs, array_keys($breadcrumbs));
         
-        // Determine product types based on keyword
-        $productTypes = [];
-        if (strpos($keyword, 'panel') !== false) {
-            $productTypes[] = 'Aluminum Flood Panels';
-        }
-        if (strpos($keyword, 'garage') !== false) {
-            $productTypes[] = 'Garage Flood Shields';
-        }
-        if (strpos($keyword, 'barrier') !== false || strpos($keyword, 'protection') !== false) {
-            $productTypes[] = 'Modular Flood Barriers';
-            $productTypes[] = 'Hydro-Inflatable Barriers';
-        }
-        if (empty($productTypes)) {
-            $productTypes = ['Aluminum Flood Panels', 'Garage Flood Shields', 'Modular Flood Barriers', 'Hydro-Inflatable Barriers'];
-        }
-        
-        // Sample reviews to enhance search appearance
-        $sampleReviews = [
-            [
-                '@type' => 'Review',
-                'reviewRating' => ['@type' => 'Rating', 'ratingValue' => '5', 'bestRating' => '5'],
-                'author' => ['@type' => 'Person', 'name' => 'John Smith'],
-                'datePublished' => '2024-12-15',
-                'reviewBody' => 'Excellent flood protection system. Easy to install and very effective during storm season.'
-            ],
-            [
-                '@type' => 'Review',
-                'reviewRating' => ['@type' => 'Rating', 'ratingValue' => '5', 'bestRating' => '5'],
-                'author' => ['@type' => 'Person', 'name' => 'Sarah Johnson'],
-                'datePublished' => '2024-12-10',
-                'reviewBody' => 'Quality product and professional service. Highly recommended for coastal properties.'
-            ],
-            [
-                '@type' => 'Review',
-                'reviewRating' => ['@type' => 'Rating', 'ratingValue' => '4', 'bestRating' => '5'],
-                'author' => ['@type' => 'Person', 'name' => 'Mike Rodriguez'],
-                'datePublished' => '2024-12-08',
-                'reviewBody' => 'Great product. Installation was straightforward and materials are durable.'
-            ]
-        ];
-        
-        // Generate multiple Product schemas for each product type
-        $productSchemas = [];
-        foreach ($productTypes as $productType) {
-            $productSchemas[] = [
-                '@type' => 'Product',
-                'name' => "{$productType} - {$cityName}",
-                'brand' => [
-                    '@type' => 'Brand',
-                    'name' => 'Flood Barrier Pros'
-                ],
-                'url' => $url,
-                'category' => 'Hurricane Protection',
-                'description' => "FEMA-compliant {$productType} for {$cityName}, {$county} County. Rated for surge heights up to {$data['surge_heights']}.",
-                'aggregateRating' => [
-                    '@type' => 'AggregateRating',
-                    'ratingValue' => '4.7',
-                    'reviewCount' => '6'
-                ],
-                'review' => $sampleReviews,
-                'offers' => [
-                    '@type' => 'AggregateOffer',
-                    'priceCurrency' => 'USD',
-                    'lowPrice' => '17',
-                    'highPrice' => '42',
-                    'offerCount' => 3, // Required by Google: small, medium, large tiers
-                    'priceUnit' => 'per square foot',
-                    'availability' => 'https://schema.org/InStock',
-                    'url' => $url
-                    // Note: AggregateOffer doesn't support shippingDetails directly per Schema.org
-                    // For merchant listings, consider using individual Offer objects instead
-                ]
-            ];
-        }
+        // P1/P2 COMPLIANCE: City/Service pages must NOT include Product schema
+        // Product schema is only allowed on dedicated product pages (/products/*)
+        // Per SUDO META DIRECTIVE: City/service pages = LocalBusiness, Service, BreadcrumbList, FAQPage only
         
         return [
             '@context' => 'https://schema.org',
-            '@graph' => array_merge([
+            '@graph' => [
                 [
                     '@type' => 'LocalBusiness',
                     'name' => "Flood Barrier Pros - {$cityName}",
@@ -541,7 +470,7 @@ class SWFLContent
                         ]
                     ]
                 ]
-            ], $productSchemas)
+            ]
         ];
     }
     
