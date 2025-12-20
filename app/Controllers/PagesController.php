@@ -909,6 +909,102 @@ class PagesController
         return View::renderPage('cape-coral-residential-flood-panels', $data);
     }
     
+    public function fortMyersResidentialFloodPanels()
+    {
+        $canonical = Config::get('app_url') . '/residential-flood-panels/fort-myers';
+        
+        // FAQ data for FAQPage schema - Fort Myers specific
+        $faqData = [
+            [
+                'question' => 'How much do flood panels cost in Fort Myers?',
+                'answer' => 'Residential flood panels in Fort Myers typically cost $899-$1,499 per opening, depending on size and configuration. Entry door panels start around $899, while larger garage opening systems range from $1,299-$1,999. Whole-home protection for a standard Fort Myers home ranges from $18,000-$42,000. All panels are reusable and may qualify for up to $10,000 in FEMA flood mitigation grants.'
+            ],
+            [
+                'question' => 'Are flood panels FEMA compliant in Fort Myers?',
+                'answer' => 'Yes, our residential flood panels exceed FEMA Technical Bulletin 3 (TB-3) standards with third-party certification. They withstand hydrostatic pressure testing per ASTM E330 and provide watertight seals rated for flood heights up to 8-12 feet, which is critical for Fort Myers properties facing Caloosahatchee River overflow and coastal storm surge. FEMA-certified installations may qualify for insurance premium reductions of 5-45%.'
+            ],
+            [
+                'question' => 'Do flood panels protect against storm surge?',
+                'answer' => 'Yes, FEMA-compliant flood panels provide effective protection against storm surge by creating watertight seals at doorways, garage openings, and ground-level windows. During Hurricane Ian (2022), Fort Myers experienced 8-12 foot surge heights, and flood panels prevented water intrusion in protected properties. Panels are rated for surge heights up to 8 feet and can be combined with elevation improvements for higher surge protection.'
+            ],
+            [
+                'question' => 'How fast can flood panels be installed before a hurricane?',
+                'answer' => 'Once tracks are pre-installed, flood panels deploy in 3-6 minutes per opening. For emergency situations, our Fort Myers installation team offers rapid deployment services with 24-48 hour notice before expected storm landfall. We recommend deploying barriers 24-48 hours before expected storm landfall to ensure adequate preparation time for Fort Myers homeowners facing Caloosahatchee River overflow and coastal surge risks.'
+            ],
+            [
+                'question' => 'Do I need permits for flood panels in Fort Myers?',
+                'answer' => 'Yes, permanent flood panel installations in Fort Myers require building permits from the City of Fort Myers Building Division. Our team handles all permitting, coordinates with Lee County building departments, and ensures compliance with Florida Building Code and FEMA requirements. Temporary deployment of pre-installed systems typically does not require permits, but we recommend checking with local authorities.'
+            ],
+            [
+                'question' => 'What flood zones require flood panels in Fort Myers?',
+                'answer' => 'Fort Myers is primarily in Flood Zones AE, VE, and A. Zone AE (base flood) requires protection from stillwater flooding, Zone VE (coastal high hazard) requires structures to withstand wave action and surge, and Zone A requires elevation certificates. Properties along the Caloosahatchee River and coastal areas face the highest risk and require FEMA-compliant barriers rated for surge heights of 8-12 feet.'
+            ]
+        ];
+        
+        // Convert FAQ data to schema format
+        $faqSchema = [];
+        foreach ($faqData as $faq) {
+            $faqSchema[] = [
+                '@type' => 'Question',
+                'name' => $faq['question'],
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => $faq['answer']
+                ]
+            ];
+        }
+        
+        // Build structured data: LocalBusiness with Service, FAQPage
+        // Fort Myers primary, Cape Coral secondary only
+        $schemaBlocks = [
+            Schema::website(Config::get('app_url')),
+            // LocalBusiness with Service (Fort Myers primary)
+            [
+                '@type' => 'LocalBusiness',
+                'name' => 'Flood Barrier Pros',
+                'url' => $canonical,
+                'areaServed' => [
+                    'Fort Myers FL',
+                    'Lee County FL',
+                    'Cape Coral FL'  // Secondary service area only
+                ],
+                'serviceOffered' => [
+                    '@type' => 'Service',
+                    'name' => 'Residential Flood Panel Installation'
+                ],
+                'telephone' => Config::get('phone'),
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'streetAddress' => Config::get('address'),
+                    'addressLocality' => 'Fort Myers',
+                    'addressRegion' => 'FL',
+                    'postalCode' => Config::get('zip'),
+                    'addressCountry' => 'US'
+                ]
+            ],
+            // FAQPage
+            [
+                '@type' => 'FAQPage',
+                'mainEntity' => $faqSchema
+            ],
+            // Breadcrumb
+            Schema::breadcrumb([
+                ['Home', Config::get('app_url')],
+                ['Residential Flood Panels', Config::get('app_url') . '/residential-flood-panels'],
+                ['Fort Myers', $canonical]
+            ])
+        ];
+        
+        $data = [
+            'title' => 'Residential Flood Panels in Fort Myers | FEMA Compliant Protection',
+            'description' => 'FEMA-compliant residential flood panels designed for Fort Myers homes facing storm surge and river overflow. Get a free assessment before hurricane season.',
+            'canonical' => $canonical,
+            'jsonld' => Schema::graph($schemaBlocks)
+        ];
+        
+        return View::renderPage('fort-myers-residential-flood-panels', $data);
+    }
+    
     public function resourcesIndex()
     {
         // Load all unique topics from resources

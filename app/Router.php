@@ -77,6 +77,10 @@ class Router
         // Service pages: /{keyword} (service taxonomy) - must be after FAQ routes
         $this->addServiceRoutes();
         
+        // Residential flood panels specific pages (must be before matrix routes)
+        $this->addRoute('GET', '/residential-flood-panels/cape-coral', 'PagesController@capeCoralResidentialFloodPanels');
+        $this->addRoute('GET', '/residential-flood-panels/fort-myers', 'PagesController@fortMyersResidentialFloodPanels');
+        
         // Matrix pages: /{keyword}/{city-slug} (must be last to avoid conflicts)
         $this->addRoute('GET', '/{keyword}/{city}', 'PagesController@matrix');
         
