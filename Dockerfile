@@ -7,7 +7,7 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 # Enable mod_rewrite and point vhost to /public
 # CRITICAL: Explicitly disable mpm_event and ensure only mpm_prefork is enabled
 # php:8.2-apache uses mpm_prefork by default, but we must ensure mpm_event is disabled
-RUN a2dismod mpm_event && \
+RUN a2dismod mpm_event || true && \
     a2enmod mpm_prefork && \
     a2enmod rewrite && \
     a2enmod headers && \
