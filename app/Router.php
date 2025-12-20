@@ -80,6 +80,8 @@ class Router
         // Residential flood panels specific pages (must be before matrix routes)
         $this->addRoute('GET', '/residential-flood-panels/cape-coral', 'PagesController@capeCoralResidentialFloodPanels');
         $this->addRoute('GET', '/residential-flood-panels/fort-myers', 'PagesController@fortMyersResidentialFloodPanels');
+        $this->addRoute('GET', '/residential-flood-panels/naples', 'PagesController@naplesResidentialFloodPanels');
+        $this->addRoute('GET', '/residential-flood-panels/bonita-springs', 'PagesController@bonitaSpringsResidentialFloodPanels');
         
         // Matrix pages: /{keyword}/{city-slug} (must be last to avoid conflicts)
         $this->addRoute('GET', '/{keyword}/{city}', 'PagesController@matrix');

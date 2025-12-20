@@ -16,6 +16,18 @@ if [ ! -f /var/www/html/public/healthz ]; then
     exit 1
 fi
 
+# Verify only one MPM is enabled (CRITICAL)
+echo "=== Verifying MPM configuration ==="
+MPM_COUNT=$(ls -1 /etc/apache2/mods-enabled/ | grep -c "^mpm_" || echo "0")
+if [ "$MPM_COUNT" != "1" ]; then
+    echo "ERROR: Multiple MPM modules detected! Found $MPM_COUNT MPM modules:"
+    ls -la /etc/apache2/mods-enabled/ | grep "^mpm_" || echo "No MPM modules found"
+    echo "Apache requires exactly one MPM. Aborting."
+    exit 1
+fi
+ENABLED_MPM=$(ls -1 /etc/apache2/mods-enabled/ | grep "^mpm_" | head -1)
+echo "✓ Only one MPM enabled: $ENABLED_MPM"
+
 # Test Apache configuration
 echo "Testing Apache configuration..."
 if ! apache2ctl configtest; then

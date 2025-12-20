@@ -1005,6 +1005,196 @@ class PagesController
         return View::renderPage('fort-myers-residential-flood-panels', $data);
     }
     
+    public function naplesResidentialFloodPanels()
+    {
+        $canonical = Config::get('app_url') . '/residential-flood-panels/naples';
+        
+        // FAQ data for FAQPage schema - Naples specific
+        $faqData = [
+            [
+                'question' => 'How much do flood panels cost in Naples?',
+                'answer' => 'Residential flood panels in Naples typically cost $899-$1,499 per opening, depending on size and configuration. Entry door panels start around $899, while larger garage opening systems range from $1,299-$1,999. Whole-home protection for a standard Naples home ranges from $18,000-$42,000. All panels are reusable and may qualify for up to $10,000 in FEMA flood mitigation grants.'
+            ],
+            [
+                'question' => 'Are flood panels FEMA compliant in Naples?',
+                'answer' => 'Yes, our residential flood panels exceed FEMA Technical Bulletin 3 (TB-3) standards with third-party certification. They withstand hydrostatic pressure testing per ASTM E330 and provide watertight seals rated for flood heights up to 10-15 feet, which is critical for Naples properties facing Gulf of Mexico storm surge and coastal flooding. FEMA-certified installations may qualify for insurance premium reductions of 5-45%.'
+            ],
+            [
+                'question' => 'Do flood panels protect against coastal storm surge?',
+                'answer' => 'Yes, FEMA-compliant flood panels provide effective protection against coastal storm surge by creating watertight seals at doorways, garage openings, and ground-level windows. During Hurricane Ian (2022), Naples experienced 10-15 foot surge heights, and flood panels prevented water intrusion in protected properties. Panels are rated for surge heights up to 8 feet and can be combined with elevation improvements for higher surge protection.'
+            ],
+            [
+                'question' => 'How fast can flood panels be installed before a hurricane?',
+                'answer' => 'Once tracks are pre-installed, flood panels deploy in 3-6 minutes per opening. For emergency situations, our Naples installation team offers rapid deployment services with 24-48 hour notice before expected storm landfall. We recommend deploying barriers 24-48 hours before expected storm landfall to ensure adequate preparation time for Naples homeowners facing Gulf of Mexico surge and coastal flooding risks.'
+            ],
+            [
+                'question' => 'Do I need permits for flood panels in Naples?',
+                'answer' => 'Yes, permanent flood panel installations in Naples require building permits from the City of Naples Building Division. Our team handles all permitting, coordinates with Collier County building departments, and ensures compliance with Florida Building Code and FEMA requirements. Temporary deployment of pre-installed systems typically does not require permits, but we recommend checking with local authorities.'
+            ],
+            [
+                'question' => 'What flood zones require flood panels in Naples?',
+                'answer' => 'Naples is primarily in Flood Zones VE, AE, and A. Zone VE (coastal high hazard) requires structures to withstand wave action and surge, Zone AE (base flood) requires protection from stillwater flooding, and Zone A requires elevation certificates. Properties along the Gulf of Mexico and Naples Bay face the highest risk and require FEMA-compliant barriers rated for surge heights of 10-15 feet.'
+            ]
+        ];
+        
+        // Convert FAQ data to schema format
+        $faqSchema = [];
+        foreach ($faqData as $faq) {
+            $faqSchema[] = [
+                '@type' => 'Question',
+                'name' => $faq['question'],
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => $faq['answer']
+                ]
+            ];
+        }
+        
+        // Build structured data: LocalBusiness with Service, FAQPage
+        // Naples primary, Collier County only
+        $schemaBlocks = [
+            Schema::website(Config::get('app_url')),
+            // LocalBusiness with Service (Naples primary)
+            [
+                '@type' => 'LocalBusiness',
+                'name' => 'Flood Barrier Pros',
+                'url' => $canonical,
+                'areaServed' => [
+                    'Naples FL',
+                    'Collier County FL'
+                ],
+                'serviceOffered' => [
+                    '@type' => 'Service',
+                    'name' => 'Residential Flood Panel Installation'
+                ],
+                'telephone' => Config::get('phone'),
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'streetAddress' => Config::get('address'),
+                    'addressLocality' => 'Naples',
+                    'addressRegion' => 'FL',
+                    'postalCode' => Config::get('zip'),
+                    'addressCountry' => 'US'
+                ]
+            ],
+            // FAQPage
+            [
+                '@type' => 'FAQPage',
+                'mainEntity' => $faqSchema
+            ],
+            // Breadcrumb
+            Schema::breadcrumb([
+                ['Home', Config::get('app_url')],
+                ['Residential Flood Panels', Config::get('app_url') . '/residential-flood-panels'],
+                ['Naples', $canonical]
+            ])
+        ];
+        
+        $data = [
+            'title' => 'Residential Flood Panels in Naples | FEMA Compliant Protection',
+            'description' => 'FEMA compliant residential flood panels for Naples homes facing coastal flooding and storm surge. Request a free flood assessment before hurricane season.',
+            'canonical' => $canonical,
+            'jsonld' => Schema::graph($schemaBlocks)
+        ];
+        
+        return View::renderPage('naples-residential-flood-panels', $data);
+    }
+    
+    public function bonitaSpringsResidentialFloodPanels()
+    {
+        $canonical = Config::get('app_url') . '/residential-flood-panels/bonita-springs';
+        
+        // FAQ data for FAQPage schema - Bonita Springs specific
+        $faqData = [
+            [
+                'question' => 'How much do flood panels cost in Bonita Springs?',
+                'answer' => 'Residential flood panels in Bonita Springs typically cost $899-$1,499 per opening, depending on size and configuration. Entry door panels start around $899, while larger garage opening systems range from $1,299-$1,999. Whole-home protection for a standard Bonita Springs home ranges from $18,000-$42,000. All panels are reusable and may qualify for up to $10,000 in FEMA flood mitigation grants.'
+            ],
+            [
+                'question' => 'Are flood panels FEMA compliant in Bonita Springs?',
+                'answer' => 'Yes, our residential flood panels exceed FEMA Technical Bulletin 3 (TB-3) standards with third-party certification. They withstand hydrostatic pressure testing per ASTM E330 and provide watertight seals rated for flood heights up to 7-11 feet, which is critical for Bonita Springs properties facing Estero Bay storm surge and Imperial River overflow. FEMA-certified installations may qualify for insurance premium reductions of 5-45%.'
+            ],
+            [
+                'question' => 'Do flood panels protect against coastal and river flooding?',
+                'answer' => 'Yes, FEMA-compliant flood panels provide effective protection against both coastal storm surge from Estero Bay and river overflow from the Imperial River. During Hurricane Ian (2022), Bonita Springs experienced 7-11 foot surge heights, and flood panels prevented water intrusion in protected properties. Panels are rated for surge heights up to 8 feet and can be combined with elevation improvements for higher surge protection.'
+            ],
+            [
+                'question' => 'How fast can flood panels be installed in Bonita Springs?',
+                'answer' => 'Once tracks are pre-installed, flood panels deploy in 3-6 minutes per opening. For emergency situations, our Bonita Springs installation team offers rapid deployment services with 24-48 hour notice before expected storm landfall. We recommend deploying barriers 24-48 hours before expected storm landfall to ensure adequate preparation time for Bonita Springs homeowners facing Estero Bay surge and Imperial River overflow risks.'
+            ],
+            [
+                'question' => 'Do I need permits for flood panels in Bonita Springs?',
+                'answer' => 'Yes, permanent flood panel installations in Bonita Springs require building permits from the City of Bonita Springs Building Division. Our team handles all permitting, coordinates with Lee County building departments, and ensures compliance with Florida Building Code and FEMA requirements. Temporary deployment of pre-installed systems typically does not require permits, but we recommend checking with local authorities.'
+            ],
+            [
+                'question' => 'What flood zones require flood panels in Bonita Springs?',
+                'answer' => 'Bonita Springs is primarily in Flood Zones AE and VE. Zone AE (base flood) requires protection from stillwater flooding, while Zone VE (coastal high hazard) requires structures to withstand wave action and surge. Properties along Estero Bay and the Imperial River face the highest risk and require FEMA-compliant barriers rated for surge heights of 7-11 feet.'
+            ]
+        ];
+        
+        // Convert FAQ data to schema format
+        $faqSchema = [];
+        foreach ($faqData as $faq) {
+            $faqSchema[] = [
+                '@type' => 'Question',
+                'name' => $faq['question'],
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => $faq['answer']
+                ]
+            ];
+        }
+        
+        // Build structured data: LocalBusiness with Service, FAQPage
+        // Bonita Springs primary, Lee County only (NO Collier County, NO other cities)
+        $schemaBlocks = [
+            Schema::website(Config::get('app_url')),
+            // LocalBusiness with Service (Bonita Springs primary)
+            [
+                '@type' => 'LocalBusiness',
+                'name' => 'Flood Barrier Pros',
+                'url' => $canonical,
+                'areaServed' => [
+                    'Bonita Springs FL',
+                    'Lee County FL'
+                ],
+                'serviceOffered' => [
+                    '@type' => 'Service',
+                    'name' => 'Residential Flood Panel Installation'
+                ],
+                'telephone' => Config::get('phone'),
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'streetAddress' => Config::get('address'),
+                    'addressLocality' => 'Bonita Springs',
+                    'addressRegion' => 'FL',
+                    'postalCode' => Config::get('zip'),
+                    'addressCountry' => 'US'
+                ]
+            ],
+            // FAQPage
+            [
+                '@type' => 'FAQPage',
+                'mainEntity' => $faqSchema
+            ],
+            // Breadcrumb
+            Schema::breadcrumb([
+                ['Home', Config::get('app_url')],
+                ['Residential Flood Panels', Config::get('app_url') . '/residential-flood-panels'],
+                ['Bonita Springs', $canonical]
+            ])
+        ];
+        
+        $data = [
+            'title' => 'Residential Flood Panels in Bonita Springs | FEMA Compliant Protection',
+            'description' => 'FEMA-compliant residential flood panels for Bonita Springs homes facing coastal and river flooding. Request a free flood assessment before hurricane season.',
+            'canonical' => $canonical,
+            'jsonld' => Schema::graph($schemaBlocks)
+        ];
+        
+        return View::renderPage('bonita-springs-residential-flood-panels', $data);
+    }
+    
     public function resourcesIndex()
     {
         // Load all unique topics from resources

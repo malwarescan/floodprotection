@@ -5,9 +5,11 @@ FROM php:8.2-apache
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
 # Enable mod_rewrite and point vhost to /public
-# Note: php:8.2-apache already has the correct MPM (mpm_prefork) configured
-# Do NOT touch MPM modules - Apache allows exactly one MPM
-RUN a2enmod rewrite && \
+# CRITICAL: Explicitly disable mpm_event and ensure only mpm_prefork is enabled
+# php:8.2-apache uses mpm_prefork by default, but we must ensure mpm_event is disabled
+RUN a2dismod mpm_event && \
+    a2enmod mpm_prefork && \
+    a2enmod rewrite && \
     a2enmod headers && \
     sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf && \
     sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
