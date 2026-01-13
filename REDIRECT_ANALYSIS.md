@@ -1,3 +1,4 @@
+
 # Redirect Analysis - GSC Coverage Report
 
 ## Issue Summary
