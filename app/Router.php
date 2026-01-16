@@ -29,6 +29,7 @@ class Router
         $this->addRoute('GET', '/return-policy', 'PagesController@returnPolicy');
         $this->addRoute('GET', '/privacy-policy', 'PagesController@privacyPolicy');
         $this->addRoute('GET', '/terms-of-service', 'PagesController@termsOfService');
+        $this->addRoute('GET', '/fema-compliance-guide', 'PagesController@femaComplianceGuide');
         $this->addRoute('GET', '/contact', 'PagesController@contact');
         
         // Resources pages: /resources and /resources/{topic-slug}/{city}
@@ -47,6 +48,8 @@ class Router
         $this->addRoute('GET', '/products/modular-flood-barrier', 'ProductController@modularFloodBarrier');
         $this->addRoute('GET', '/products/garage-dam-kit', 'ProductController@garageDamKit');
         $this->addRoute('GET', '/products/doorway-flood-panel', 'ProductController@doorwayFloodPanel');
+        $this->addRoute('GET', '/commercial-flood-gates', 'ProductController@commercialFloodGates');
+        $this->addRoute('GET', '/removable-barriers', 'ProductController@removableBarriers');
         
         // Location pages: /fl/{city}/{product-slug}
         $this->addRoute('GET', '/fl/{city}/{product}', 'LocationController@show');

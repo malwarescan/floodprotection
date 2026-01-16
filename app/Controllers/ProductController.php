@@ -477,4 +477,114 @@ class ProductController
         
         return View::renderPage('product-doorway-flood-panel', $data);
     }
+
+
+    public function commercialFloodGates()
+    {
+        $title = 'Commercial Flood Gates & Barriers | Industrial Protection';
+        $description = 'Heavy-duty commercial flood gates and barriers for businesses. Connectable spans, warehouse protection, FEMA-compliant systems.';
+        $canonical = Config::get('app_url') . '/commercial-flood-gates';
+        
+        // Product schema customized for commercial
+        $product = [
+            '@type' => 'Product',
+            '@id' => $canonical . '#product',
+            'name' => 'Commercial Flood Gate Systems | Flood Barrier Pros',
+            'brand' => ['@type' => 'Brand', 'name' => 'Flood Barrier Pros'],
+            'manufacturer' => ['@type' => 'Organization', 'name' => 'Flood Barrier Pros'],
+            'seller' => ['@type' => 'Organization', 'name' => 'Flood Barrier Pros'],
+            'image' => [Config::get('app_url') . '/assets/images/products/modular-aluminum-flood-barriers.jpg'],
+            'description' => 'Industrial-grade flood gate systems for commercial properties, warehouses, and retail locations.',
+            'sku' => 'RFP-COMM-GATE',
+            'material' => '6063 T-6 Aluminum; Heavy-duty EPDM sealing',
+            'additionalProperty' => [
+                ['@type' => 'PropertyValue', 'name' => 'Application', 'value' => 'Commercial, Industrial, Retail'],
+                ['@type' => 'PropertyValue', 'name' => 'Max Width', 'value' => 'Unlimited (with center posts)'],
+                ['@type' => 'PropertyValue', 'name' => 'Max Height', 'value' => 'Up to 12ft'],
+                ['@type' => 'PropertyValue', 'name' => 'Material', 'value' => 'Industrial Aluminum'],
+                ['@type' => 'PropertyValue', 'name' => 'Certification', 'value' => 'FEMA Compliant']
+            ],
+            'offers' => [
+                '@type' => 'AggregateOffer',
+                'priceCurrency' => 'USD',
+                'lowPrice' => '2499.00',
+                'highPrice' => '15000.00',
+                'offerCount' => 1,
+                'priceValidUntil' => '2026-01-31',
+                'availability' => 'https://schema.org/InStock',
+                'url' => $canonical
+            ]
+        ];
+        
+        $jsonld = Schema::graph([
+            Schema::website(Config::get('app_url')),
+            $product,
+            Schema::breadcrumb([
+                ['Home', Config::get('app_url')],
+                ['Commercial Flood Gates', $canonical]
+            ])
+        ]);
+        
+        $data = [
+            'title' => $title,
+            'description' => $description,
+            'canonical' => $canonical,
+            'product' => $product,
+            'jsonld' => $jsonld
+        ];
+        
+        // Reusing modular barrier template as it's the same base technology
+        return View::renderPage('product-modular-flood-barrier', $data);
+    }
+
+    public function removableBarriers()
+    {
+        $title = 'Removable Flood Barriers | Temporary Flood Protection';
+        $description = 'Removable flood barriers for homes and businesses. Easy deploy, store away when not in use. No permanent obstructions.';
+        $canonical = Config::get('app_url') . '/removable-barriers';
+        
+        // Product schema customized for removable barriers
+        $product = [
+            '@type' => 'Product',
+            '@id' => $canonical . '#product',
+            'name' => 'Removable Application Flood Barriers',
+            'brand' => ['@type' => 'Brand', 'name' => 'Flood Barrier Pros'],
+            'manufacturer' => ['@type' => 'Organization', 'name' => 'Flood Barrier Pros'],
+            'seller' => ['@type' => 'Organization', 'name' => 'Flood Barrier Pros'],
+            'image' => [Config::get('app_url') . '/assets/images/products/doorway-flood-panels.jpg'],
+            'description' => 'High-performance removable flood barriers that leave no permanent visual impact when not in use.',
+            'sku' => 'RFP-REM-BARRIER',
+            'material' => 'Aluminum & EPDM',
+             'offers' => [
+                '@type' => 'AggregateOffer',
+                'priceCurrency' => 'USD',
+                'lowPrice' => '899.00',
+                'highPrice' => '4500.00',
+                'offerCount' => 1,
+                'priceValidUntil' => '2026-01-31',
+                'availability' => 'https://schema.org/InStock',
+                'url' => $canonical
+            ]
+        ];
+        
+        $jsonld = Schema::graph([
+            Schema::website(Config::get('app_url')),
+            $product,
+            Schema::breadcrumb([
+                ['Home', Config::get('app_url')],
+                ['Removable Barriers', $canonical]
+            ])
+        ]);
+        
+        $data = [
+            'title' => $title,
+            'description' => $description,
+            'canonical' => $canonical,
+            'product' => $product,
+            'jsonld' => $jsonld
+        ];
+        
+        // Reusing modular barrier template
+        return View::renderPage('product-modular-flood-barrier', $data);
+    }
 }

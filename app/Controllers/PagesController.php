@@ -1259,6 +1259,24 @@ class PagesController
         return View::renderPage('contact', $data);
     }
     
+    public function femaComplianceGuide()
+    {
+        $data = [
+            'title' => 'FEMA Flood Compliance Guide | ' . Config::get('app_name'),
+            'description' => 'Guide to FEMA compliance for flood protection, dry vs wet floodproofing, and flood insurance requirements. Expert advice from Flood Barrier Pros.',
+            'canonical' => Config::get('app_url') . '/fema-compliance-guide',
+            'jsonld' => Schema::graph([
+                Schema::website(Config::get('app_url')),
+                Schema::breadcrumb([
+                    ['Home', Config::get('app_url')],
+                    ['FEMA Compliance Guide', Config::get('app_url') . '/fema-compliance-guide']
+                ])
+            ])
+        ];
+        
+        return View::renderPage('fema-compliance-guide', $data);
+    }
+
     private function notFound()
     {
         http_response_code(404);
