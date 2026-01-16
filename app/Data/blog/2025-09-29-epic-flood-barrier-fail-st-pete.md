@@ -25,7 +25,7 @@ According to the homeowner's engineer's report, *hydrostatic and buoyancy forces
 
 ## Local Context
 
-Across Pinellas and Lee Counties, municipalities are investing in [perimeter barrier systems](/regions/st-petersburg/) such as AquaFence, which Tampa General Hospital used successfully during the same storm. Engineers caution that residential doorway systems are effective only when paired with **structural analysis, slab QA, and pump plans**.
+Across Pinellas and Lee Counties, municipalities are investing in [perimeter barrier systems](/city/st-petersburg) such as AquaFence, which Tampa General Hospital used successfully during the same storm. Engineers caution that residential doorway systems are effective only when paired with **structural analysis, slab QA, and pump plans**.
 
 ## Lessons for Southwest Florida Homeowners
 
@@ -68,9 +68,13 @@ Yes—when properly selected and installed. We recommend a structural audit firs
 
 ## For Further Reading
 
-- [Flood Protection in St. Petersburg](/regions/st-petersburg/)
-- [Flood Barriers in Fort Myers](/regions/fort-myers/)
-- [Marco Island Flood Protection](/regions/marco-island/)
-- [Cape Coral Flood Protection](/regions/cape-coral/)
+- [St. Petersburg Flood Prevention Services](/city/st-petersburg)
+- [Home Flood Barriers in St. Pete](/home-flood-barriers/st-petersburg)
+- [Garage Door Flood Barriers](/products/garage-dam-kit)
+- [Understanding Hydrostatic Pressure](/blog/hydrostatic-pressure-explained)
 
-[Schedule a Flood-Readiness Assessment](/contact/)
+### Ready to Protect Your St. Petersburg Home?
+
+Don't guess with your safety. Get a professional assessment and FEMA-compliant protection.
+
+**[Get a Free Flood Risk Audit in St. Petersburg](/city/st-petersburg)**
