@@ -71,8 +71,8 @@ class PagesController
         }
         
         $data = [
-            'title' => 'Flood Barriers & Protection Systems | ' . Config::get('app_name'),
-            'description' => 'FEMA-aligned flood barriers for Florida homes & businesses. Quick installation, reusable panels, free assessment. Serving Miami, Tampa, Orlando.',
+            'title' => 'Florida\'s #1 Rated Flood Barriers | FEMA-Compliant Home Protection',
+            'description' => 'Protect your home with Florida\'s most trusted flood barriers. FEMA-approved, reusable aluminum panels & garage dams. Free statewide assessment.',
             'faqs' => $faqData,
             'jsonld' => Schema::graph([
                 Schema::website(Config::get('app_url')),
@@ -204,9 +204,14 @@ class PagesController
                 $jsonld = Schema::graph($schemaItems);
             }
             
+            // Optimization: Use dynamic high-intent titles
+            $prodName = $row['product_name'] ?: 'Flood Barriers';
+            $optTitle = "{$prodName} {$row['city']}, FL | Reusable Home Protection";
+            $optDesc = "Protect your {$row['city']} home from flooding with FEMA-approved {$prodName}. Quick installation, reusable panels, and free risk assessment.";
+            
             $data = [
-                'title' => $row['title'],
-                'description' => $row['meta_description'],
+                'title' => $optTitle,
+                'description' => $optDesc,
                 'h1' => $row['h1'],
                 'product_name' => $row['product_name'],
                 'product_brand' => $row['product_brand'],
@@ -339,8 +344,8 @@ class PagesController
             $title = $cityMetaMap[$citySlug]['title'];
             $description = $cityMetaMap[$citySlug]['description'];
         } else {
-            $title = "Flood Barriers in {$cityName} | {$cityName} Flood Protection";
-            $description = "Flood barriers & panels for {$cityName}, FL. Custom installation, FEMA-aligned, free assessment. Quick installation & local service.";
+            $title = "Flood Prevention Services in {$cityName} | Flood Barrier Pros";
+            $description = "Expert flood prevention services for {$cityName}. We install FEMA-compliant flood barriers, garage dams, and door panels. Schedule your free consultation.";
         }
         
         $data = [

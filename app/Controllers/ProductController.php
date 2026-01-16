@@ -11,8 +11,8 @@ class ProductController
     public function index()
     {
         $data = [
-            'title' => 'Flood Protection Products | ' . Config::get('app_name'),
-            'description' => 'Browse our complete line of flood protection products: modular flood barriers, garage dam kits, and doorway flood panels. FEMA-aligned, reusable systems.',
+            'title' => 'Flood Protection Products | FEMA-Compliant Systems',
+            'description' => 'Browse Florida\'s #1 rated flood protection products: modular aluminum barriers, garage dam kits, and doorway panels. Reusable & ready to ship.',
             'canonical' => Config::get('app_url') . '/products',
             'jsonld' => Schema::graph([
                 Schema::website(Config::get('app_url')),
@@ -28,8 +28,8 @@ class ProductController
     
     public function modularFloodBarrier()
     {
-        $title = 'Modular Flood Barriers | Aluminum Reusable Systems';
-        $description = 'Modular flood barriers (aluminum, FEMA-aligned). Quick deploy, reusable, no sandbags. Fast installation & free assessment.';
+        $title = 'Modular Aluminum Flood Barriers | Reusable & FEMA-Compliant';
+        $description = 'Protect your property with lightweight, industrial-strength aluminum flood barriers. Quick deployment, reusable design, and FEMA-aligned. Request a quote.';
         $canonical = Config::get('app_url') . '/products/modular-flood-barrier';
         
         // Product schema with reviews
@@ -166,8 +166,8 @@ class ProductController
     
     public function garageDamKit()
     {
-        $title = 'Garage Flood Dam Kit | Door Barrier Installation';
-        $description = 'Garage flood dam kits for door openings. Quick install, weather-resistant seals. Reusable components & fast deployment.';
+        $title = 'Garage Door Flood Barriers | Quick-Deploy Dam Kits';
+        $description = 'Seal your garage against floodwaters instantly. Heavy-duty reusable garage flood barriers. Easy DIY installation available. Order now.';
         $canonical = Config::get('app_url') . '/products/garage-dam-kit';
         
         // Product schema with reviews
@@ -314,8 +314,8 @@ class ProductController
     
     public function doorwayFloodPanel()
     {
-        $title = 'Doorway Flood Panels | Entry Protection Systems';
-        $description = 'Doorway flood panels for basement & entry protection. Quick install, strong seals, easy storage. Reusable design.';
+        $title = 'Doorway Flood Panels | Reusable Entry Protection';
+        $description = 'Custom-fit flood panels for doors and entryways. 100% watertight seal, reusable aluminum design. Easy DIY installation. Order now.';
         $canonical = Config::get('app_url') . '/products/doorway-flood-panel';
         
         // Product schema with reviews
@@ -481,8 +481,8 @@ class ProductController
 
     public function commercialFloodGates()
     {
-        $title = 'Commercial Flood Gates & Barriers | Industrial Protection';
-        $description = 'Heavy-duty commercial flood gates and barriers for businesses. Connectable spans, warehouse protection, FEMA-compliant systems.';
+        $title = 'Commercial Flood Gates | FEMA-Compliant Industrial Systems';
+        $description = 'Heavy-duty commercial flood gates for warehouses & retail. Connectable spans, unlimited width, and FEMA-compliant. Trust Florida\'s experts.';
         $canonical = Config::get('app_url') . '/commercial-flood-gates';
         
         // Product schema customized for commercial
@@ -539,8 +539,8 @@ class ProductController
 
     public function removableBarriers()
     {
-        $title = 'Removable Flood Barriers | Temporary Flood Protection';
-        $description = 'Removable flood barriers for homes and businesses. Easy deploy, store away when not in use. No permanent obstructions.';
+        $title = 'Removable Flood Barriers | Invisible Flood Protection';
+        $description = 'Protect your home without ruining its look. Removable flood barriers deploy in minutes and store away completely. No permanent obstructions.';
         $canonical = Config::get('app_url') . '/removable-barriers';
         
         // Product schema customized for removable barriers
