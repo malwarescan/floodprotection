@@ -178,7 +178,9 @@ class Router
         }
         
         foreach ($this->routes as $route) {
-            if ($route['method'] !== $method) {
+            $routeMethod = $route['method'];
+            // Allow HEAD requests to match GET routes
+            if ($routeMethod !== $method && !($method === 'HEAD' && $routeMethod === 'GET')) {
                 continue;
             }
             
