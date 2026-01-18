@@ -50,9 +50,14 @@ class View
         $selfReferencingCanonical = Util::normalizeCanonicalUrl($currentUrl);
         
         // Override any canonical set by controllers to ensure self-referencing
-        // This ensures Google always sees the canonical matching the accessed URL
-        $data['canonical'] = $selfReferencingCanonical;
-        $data['url'] = $selfReferencingCanonical;
+        // EXCEPTION: For pages with explicit canonical requirements (e.g., Technology page),
+        // respect the controller's canonical if it was explicitly set
+        if (!isset($data['canonical']) || $data['canonical'] === $canonical) {
+            // No explicit canonical set by controller, use self-referencing
+            $data['canonical'] = $selfReferencingCanonical;
+            $data['url'] = $selfReferencingCanonical;
+        }
+        // If controller set an explicit canonical, keep it (e.g., Technology page with trailing slash)
         
         // IV. Structured Data: Ensure all schema URLs match canonical
         if (!empty($data['jsonld'])) {

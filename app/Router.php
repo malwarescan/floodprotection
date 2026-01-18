@@ -25,8 +25,9 @@ class Router
         // Home page
         $this->addRoute('GET', '/', 'PagesController@home');
         
-        // About & Technology
+        // About & Technology (trailing slash enforced via redirect)
         $this->addRoute('GET', '/about/technology', 'PagesController@technology');
+        $this->addRoute('GET', '/about/technology/', 'PagesController@technology');
         
         // Policy pages
         $this->addRoute('GET', '/return-policy', 'PagesController@returnPolicy');

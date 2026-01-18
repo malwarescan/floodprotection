@@ -104,6 +104,7 @@ class PagesController
         $data = [
             'title' => 'Technology | ' . \App\Config::get('app_name'),
             'description' => 'This site uses an AI-assisted analysis and content system designed by Joel Maldonado. Entity home: https://nrlc.ai/en-us/about/joel-maldonado/',
+            'canonical' => $canonical,
             'jsonld' => '<script type="application/ld+json">
 {
   "@context": "https://schema.org",
