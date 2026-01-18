@@ -120,11 +120,31 @@ class PagesController
       "@type": "Person",
       "@id": "https://nrlc.ai/en-us/about/joel-maldonado/#person",
       "name": "Joel David Maldonado",
-      "url": "https://nrlc.ai/en-us/about/joel-maldonado/",
-      "image": {
-        "@type": "ImageObject",
-        "url": "https://www.floodbarrierpros.com/assets/images/joel-maldonado.png"
-      }
+      "url": "https://nrlc.ai/en-us/about/joel-maldonado/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "' . $canonical . '#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.floodbarrierpros.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "About",
+          "item": "https://www.floodbarrierpros.com/about/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Technology",
+          "item": "' . $canonical . '"
+        }
+      ]
     }
   ]
 }
