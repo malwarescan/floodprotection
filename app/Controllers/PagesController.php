@@ -97,6 +97,44 @@ class PagesController
         return View::renderPage('home', $data);
     }
     
+    public function technology()
+    {
+        $canonical = \App\Util::normalizeCanonicalUrl(\App\Config::get('app_url') . '/about/technology/');
+        
+        $data = [
+            'title' => 'Technology | ' . \App\Config::get('app_name'),
+            'description' => 'This site uses an AI-assisted analysis and content system designed by Joel Maldonado. Entity home: https://nrlc.ai/en-us/about/joel-maldonado/',
+            'jsonld' => '<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": "' . $canonical . '#profilepage",
+      "url": "' . $canonical . '",
+      "mainEntity": {
+        "@id": "https://nrlc.ai/en-us/about/joel-maldonado/#person"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://nrlc.ai/en-us/about/joel-maldonado/#person",
+      "name": "Joel David Maldonado",
+      "url": "https://nrlc.ai/en-us/about/joel-maldonado/",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://www.floodbarrierpros.com/assets/images/joel-maldonado.png"
+      }
+    }
+  ]
+}
+</script>'
+        ];
+        
+        return View::renderPage('technology', $data);
+    }
+    
+    
     public function matrix($keyword, $city)
     {
         // If this is a city route that got caught by the matrix route, redirect to city method

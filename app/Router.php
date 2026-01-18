@@ -25,6 +25,9 @@ class Router
         // Home page
         $this->addRoute('GET', '/', 'PagesController@home');
         
+        // About & Technology
+        $this->addRoute('GET', '/about/technology', 'PagesController@technology');
+        
         // Policy pages
         $this->addRoute('GET', '/return-policy', 'PagesController@returnPolicy');
         $this->addRoute('GET', '/privacy-policy', 'PagesController@privacyPolicy');
@@ -156,13 +159,19 @@ class Router
         // Handle redirects before normal routing
         $redirect = $this->handleRedirects($uri);
         if ($redirect) {
-            // Ensure redirect URL is absolute with www domain for consistency
+            // If the redirect is relative (starts with /), let the browser handle it relative to the current host
+            // This prevents local tests from jumping to the production URL defined in Config
+            if (strpos($redirect, '/') === 0 && strpos($redirect, '//') !== 0) {
+                header('Location: ' . $redirect, true, 301);
+                exit;
+            }
+            
+            // For absolute redirects, ensure they are normalized effectively
             if (strpos($redirect, 'http') !== 0) {
-                // Relative URL - prepend base URL
                 $baseUrl = rtrim(Config::get('app_url'), '/');
                 $redirect = $baseUrl . $redirect;
             }
-            // Normalize to www version if needed
+            
             $redirect = Util::normalizeCanonicalUrl($redirect);
             header('Location: ' . $redirect, true, 301);
             exit;
@@ -217,8 +226,13 @@ class Router
     
     private function handleRedirects($uri)
     {
-        // Remove trailing slash for consistency (except root)
-        if ($uri !== '/' && substr($uri, -1) === '/') {
+        // Special case for Technology page: MUST have trailing slash
+        if ($uri === '/about/technology') {
+            return '/about/technology/';
+        }
+        
+        // Remove trailing slash for consistency (except root and Technology page)
+        if ($uri !== '/' && $uri !== '/about/technology/' && substr($uri, -1) === '/') {
             return rtrim($uri, '/');
         }
         

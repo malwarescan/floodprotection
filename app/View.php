@@ -26,8 +26,8 @@ class View
         // Strip query parameters for canonical (pagination, filters, etc. should not be in canonical)
         $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
         $requestPath = parse_url($requestUri, PHP_URL_PATH);
-        // Remove trailing slash for consistency (except root)
-        if ($requestPath !== '/' && substr($requestPath, -1) === '/') {
+        // Remove trailing slash for consistency (except root and Technology page)
+        if ($requestPath !== '/' && $requestPath !== '/about/technology/' && substr($requestPath, -1) === '/') {
             $requestPath = rtrim($requestPath, '/');
         }
         $canonical = Util::normalizeCanonicalUrl(Config::get('app_url') . $requestPath);

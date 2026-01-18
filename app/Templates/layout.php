@@ -65,7 +65,11 @@
     <link rel="stylesheet" href="/assets/app.css"/>
     
     <?php if (!empty($jsonld)): ?>
+    <?php if (is_array($jsonld)): ?>
     <script type="application/ld+json"><?= json_encode($jsonld, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?></script>
+    <?php else: ?>
+    <?= $jsonld ?>
+    <?php endif; ?>
     <?php endif; ?>
     
     <?php if (isset($googleAnalyticsId) && !empty($googleAnalyticsId)): ?>
@@ -167,6 +171,9 @@
                     </li>
                     <li class="inline-block relative pe-8 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-3 before:-translate-y-1/2 before:content-['/'] before:text-gray-300">
                         <a class="inline-flex gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-none focus:text-gray-800" href="/testimonials">Testimonials</a>
+                    </li>
+                    <li class="inline-block relative pe-8 last:pe-0 last-of-type:before:hidden before:absolute before:top-1/2 before:end-3 before:-translate-y-1/2 before:content-['/'] before:text-gray-300">
+                        <a class="inline-flex gap-x-2 text-sm text-gray-500 hover:text-gray-800 focus:outline-none focus:text-gray-800" href="/about/technology/">Technology</a>
                     </li>
                 </ul>
                 

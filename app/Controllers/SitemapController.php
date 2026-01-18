@@ -166,6 +166,14 @@ class SitemapController
         $matrixUrls = Util::getSitemapUrls();
         $urls = array_merge($urls, $matrixUrls);
         
+        // Add technology page
+        $urls[] = [
+            'url' => $root . '/about/technology/',
+            'lastmod' => date('Y-m-d'),
+            'changefreq' => 'monthly',
+            'priority' => '0.5'
+        ];
+        
         // Add testimonials index
         $urls[] = [
             'url' => $root . '/testimonials',
