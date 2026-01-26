@@ -134,6 +134,28 @@ class SWFLContent
             'waterways' => ['Indian River', 'Atlantic Ocean'],
             'elevation_risk' => 'Coastal moderate',
             'flood_history' => 'Coastal surge and river flooding'
+        ],
+        'lehigh-acres' => [
+            'name' => 'Lehigh Acres',
+            'county' => 'Lee',
+            'flood_zones' => ['X', 'A', 'AE'],
+            'surge_heights' => 'localized levels',
+            'hurricanes' => ['Ian (2022)', 'Irma (2017)'],
+            'landmarks' => ['Harns Marsh', 'Lehigh Acres Trailhead Park'],
+            'waterways' => ['Orange River', 'Numerous canals'],
+            'elevation_risk' => 'Inland sheet flow',
+            'flood_history' => 'Significant street flooding and canal overflow during heavy rains'
+        ],
+        'north-fort-myers' => [
+            'name' => 'North Fort Myers',
+            'county' => 'Lee',
+            'flood_zones' => ['AE', 'VE', 'X'],
+            'surge_heights' => '8-11 feet',
+            'hurricanes' => ['Ian (2022)', 'Irma (2017)'],
+            'landmarks' => ['Shell Factory', 'North Fort Myers High School'],
+            'waterways' => ['Caloosahatchee River', 'Hancock Creek'],
+            'elevation_risk' => 'River-adjacent',
+            'flood_history' => 'Severe riverine surge and structural flooding during major storms'
         ]
     ];
     

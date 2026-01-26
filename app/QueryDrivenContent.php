@@ -95,7 +95,7 @@ class QueryDrivenContent
         'miami', 'sarasota', 'hillsborough', 'fort-myers', 'estero',
         'jensen-beach', 'marco-island', 'naples', 'cape-coral', 'pines',
         'bonita-springs', 'sanibel', 'pine-island', 'clearwater', 'tampa',
-        'st-petersburg', 'orlando', 'jacksonville'
+        'st-petersburg', 'orlando', 'jacksonville', 'lehigh-acres', 'north-fort-myers'
     ];
     
     /**

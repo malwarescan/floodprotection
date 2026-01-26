@@ -40,8 +40,12 @@ class Router
         $this->addRoute('GET', '/resources', 'PagesController@resourcesIndex');
         $this->addRoute('GET', '/resources/{topic}/{city}', 'PagesController@resources');
         
-        // City pages: /city/{city-slug}
+        // City pages: /city/{city-slug} and top-level /city-slug hub routes
         $this->addRoute('GET', '/city/{city}', 'PagesController@city');
+        $this->addRoute('GET', '/cape-coral', 'PagesController@city', 'cape-coral');
+        $this->addRoute('GET', '/fort-myers', 'PagesController@city', 'fort-myers');
+        $this->addRoute('GET', '/bonita-springs', 'PagesController@city', 'bonita-springs');
+        $this->addRoute('GET', '/estero', 'PagesController@city', 'estero');
         
         // Testimonials routes
         $this->addRoute('GET', '/testimonials', 'TestimonialsController@index');
