@@ -1,8 +1,8 @@
 <!-- Hero Section -->
 <div class="max-w-[85rem] mx-auto px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
     <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
-        <h1 class="text-3xl font-bold md:text-4xl md:leading-tight text-primary">Modular Flood Barrier System</h1>
-        <p class="mt-3 text-gray-600">Rapid-deploy modular flood barriers made from 6063 T-6 aluminum with EPDM sealing. Quick installation, no sandbags, minimal cleanup.</p>
+        <h1 class="text-3xl font-bold md:text-4xl md:leading-tight text-primary">Modular Flood Barriers St Petersburg FL | 5-Star Rated</h1>
+        <p class="mt-3 text-lg text-gray-600">Protect your St Petersburg home with our top-rated modular flood barriers. 24hr installation, FEMA-compliant, 5-star reviews. Call now for free quote!</p>
         <div class="mt-7 flex flex-col sm:flex-row gap-3 justify-center">
             <a class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-primary text-primary hover:bg-primary hover:text-white focus:outline-none focus:bg-primary focus:text-white transition-colors" href="tel:<?= htmlspecialchars(\App\Config::get('phone')) ?>">
                 <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -66,7 +66,7 @@
                 <div class="flex flex-col sm:flex-row gap-3">
                     <a class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary text-white hover:bg-primary-600 focus:outline-none focus:bg-primary-600 transition-colors" href="tel:<?= htmlspecialchars(\App\Config::get('phone')) ?>">
                         <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                        Call for Quote
+                        Call Now: 24hr Install
                     </a>
                     <a class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 text-gray-800 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="mailto:<?= htmlspecialchars(\App\Config::get('email')) ?>">
                         <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -204,9 +204,9 @@
         </div>
 
         <div class="mt-8">
-            <a class="py-3 px-6 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary text-white hover:bg-primary-600 focus:outline-none focus:bg-primary-600 transition-colors" href="tel:<?= htmlspecialchars(\App\Config::get('phone')) ?>">
+            <a class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-primary text-white hover:bg-primary-600 focus:outline-none focus:bg-primary-600 transition-colors" href="tel:<?= htmlspecialchars(\App\Config::get('phone')) ?>">
                 <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                Call Now for Free Quote
+                Call Now: 24hr Install
             </a>
         </div>
     </div>

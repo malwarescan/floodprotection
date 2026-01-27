@@ -376,6 +376,10 @@ class PagesController
                 'title' => \App\SEO::titleSanford(),
                 'description' => \App\SEO::descSanford()
             ],
+            'st-petersburg' => [
+                'title' => 'St Petersburg FL Flood Barriers | #1 Rated | 24hr Install',
+                'description' => 'St Petersburg\'s top flood barrier company. 5-star rated, FEMA-compliant, free quotes. Protect your home now! Call today.'
+            ],
             'south-miami' => [
                 'title' => 'Flood Barriers South Miami FL | Local Installation',
                 'description' => 'Flood barrier installation in South Miami, FL. Local experts, FEMA-aligned systems, free assessment. Serving South Miami area.'

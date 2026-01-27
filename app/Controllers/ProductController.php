@@ -28,8 +28,8 @@ class ProductController
     
     public function modularFloodBarrier()
     {
-        $title = 'Modular Aluminum Flood Barriers | Reusable & FEMA-Compliant';
-        $description = 'Protect your property with lightweight, industrial-strength aluminum flood barriers. Quick deployment, reusable design, and FEMA-aligned. Request a quote.';
+        $title = 'Modular Flood Barriers St Petersburg FL | 5-Star Rated | Free Quote';
+        $description = 'Protect your St Petersburg home with modular flood barriers. 5-star rated, FEMA-compliant, installs in 24hrs. Call now for free assessment!';
         $canonical = Config::get('app_url') . '/products/modular-flood-barrier';
         
         // Product schema with reviews

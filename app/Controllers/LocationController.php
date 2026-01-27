@@ -21,8 +21,15 @@ class LocationController
         
         $cityName = ucwords(str_replace('-', ' ', $city));
         $productName = $productData['name'];
-        $title = "{$productName} in {$cityName}, FL | Install & Service";
-        $description = "{$productName} installation in {$cityName}, FL. Local experts, fast service, free assessment. Code-compliant & quality materials.";
+        
+        // Enhanced titles for 0% CTR pages
+        if ($city === 'st-petersburg' && $product === 'modular-flood-barrier') {
+            $title = "St Petersburg FL Flood Barriers | #1 Rated | Fast Install";
+            $description = "St Petersburg's top-rated flood barrier company. 24hr installation, 5-star reviews, free quotes. Protect your home now!";
+        } else {
+            $title = "{$productName} in {$cityName}, FL | Install & Service";
+            $description = "{$productName} installation in {$cityName}, FL. Local experts, fast service, free assessment. Code-compliant & quality materials.";
+        }
         $canonical = Config::get('app_url') . "/fl/{$city}/{$product}";
         
         // WebPage schema
