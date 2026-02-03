@@ -377,8 +377,8 @@ class PagesController
                 'description' => \App\SEO::descSanford()
             ],
             'st-petersburg' => [
-                'title' => 'St Petersburg FL Flood Barriers | #1 Rated | 24hr Install',
-                'description' => 'St Petersburg\'s top flood barrier company. 5-star rated, FEMA-compliant, free quotes. Protect your home now! Call today.'
+                'title' => 'St Petersburg FL Flood Barriers | #1 Rated | Free Quote',
+                'description' => 'St Petersburg flood barrier installation. Shore Acres, Snell Isle, Pinellas Park. 5-star, FEMA-compliant, 24hr install. Call for free assessment.'
             ],
             'south-miami' => [
                 'title' => 'Flood Barriers South Miami FL | Local Installation',

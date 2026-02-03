@@ -1,4 +1,4 @@
-<article class="py-8 px-4">
+<article class="py-8 px-4 pb-24 lg:pb-8">
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
         <header class="mb-8 text-center">
@@ -309,6 +309,20 @@
                 <?php endif; ?>
             </aside>
         </div>
+
+        <!-- Mobile sticky CTA - fixed at bottom, visible on mobile only -->
+        <div class="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-primary border-t border-primary-600 shadow-lg pb-4">
+            <div class="flex gap-2 p-3">
+                <a href="<?= \App\Config::getPhoneLink() ?>" class="flex-1 py-3 px-4 text-center text-sm font-semibold rounded-lg bg-white text-primary hover:bg-gray-100 transition-colors inline-flex items-center justify-center gap-x-2">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                    Call Now
+                </a>
+                <a href="<?= \App\Config::getSmsLink('Hi, I\'m interested in flood barriers for my ' . ($city ?? '') . ' property.') ?>" class="flex-1 py-3 px-4 text-center text-sm font-semibold rounded-lg bg-accent text-white hover:bg-accent-600 transition-colors inline-flex items-center justify-center gap-x-2">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                    Get Quote
+                </a>
+            </div>
+        </div>
     </div>
 </article>
 
@@ -354,6 +368,20 @@
                 </div>
                 <?php endif; ?>
             </aside>
+        </div>
+
+        <!-- Mobile sticky CTA - fixed at bottom, visible on mobile only -->
+        <div class="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-primary border-t border-primary-600 shadow-lg pb-4">
+            <div class="flex gap-2 p-3">
+                <a href="<?= \App\Config::getPhoneLink() ?>" class="flex-1 py-3 px-4 text-center text-sm font-semibold rounded-lg bg-white text-primary hover:bg-gray-100 transition-colors inline-flex items-center justify-center gap-x-2">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                    Call Now
+                </a>
+                <a href="<?= \App\Config::getSmsLink('Hi, I\'m interested in flood barriers for my ' . ($city ?? '') . ' property.') ?>" class="flex-1 py-3 px-4 text-center text-sm font-semibold rounded-lg bg-accent text-white hover:bg-accent-600 transition-colors inline-flex items-center justify-center gap-x-2">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                    Get Quote
+                </a>
+            </div>
         </div>
     </div>
 </article>
