@@ -73,6 +73,31 @@
                     </div>
                 </section>
 
+                <?php if (isset($city) && $city === 'st-petersburg'): ?>
+                <!-- St. Pete Neighborhoods - GSC cluster expansion -->
+                <section class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Flood Barriers in St. Petersburg Neighborhoods</h2>
+                    <p class="text-gray-700 mb-6">We install flood barriers throughout St. Petersburg and Pinellas County, including Shore Acres, Snell Isle, Pinellas Park, and surrounding areas.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h3 class="font-semibold text-gray-900 mb-2">Shore Acres</h3>
+                            <p class="text-sm text-gray-700">Flood barrier installation for Shore Acres homes. Storm surge protection for waterfront and flood zone properties.</p>
+                            <a href="/home-flood-barriers/st-petersburg" class="text-primary font-medium text-sm hover:underline mt-2 inline-block">Get Quote →</a>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h3 class="font-semibold text-gray-900 mb-2">Snell Isle</h3>
+                            <p class="text-sm text-gray-700">Snell Isle flood protection. Modular barriers, garage dams, and door panels for island properties.</p>
+                            <a href="/home-flood-barriers/st-petersburg" class="text-primary font-medium text-sm hover:underline mt-2 inline-block">Get Quote →</a>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h3 class="font-semibold text-gray-900 mb-2">Pinellas Park</h3>
+                            <p class="text-sm text-gray-700">Pinellas Park flood barrier installation. FEMA-compliant systems for homes and businesses.</p>
+                            <a href="/home-flood-barriers/pinellas-park" class="text-primary font-medium text-sm hover:underline mt-2 inline-block">Get Quote →</a>
+                        </div>
+                    </div>
+                </section>
+                <?php endif; ?>
+
                 <!-- Service Areas -->
                 <section class="bg-white rounded-lg shadow-md p-6">
                     <h2 class="text-2xl font-bold text-gray-900 mb-4">Service Areas in <?= htmlspecialchars($cityName) ?></h2>

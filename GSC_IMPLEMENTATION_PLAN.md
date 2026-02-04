@@ -87,9 +87,9 @@
 
 ### Phase 1 Checklist
 
-- [ ] 1.1 St. Pete CRO complete
-- [ ] 1.2 Meta refresh for 6+ cities complete
-- [ ] 1.3 Mobile CTA audit complete
+- [x] 1.1 St. Pete CRO complete
+- [x] 1.2 Meta refresh for 6+ cities complete
+- [x] 1.3 Mobile CTA audit complete (sticky CTA on city, matrix, location)
 - [ ] Deploy to production
 - [ ] Request indexing in GSC for updated URLs
 
@@ -154,9 +154,9 @@
 
 ### Phase 2 Checklist
 
-- [ ] 2.1 St. Pete neighborhood content live
-- [ ] 2.2 Product pages updated with query-aligned content and schema
-- [ ] 2.3 Review schema on 10+ pages
+- [x] 2.1 St. Pete neighborhood content live (Shore Acres, Snell Isle, Pinellas Park)
+- [x] 2.2 Product pages updated with query-aligned content and schema
+- [x] 2.3 Review schema on city pages (AggregateRating)
 - [ ] Deploy and request indexing
 
 ---

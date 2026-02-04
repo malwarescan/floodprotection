@@ -28,8 +28,8 @@ class ProductController
     
     public function modularFloodBarrier()
     {
-        $title = 'Modular Flood Barriers St Petersburg FL | 5-Star Rated | Free Quote';
-        $description = 'Protect your St Petersburg home with modular flood barriers. 5-star rated, FEMA-compliant, installs in 24hrs. Call now for free assessment!';
+        $title = 'Modular Flood Barriers | Reusable Panels for Homes & Garages';
+        $description = 'Modular flood barriers for homes & garages. Reusable aluminum panels, FEMA-compliant, 5-star rated. Flood proof garage doors. Free quote.';
         $canonical = Config::get('app_url') . '/products/modular-flood-barrier';
         
         // Product schema with reviews
@@ -166,8 +166,8 @@ class ProductController
     
     public function garageDamKit()
     {
-        $title = 'Garage Door Flood Barriers | Quick-Deploy Dam Kits';
-        $description = 'Seal your garage against floodwaters instantly. Heavy-duty reusable garage flood barriers. Easy DIY installation available. Order now.';
+        $title = 'Garage Door Flood Barrier | Flood Proof Garage Doors | Install Guide';
+        $description = 'Garage door flood barrier & flood proof garage doors. Reusable dam kits, FEMA-compliant, 5-star. Quick install. Free quote.';
         $canonical = Config::get('app_url') . '/products/garage-dam-kit';
         
         // Product schema with reviews

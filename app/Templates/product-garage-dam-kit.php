@@ -1,6 +1,6 @@
 <section class="hero">
     <div class="container">
-        <h1>Garage Door Flood Dam Kit</h1>
+        <h1>Garage Door Flood Barrier | Flood Proof Garage Doors</h1>
         <p class="lead">Modular flood barrier kit engineered for residential and commercial garage openings. Fast install, reusable components.</p>
         <div class="cta-stack">
             <a class="btn btn-primary" href="tel:<?= htmlspecialchars(\App\Config::get('phone')) ?>">Get Free Quote</a>
@@ -16,7 +16,9 @@
                 <img src="<?= htmlspecialchars($product['image'][0]) ?>" alt="Garage Door Flood Dam Kit" />
             </div>
             <div class="product-details">
-                <h2>Product Specifications</h2>
+                <h2>Garage Door Flood Barrier & Flood Proof Garage Doors</h2>
+        <p class="product-lead">Engineered for residential and commercial garage openings. Fast install, reusable.</p>
+        <h3>Product Specifications</h3>
                 <div class="specs-grid">
                     <div class="spec-item">
                         <strong>SKU:</strong> <?= htmlspecialchars($product['sku']) ?>

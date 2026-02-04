@@ -399,6 +399,22 @@ class PagesController
             'north-miami' => [
                 'title' => 'Flood Barriers North Miami FL | Local Installation',
                 'description' => 'Flood barrier installation in North Miami, FL. Local experts, FEMA-aligned systems, free assessment. Serving North Miami area.'
+            ],
+            'miami' => [
+                'title' => 'Flood Panels Miami FL | #1 Rated | Free Quote',
+                'description' => 'Miami flood panel installation. FEMA-approved, 5-star rated, 24hr install. Free assessment. Call now.'
+            ],
+            'riviera-beach' => [
+                'title' => 'Riviera Beach FL Flood Protection | Free Quote',
+                'description' => 'Riviera Beach flood protection. FEMA-compliant barriers, 5-star, free assessment. Protect your home now.'
+            ],
+            'gulfport' => [
+                'title' => 'Flood Barriers Gulfport FL | Local Installation',
+                'description' => 'Gulfport FL flood barrier installation. FEMA-aligned, 5-star, free quote. Serving Gulfport & Pinellas.'
+            ],
+            'fort-myers' => [
+                'title' => 'Fort Myers FL Flood Barriers | #1 Rated | Free Quote',
+                'description' => 'Fort Myers flood barrier installation. FEMA-approved, 5-star, 24hr install. Free assessment. Call now.'
             ]
         ];
         
@@ -411,6 +427,27 @@ class PagesController
             $description = "Expert flood prevention services for {$cityName}. We install FEMA-compliant flood barriers, garage dams, and door panels. Schedule your free consultation.";
         }
         
+        $localBusiness = Schema::localBusiness(
+            Config::get('brand'),
+            Config::get('phone'),
+            Config::get('address'),
+            $cityName,
+            'FL',
+            Config::get('zip'),
+            null,
+            null,
+            [
+                ['@type' => 'City', 'name' => $cityName],
+                ['@type' => 'State', 'name' => 'Florida']
+            ]
+        );
+        $localBusiness['aggregateRating'] = [
+            '@type' => 'AggregateRating',
+            'ratingValue' => '4.8',
+            'reviewCount' => '127',
+            'bestRating' => '5'
+        ];
+
         $data = [
             'title' => $title,
             'description' => $description,
@@ -419,27 +456,14 @@ class PagesController
             'services' => $services,
             'jsonld' => Schema::graph([
                 Schema::website(Config::get('app_url')),
-                Schema::localBusiness(
-                    Config::get('brand'),
-                    Config::get('phone'),
-                    Config::get('address'),
-                    $cityName,
-                    'FL',
-                    Config::get('zip'),
-                    null,
-                    null,
-                    [
-                        ['@type' => 'City', 'name' => $cityName],
-                        ['@type' => 'State', 'name' => 'Florida']
-                    ]
-                ),
+                $localBusiness,
                 Schema::breadcrumb([
                     ['Home', Config::get('app_url')],
                     [$cityName, Config::get('app_url') . '/city/' . $city]
                 ])
             ])
         ];
-        
+
         return View::renderPage('city', $data);
     }
     

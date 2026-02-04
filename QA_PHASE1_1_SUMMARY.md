@@ -1,7 +1,7 @@
-# QA Summary: Phase 1.1 St. Pete CRO Implementation
+# QA Summary: GSC Implementation Plan (Phases 1-3)
 
 **Date:** February 3, 2026  
-**Scope:** Phase 1.1 from GSC Implementation Plan
+**Scope:** Full GSC Implementation Plan - Phases 1.1, 1.2, 2, 3
 
 ## Changes Verified
 
@@ -33,8 +33,19 @@
 | Template structure | Valid |
 | No linter errors | Pass |
 
+## Additional Changes (Phases 1.2-3)
+
+- **Phase 1.2:** Meta refresh for Miami, Clearwater, Riviera Beach, Gulfport, Fort Myers (cityMetaMap + matrix.csv)
+- **Phase 2.1:** St. Pete neighborhood content (Shore Acres, Snell Isle, Pinellas Park)
+- **Phase 2.2:** Product meta & H2s for modular-flood-barrier, garage-dam-kit
+- **Phase 2.3:** AggregateRating on city page LocalBusiness schema
+- **Phase 3:** Cost table on modular product (featured snippet target), sticky CTA on location.php
+
 ## Manual Testing Recommendations
 
-1. Visit `/city/st-petersburg` - verify local proof and sticky CTA
+1. Visit `/city/st-petersburg` - verify local proof, neighborhoods, sticky CTA
 2. Visit `/home-flood-barriers/st-petersburg` - verify meta and sticky CTA
-3. Test on mobile viewport (375px) - sticky CTA visible, content not hidden
+3. Visit `/products/modular-flood-barrier` - verify cost table, meta
+4. Visit `/products/garage-dam-kit` - verify meta
+5. Visit `/fl/st-petersburg/modular-flood-barrier` - verify sticky CTA
+6. Test on mobile viewport (375px) - sticky CTA visible, content not hidden
