@@ -263,11 +263,11 @@ class PagesController
                 $jsonld = Schema::graph($schemaItems);
             }
             
-            // Optimization: Use dynamic high-intent titles
+            // Use matrix.csv title/description when present (CTR-optimized), else fallback
             $prodName = $row['product_name'] ?: 'Flood Barriers';
-            $optTitle = "{$prodName} {$row['city']}, FL | Reusable Home Protection";
-            $optDesc = "Protect your {$row['city']} home from flooding with FEMA-approved {$prodName}. Quick installation, reusable panels, and free risk assessment.";
-            
+            $optTitle = !empty($row['title']) ? $row['title'] : "{$prodName} {$row['city']}, FL | Reusable Home Protection";
+            $optDesc = !empty($row['meta_description']) ? $row['meta_description'] : "Protect your {$row['city']} home from flooding with FEMA-approved {$prodName}. Quick installation, reusable panels, and free risk assessment.";
+
             $data = [
                 'title' => $optTitle,
                 'description' => $optDesc,
